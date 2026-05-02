@@ -21,10 +21,16 @@
     </a>
     <div class="wise-nav-links">
       <a href="#probleme">Le problème</a>
+      <a href="#ecosystem">Écosystème</a>
       <a href="#exemple-chatbot">Exemples</a>
       <a href="#bilan">Bilan</a>
       <a href="#contact" class="wise-nav-cta">Discutons</a>
     </div>
+    <button class="wise-burger" id="wiseBurger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
 
@@ -215,6 +221,7 @@
       <div class="eco-card eco-summary">
         <div class="eco-icon" style="font-size: 3rem;">🎯</div>
         <h3>Le fil rouge</h3>
+        <img src="/images/ecosystem-network.png" alt="Écosystème connecté par l'IA" style="width: 100%; border-radius: 16px; margin: var(--space-lg) 0; box-shadow: var(--shadow-lg);">
         <p style="color: var(--grey-600); line-height: 1.7; margin: var(--space-md) 0;">
           L'IA ne remplace personne. Elle connecte tout le monde.
           Un seul système intelligent qui parle à vos propriétaires, vos clients,
@@ -239,6 +246,7 @@
     </div>
 
     <div class="comparison">
+      <img src="/images/comparison-ia.png" alt="Comparaison Sans IA vs Avec IA" style="width: 100%; border-radius: 16px; margin-bottom: var(--space-xl); box-shadow: var(--shadow-lg);">
       <div class="comparison-col sans-ia">
         <div class="comparison-badge">Sans IA</div>
         <div class="chat-demo">
@@ -380,6 +388,7 @@
     </div>
 
     <div class="argument-block">
+      <img src="/images/ai-dashboard.png" alt="Dashboard IA prédictif" style="width: 100%; max-width: 500px; border-radius: 16px; margin: var(--space-lg) auto; display: block; box-shadow: var(--shadow-xl);">
       <div class="argument-icon">💰</div>
       <div class="argument-text">
         <strong>Le résultat :</strong> Sans IA, vous réagissez. Avec l'IA, vous anticipez. Basse saison = vous proactif, pas désespéré. Haute saison = vous optimisé, pas débordé.
@@ -398,6 +407,7 @@
     </div>
 
     <div class="memory-demo">
+      <img src="/images/villa-luxury.png" alt="Villa de luxe personnalisée" style="width: 100%; border-radius: 16px; margin-bottom: var(--space-xl); box-shadow: var(--shadow-lg);">
       <div class="memory-client">
         <div class="memory-avatar">👩‍💼</div>
         <div class="memory-name">Marie-Claire D.</div>
@@ -444,6 +454,7 @@
     </div>
 
     <div class="bilan-grid">
+      <img src="/images/tourists-happy.png" alt="Touristes satisfaits" style="width: 100%; border-radius: 16px; margin-bottom: var(--space-xl); box-shadow: var(--shadow-xl);">
       <div class="bilan-col">
         <div class="bilan-header bad">Sans IA</div>
         <div class="bilan-item">📱 Réponses manuelles — retardées</div>
@@ -505,6 +516,7 @@
 </footer>
 
 <script>
+// Scroll reveal animation
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -513,11 +525,28 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.scenario-card, .comparison-col, .lang-card, .revenue-card, .memory-dossier, .bilan-item').forEach(el => {
+document.querySelectorAll('.scenario-card, .comparison-col, .lang-card, .revenue-card, .memory-dossier, .bilan-item, .eco-card').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   observer.observe(el);
+});
+
+// Burger menu toggle
+const burger = document.getElementById('wiseBurger');
+const navLinks = document.getElementById('wiseNavLinks');
+
+burger.addEventListener('click', () => {
+  burger.classList.toggle('active');
+  navLinks.classList.toggle('open');
+});
+
+// Close menu when clicking a link
+document.querySelectorAll('.wise-nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    burger.classList.remove('active');
+    navLinks.classList.remove('open');
+  });
 });
 </script>
 
