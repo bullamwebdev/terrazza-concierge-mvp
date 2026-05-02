@@ -1245,6 +1245,70 @@ a { text-decoration: none; color: inherit; }
   }
 }
 
+/* ===== CINEMATIC SECTION IMAGES ===== */
+.section-image {
+  width: 100%;
+  margin: var(--space-2xl) 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+}
+
+.section-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.15) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.section-image:hover img {
+  transform: scale(1.02);
+}
+
+/* Hero with cinematic background */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 120px var(--space-md) var(--space-xl);
+  background: linear-gradient(180deg, var(--purple-50) 0%, var(--white) 60%, var(--grey-50) 100%);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.1) 0%,
+    rgba(255,255,255,0.4) 50%,
+    rgba(249,250,251,0.98) 100%
+  );
+  z-index: 1;
+}
+
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .container {
