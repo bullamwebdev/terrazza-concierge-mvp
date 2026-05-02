@@ -14,6 +14,15 @@ const adminRoutes = require('./server/routes/admin');
 const contactRoutes = require('./server/routes/contact');
 const { authenticateToken, requireAdmin } = require('./server/middleware/auth');
 
+const { DB_PATH, getDb, initDatabase } = require('./server/database');
+
+// Initialize database on startup (async)
+initDatabase().then(() => {
+  console.log('Database initialized at', DB_PATH);
+}).catch(err => {
+  console.error('Failed to initialize database:', err);
+});
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
