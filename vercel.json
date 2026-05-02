@@ -9,11 +9,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "server.js"
+      "dest": "/server.js"
     }
-  ],
-  "env": {
-    "JWT_SECRET": "terrazza-secret-key-change-in-production",
-    "NODE_ENV": "production"
-  }
+  ]
 }

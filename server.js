@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
-const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
@@ -13,15 +12,7 @@ const userRoutes = require('./server/routes/users');
 const adminRoutes = require('./server/routes/admin');
 const contactRoutes = require('./server/routes/contact');
 const { authenticateToken, requireAdmin } = require('./server/middleware/auth');
-
-const { DB_PATH, getDb, initDatabase } = require('./server/database');
-
-// Initialize database on startup (async)
-initDatabase().then(() => {
-  console.log('Database initialized at', DB_PATH);
-}).catch(err => {
-  console.error('Failed to initialize database:', err);
-});
+const { initDatabase } = require('./server/database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -42,20 +33,33 @@ app.use(helmet({
 }));
 
 app.use(cors());
-app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   message: { error: 'Too many requests, please try again later.' }
 });
 app.use('/api/', limiter);
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Lazy database init middleware
+let dbInitialized = false;
+app.use(async (req, res, next) => {
+  if (!dbInitialized) {
+    try {
+      await initDatabase();
+      dbInitialized = true;
+    } catch (err) {
+      console.error('DB init error:', err);
+    }
+  }
+  next();
+});
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -70,12 +74,12 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Serve SPA pages
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// SPA routes
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'login.html')));
-app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'public', 'register.html'));
+app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'public', 'register.html')));
 app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, 'public', 'profile.html')));
-app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 app.get('/booking', (req, res) => res.sendFile(path.join(__dirname, 'public', 'booking.html')));
 
 // 404 handler
@@ -89,10 +93,14 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🌊 Terrazza Concierge MVP running on port ${PORT}`);
-  console.log(`📱 Frontend: http://localhost:${PORT}`);
-  console.log(`🔧 API: http://localhost:${PORT}/api`);
-});
+// Start server (for local dev)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🌊 Terrazza Concierge MVP running on port ${PORT}`);
+    console.log(`📱 Frontend: http://localhost:${PORT}`);
+    console.log(`🔧 API: http://localhost:${PORT}/api`);
+  });
+}
 
+// Export for serverless (Vercel)
 module.exports = app;
