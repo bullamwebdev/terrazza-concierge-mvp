@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Register | Terrazza di Sole</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -184,10 +184,55 @@
     @media (max-width: 768px) {
       .auth-page {
         grid-template-columns: 1fr;
+        min-height: auto;
       }
       
       .auth-hero {
         display: none;
+      }
+      
+      .auth-form-container {
+        padding: var(--space-lg) var(--space-md);
+        justify-content: flex-start;
+        padding-top: 80px;
+        min-height: 100vh;
+      }
+      
+      .auth-form-header {
+        margin-bottom: var(--space-lg);
+      }
+      
+      .auth-form-header h2 {
+        font-size: 1.75rem;
+      }
+      
+      .auth-form {
+        padding: 0 var(--space-xs);
+      }
+      
+      .auth-form .form-group {
+        margin-bottom: var(--space-sm);
+      }
+      
+      .auth-form input {
+        padding: 14px;
+        font-size: 16px; /* Prevent zoom on iOS */
+        border-radius: 10px;
+      }
+      
+      .form-row {
+        gap: var(--space-sm);
+      }
+      
+      .auth-btn {
+        padding: 14px;
+        font-size: 1rem;
+        margin-top: var(--space-sm);
+      }
+      
+      .auth-footer {
+        margin-top: var(--space-lg);
+        font-size: 0.9rem;
       }
     }
   </style>
