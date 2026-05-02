@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <title>Conciergerie Martinique | L'IA au Service du Luxe</title>
-  <meta name="description" content="Comment l'intelligence artificielle transforme concrètement une conciergerie de luxe en Martinique. Exemples réels, chiffres, et argumentation.">
+  <title>WiseGenerative | L'IA au Service de Votre Conciergerie</title>
+  <meta name="description" content="Comment l'intelligence artificielle transforme concrètement une conciergerie de luxe. Exemples réels, chiffres, et argumentation.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -12,18 +12,34 @@
 </head>
 <body>
 
+<!-- ===== NAVBAR ===== -->
+<nav class="wise-nav">
+  <div class="wise-nav-inner">
+    <a href="#hero" class="wise-logo">
+      <img src="/images/logo-wisegen.jpg" alt="WiseGenerative" class="wise-logo-img">
+      <span class="wise-logo-text">WiseGenerative</span>
+    </a>
+    <div class="wise-nav-links">
+      <a href="#probleme">Le problème</a>
+      <a href="#exemple-chatbot">Exemples</a>
+      <a href="#bilan">Bilan</a>
+      <a href="#contact" class="wise-nav-cta">Discutons</a>
+    </div>
+  </div>
+</nav>
+
 <!-- ===== HERO ===== -->
-<header class="hero" style="background: linear-gradient(135deg, #0B3D5C 0%, #1A6B5C 50%, #D4A843 100%);">
+<header class="hero" id="hero">
   <div class="hero-bg" style="background-image: url('/images/hero-martinique.png');"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Martinique, Caraïbes FWI</p>
+    <p class="hero-eyebrow">Solutions IA Innovantes pour Votre Transformation</p>
     <h1 class="hero-title">
-      Votre Conciergerie +<br>
-      <span style="color: var(--gold-lemon);">L'Intelligence Artificielle</span>
+      L'IA au Service de<br>
+      <span>Votre Conciergerie</span>
     </h1>
     <p class="hero-subtitle">
-      Comment l'IA transforme concrètement une conciergerie de luxe.<br>Sans jargon. Avec des exemples. Des chiffres.
+      Comment l'intelligence artificielle transforme concrètement votre business.<br>Sans jargon. Avec des exemples. Des chiffres.
     </p>
   </div>
 </header>
@@ -53,7 +69,7 @@
   </div>
 </section>
 
-<!-- ===== EXAMPLE 1: AI CHATBOT (The Concrete Demo) ===== -->
+<!-- ===== EXAMPLE 1: AI CHATBOT ===== -->
 <section class="section example-section" id="exemple-chatbot">
   <div class="container">
     <div class="example-header">
@@ -78,7 +94,7 @@
             <div class="msg-bubble concierge-bubble">Bonjour désolé j'ai vu votre message que maintenant... Le catamaran est déjà réservé. — <strong>15h30</strong></div>
           </div>
           <div class="chat-msg client">
-            <div class="msg-bubble" style="background:#FEE2E2;color:#991B1B">😤 Merci de rien. Je trouverai ailleurs.</div>
+            <div class="msg-bubble" style="background:rgba(248,113,113,0.15);color:#FCA5A5">😤 Merci de rien. Je trouverai ailleurs.</div>
           </div>
         </div>
         <div class="comparison-result bad">
@@ -178,12 +194,12 @@
         <div class="revenue-prediction">
           <div class="pred-row">
             <span class="pred-label">Taux d'occupation estimé</span>
-            <span class="pred-bar"><span class="pred-fill" style="width: 95%; background: var(--green-leaf);"></span></span>
+            <span class="pred-bar"><span class="pred-fill" style="width: 95%; background: var(--wise-success);"></span></span>
             <span class="pred-value">95%</span>
           </div>
           <div class="pred-row">
             <span class="pred-label">Demandes attendues</span>
-            <span class="pred-bar"><span class="pred-fill" style="width: 85%; background: var(--gold-lemon);"></span></span>
+            <span class="pred-bar"><span class="pred-fill" style="width: 85%; background: var(--wise-gold);"></span></span>
             <span class="pred-value">42</span>
           </div>
           <div class="pred-insight">
@@ -197,12 +213,12 @@
         <div class="revenue-prediction">
           <div class="pred-row">
             <span class="pred-label">Taux d'occupation estimé</span>
-            <span class="pred-bar"><span class="pred-fill" style="width: 30%; background: var(--terracotta);"></span></span>
+            <span class="pred-bar"><span class="pred-fill" style="width: 30%; background: var(--wise-danger);"></span></span>
             <span class="pred-value">30%</span>
           </div>
           <div class="pred-row">
             <span class="pred-label">Demandes attendues</span>
-            <span class="pred-bar"><span class="pred-fill" style="width: 15%; background: var(--terracotta);"></span></span>
+            <span class="pred-bar"><span class="pred-fill" style="width: 15%; background: var(--wise-danger);"></span></span>
             <span class="pred-value">8</span>
           </div>
           <div class="pred-insight">
@@ -312,11 +328,12 @@
 <section class="section cta-section" id="contact">
   <div class="container">
     <div class="cta-box">
+      <img src="/images/logo-wisegen.jpg" alt="WiseGenerative" style="width:80px;height:80px;border-radius:16px;margin:0 auto var(--space-lg);display:block;">
       <h2>Vous voyez le potentiel ?</h2>
       <p>Chaque jour sans IA = des clients qui passent à côté.</p>
       <p>Chaque jour avec IA = des revenus qui dorment quand vous dormez.</p>
       <div class="cta-buttons">
-        <a href="mailto:contact@example.com?subject=Conciergerie%20Martinique%20-%20Découverte%20IA" class="cta-primary">📩 Discutons de votre conciergerie</a>
+        <a href="mailto:contact@wisegenerative.com?subject=Conciergerie%20Martinique%20-%20Découverte%20IA" class="cta-primary">📩 Discutons de votre conciergerie</a>
       </div>
       <p class="cta-note">Sans engagement. Un simple appel pour voir ce que l'IA peut faire pour VOUS.</p>
     </div>
@@ -326,13 +343,12 @@
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="container">
-    <p>Présentation IA pour conciergerie de luxe — Martinique, Caraïbes FWI</p>
-    <p class="footer-note">Généré pour démonstration. Les chiffres sont des estimations basées sur des cas réels du secteur.</p>
+    <p><strong>WiseGenerative</strong> — Solutions IA Innovantes pour Votre Transformation</p>
+    <p class="footer-note">Présentation IA pour conciergerie de luxe — Martinique, Caraïbes FWI</p>
   </div>
 </footer>
 
 <script>
-// Simple scroll reveal
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
