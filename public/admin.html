@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Terrazza di Sole</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      min-height: 100vh;
+    }
+    
+    .admin-sidebar {
+      background: var(--blue-deep);
+      color: var(--linen);
+      padding: var(--space-lg);
+    }
+    
+    .admin-brand {
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid rgba(250, 243, 224, 0.1);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .admin-brand h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .admin-brand span {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+    
+    .admin-nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    
+    .admin-nav-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 8px;
+      color: var(--linen);
+      opacity: 0.8;
+      transition: all var(--duration-normal);
+    }
+    
+    .admin-nav-link:hover,
+    .admin-nav-link.active {
+      background: rgba(250, 243, 224, 0.1);
+      opacity: 1;
+    }
+    
+    .admin-nav-link svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .admin-main {
+      background: var(--linen);
+      padding: var(--space-xl);
+      overflow-y: auto;
+    }
+    
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+    }
+    
+    .admin-header h2 {
+      font-size: 1.75rem;
+      color: var(--blue-deep);
+    }
+    
+    .admin-user {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .admin-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--gold-lemon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--blue-deep);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+    
+    .stat-card {
+      background: var(--cream);
+      padding: var(--space-lg);
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+    }
+    
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--blue-deep);
+      line-height: 1;
+    }
+    
+    .stat-label {
+      font-size: 0.875rem;
+      color: #7B8794;
+      margin-top: var(--space-xs);
+    }
+    
+    .stat-change {
+      font-size: 0.75rem;
+      margin-top: var(--space-sm);
+    }
+    
+    .stat-change.positive { color: var(--green-leaf); }
+    .stat-change.negative { color: var(--terracotta); }
+    
+    .admin-section {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+      box-shadow: var(--shadow-card);
+    }
+    
+    .admin-section h3 {
+      font-size: 1.125rem;
+      color: var(--blue-deep);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--linen-dark);
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .data-table th,
+    .data-table td {
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      border-bottom: 1px solid var(--linen-dark);
+    }
+    
+    .data-table th {
+      font-weight: 600;
+      color: var(--blue-deep);
+      font-size: 0.875rem;
+    }
+    
+    .data-table td {
+      font-size: 0.9rem;
+      color: #5A6A7A;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .status-badge.pending { background: #FEF3C7; color: #92400E; }
+    .status-badge.confirmed { background: #D1FAE5; color: #065F46; }
+    .status-badge.cancelled { background: #FEE2E2; color: #991B1B; }
+    .status-badge.new { background: #DBEAFE; color: #1E40AF; }
+    
+    .admin-action {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all var(--duration-normal);
+    }
+    
+    .admin-action.approve {
+      background: var(--green-leaf);
+      color: white;
+    }
+    
+    .admin-action.cancel {
+      background: var(--terracotta);
+      color: white;
+    }
+    
+    .admin-action:hover {
+      opacity: 0.9;
+    }
+    
+    @media (max-width: 1024px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .admin-sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <h1>Terrazza Admin</h1>
+        <span>Concierge Management</span>
+      </div>
+      
+      <nav class="admin-nav">
+        <a href="#" class="admin-nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          Dashboard
+        </a>
+        <a href="#" class="admin-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16m14 0H5m14 0h2m-16 0H3"></path>
+          </svg>
+          Properties
+        </a>
+        <a href="#" class="admin-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          Bookings
+        </a>
+        <a href="#" class="admin-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          Users
+        </a>
+        <a href="#" class="admin-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          Messages
+        </a>
+        <a href="#" class="admin-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          Settings
+        </a>
+      </nav>
+    </aside>
+    
+    <main class="admin-main">
+      <div class="admin-header">
+        <h2>Dashboard</h2>
+        <div class="admin-user">
+          <span>Admin</span>
+          <div class="admin-avatar">A</div>
+        </div>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalBookings">--</div>
+          <div class="stat-label">Total Bookings</div>
+          <div class="stat-change positive">↑ 12% this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalUsers">--</div>
+          <div class="stat-label">Registered Users</div>
+          <div class="stat-change positive">↑ 8 new this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalProperties">3</div>
+          <div class="stat-label">Active Properties</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="newMessages">--</div>
+          <div class="stat-label">New Messages</div>
+          <div class="stat-change negative">Requires attention</div>
+        </div>
+      </div>
+      
+      <div class="admin-section">
+        <h3>Recent Bookings</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Guest</th>
+              <th>Property</th>
+              <th>Dates</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTable">
+            <tr>
+              <td colspan="6" style="text-align: center; padding: var(--space-lg); color: #7B8794;">
+                Loading bookings...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="admin-section">
+        <h3>Recent Messages</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Subject</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="messagesTable">
+            <tr>
+              <td colspan="5" style="text-align: center; padding: var(--space-lg); color: #7B8794;">
+                Loading messages...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+  
+  <div class="toast" id="toast">
+    <span class="toast-message"></span>
+  </div>
+  
+  <script>
+    const API_BASE = '/api';
+    const token = localStorage.getItem('terrazza_token');
+    
+    // Check admin auth
+    if (!token) {
+      window.location.href = '/login?redirect=admin';
+    }
+    
+    async function loadDashboard() {
+      try {
+        // Load stats
+        const statsRes = await fetch(`${API_BASE}/admin/stats`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (statsRes.status === 403) {
+          window.location.href = '/';
+          return;
+        }
+        
+        const stats = await statsRes.json();
+        document.getElementById('totalBookings').textContent = stats.totalBookings || 0;
+        document.getElementById('totalUsers').textContent = stats.totalUsers || 0;
+        document.getElementById('newMessages').textContent = stats.newMessages || 0;
+        
+        // Load bookings
+        const bookingsRes = await fetch(`${API_BASE}/admin/bookings`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const bookingsData = await bookingsRes.json();
+        
+        if (bookingsData.bookings && bookingsData.bookings.length > 0) {
+          document.getElementById('bookingsTable').innerHTML = bookingsData.bookings.slice(0, 5).map(b => `
+            <tr>
+              <td>${b.first_name || ''} ${b.last_name || ''}</td>
+              <td>${b.property_title || 'N/A'}</td>
+              <td>${b.check_in} → ${b.check_out}</td>
+              <td><span class="status-badge ${b.status}">${b.status}</span></td>
+              <td>€${(b.total_price || 0).toLocaleString()}</td>
+              <td>
+                ${b.status === 'pending' ? `
+                  <button class="admin-action approve" onclick="updateBooking(${b.id}, 'confirmed')">Confirm</button>
+                  <button class="admin-action cancel" onclick="updateBooking(${b.id}, 'cancelled')">Cancel</button>
+                ` : ''}
+              </td>
+            </tr>
+          `).join('');
+        } else {
+          document.getElementById('bookingsTable').innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; padding: var(--space-lg); color: #7B8794;">
+                No bookings yet
+              </td>
+            </tr>
+          `;
+        }
+        
+        // Load contacts
+        const contactsRes = await fetch(`${API_BASE}/admin/contacts`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const contactsData = await contactsRes.json();
+        
+        if (contactsData.contacts && contactsData.contacts.length > 0) {
+          document.getElementById('messagesTable').innerHTML = contactsData.contacts.slice(0, 5).map(c => `
+            <tr>
+              <td>${c.name}</td>
+              <td>${c.email}</td>
+              <td>${c.subject || 'General Inquiry'}</td>
+              <td><span class="status-badge ${c.status}">${c.status}</span></td>
+              <td>${new Date(c.created_at).toLocaleDateString()}</td>
+            </tr>
+          `).join('');
+        } else {
+          document.getElementById('messagesTable').innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align: center; padding: var(--space-lg); color: #7B8794;">
+                No messages yet
+              </td>
+            </tr>
+          `;
+        }
+      } catch (error) {
+        console.error('Dashboard load error:', error);
+        showToast('Error loading dashboard data');
+      }
+    }
+    
+    window.updateBooking = async function(id, status) {
+      try {
+        const res = await fetch(`${API_BASE}/admin/bookings/${id}/status`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ status })
+        });
+        
+        if (res.ok) {
+          showToast(`Booking ${status}`);
+          loadDashboard();
+        }
+      } catch (error) {
+        showToast('Error updating booking');
+      }
+    };
+    
+    function showToast(message, duration = 3000) {
+      const toast = document.getElementById('toast');
+      toast.querySelector('.toast-message').textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), duration);
+    }
+    
+    loadDashboard();
+  </script>
+</body>
+</html>

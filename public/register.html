@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Terrazza di Sole</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .auth-hero {
+      background: linear-gradient(135deg, var(--terracotta) 0%, #E07A5F 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-2xl);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .auth-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('/images/hero-pattern.svg') repeat;
+      opacity: 0.05;
+    }
+    
+    .auth-hero-content {
+      position: relative;
+      text-align: center;
+      color: var(--linen);
+    }
+    
+    .auth-hero h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin-bottom: var(--space-md);
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    
+    .auth-hero p {
+      font-size: 1.125rem;
+      opacity: 0.9;
+      max-width: 400px;
+    }
+    
+    .auth-form-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--space-2xl);
+      background: var(--cream);
+      overflow-y: auto;
+    }
+    
+    .auth-form-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+    
+    .auth-form-header h2 {
+      font-size: 2rem;
+      color: var(--blue-deep);
+      margin-bottom: var(--space-xs);
+    }
+    
+    .auth-form-header p {
+      color: #7B8794;
+    }
+    
+    .auth-form {
+      max-width: 400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .auth-form .form-group {
+      margin-bottom: var(--space-md);
+    }
+    
+    .auth-form label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--blue-deep);
+      margin-bottom: var(--space-xs);
+    }
+    
+    .auth-form input {
+      width: 100%;
+      padding: var(--space-md);
+      border: 2px solid var(--linen-dark);
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: border-color var(--duration-normal);
+    }
+    
+    .auth-form input:focus {
+      outline: none;
+      border-color: var(--gold-lemon);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+    
+    .auth-btn {
+      width: 100%;
+      padding: var(--space-md);
+      background: var(--terracotta);
+      color: var(--cream);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      margin-top: var(--space-md);
+      transition: all var(--duration-normal);
+    }
+    
+    .auth-btn:hover {
+      background: var(--terracotta-light);
+      transform: translateY(-2px);
+    }
+    
+    .auth-footer {
+      text-align: center;
+      margin-top: var(--space-xl);
+      color: #7B8794;
+    }
+    
+    .auth-footer a {
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+    
+    .back-home {
+      position: absolute;
+      top: var(--space-lg);
+      left: var(--space-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--linen);
+      font-size: 0.9rem;
+      opacity: 0.8;
+      transition: opacity var(--duration-normal);
+    }
+    
+    .back-home:hover {
+      opacity: 1;
+    }
+    
+    .error-message {
+      background: #FEE2E2;
+      border: 1px solid #FCA5A5;
+      color: #DC2626;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 8px;
+      font-size: 0.875rem;
+      margin-bottom: var(--space-md);
+      display: none;
+    }
+    
+    .success-message {
+      background: #D1FAE5;
+      border: 1px solid #6EE7B7;
+      color: #059669;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 8px;
+      font-size: 0.875rem;
+      margin-bottom: var(--space-md);
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .auth-page {
+        grid-template-columns: 1fr;
+      }
+      
+      .auth-hero {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-hero">
+      <a href="/" class="back-home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Home
+      </a>
+      <div class="auth-hero-content">
+        <h1>Join Us</h1>
+        <p>Create your account and unlock exclusive luxury experiences on the Amalfi Coast.</p>
+      </div>
+    </section>
+    
+    <section class="auth-form-container">
+      <div class="auth-form-header">
+        <h2>Create Account</h2>
+        <p>Join the Terrazza experience</p>
+      </div>
+      
+      <div class="error-message" id="errorMessage"></div>
+      <div class="success-message" id="successMessage"></div>
+      
+      <form class="auth-form" id="registerForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required placeholder="John">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required placeholder="Doe">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="your@email.com" autocomplete="email">
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone (optional)</label>
+          <input type="tel" id="phone" name="phone" placeholder="+33 ...">
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="••••••••" autocomplete="new-password" minlength="6">
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="••••••••">
+        </div>
+        
+        <button type="submit" class="auth-btn">Create Account</button>
+      </form>
+      
+      <p class="auth-footer">
+        Already have an account? <a href="/login">Sign in</a>
+      </p>
+    </section>
+  </main>
+  
+  <div class="toast" id="toast">
+    <span class="toast-message"></span>
+  </div>
+  
+  <script>
+    const API_BASE = '/api';
+    const registerForm = document.getElementById('registerForm');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    const toast = document.getElementById('toast');
+    
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMessage.style.display = 'none';
+      successMessage.style.display = 'none';
+      
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        errorMessage.textContent = 'Passwords do not match';
+        errorMessage.style.display = 'block';
+        return;
+      }
+      
+      const formData = {
+        first_name: document.getElementById('firstName').value,
+        last_name: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        password: password
+      };
+      
+      try {
+        const response = await fetch(`${API_BASE}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          localStorage.setItem('terrazza_token', data.token);
+          successMessage.textContent = 'Account created! Redirecting...';
+          successMessage.style.display = 'block';
+          
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1500);
+        } else {
+          errorMessage.textContent = data.error || 'Registration failed';
+          errorMessage.style.display = 'block';
+        }
+      } catch (error) {
+        errorMessage.textContent = 'Connection error. Please try again.';
+        errorMessage.style.display = 'block';
+      }
+    });
+    
+    function showToast(message, duration = 3000) {
+      toast.querySelector('.toast-message').textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), duration);
+    }
+  </script>
+</body>
+</html>
