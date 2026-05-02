@@ -62,19 +62,43 @@ document.querySelectorAll('.mobile-link').forEach(link => {
 // ============================================
 
 let isMuted = true;
+let isPlaying = true;
 if (heroVideo) {
   heroVideo.muted = isMuted;
+  // Ensure video plays on mobile with user interaction
+  heroVideo.play().catch(err => {
+    console.log('Autoplay prevented, waiting for interaction');
+    isPlaying = false;
+  });
 }
 
 if (soundToggle) {
   soundToggle.addEventListener('click', () => {
-    isMuted = !isMuted;
-    if (heroVideo) {
+    if (!heroVideo) return;
+    
+    // Toggle play/pause on click
+    if (heroVideo.paused) {
+      heroVideo.play().then(() => {
+        isPlaying = true;
+        updateSoundIcon();
+      }).catch(err => {
+        console.log('Play failed:', err);
+      });
+    } else {
+      // Toggle mute instead of pause
+      isMuted = !isMuted;
       heroVideo.muted = isMuted;
+      updateSoundIcon();
     }
-    soundToggle.querySelector('.sound-on').style.display = isMuted ? 'none' : 'block';
-    soundToggle.querySelector('.sound-off').style.display = isMuted ? 'block' : 'none';
   });
+}
+
+function updateSoundIcon() {
+  if (!soundToggle) return;
+  const soundOn = soundToggle.querySelector('.sound-on');
+  const soundOff = soundToggle.querySelector('.sound-off');
+  if (soundOn) soundOn.style.display = isMuted ? 'none' : 'block';
+  if (soundOff) soundOff.style.display = isMuted ? 'block' : 'none';
 }
 
 // ============================================
