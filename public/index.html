@@ -1,616 +1,358 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <title>Terrazza di Sole | Luxury Concierge MVP</title>
-  <meta name="description" content="La dolce vita, elevated. Boutique cliffside concierge on the Amalfi Coast.">
+  <title>Conciergerie Martinique | L'IA au Service du Luxe</title>
+  <meta name="description" content="Comment l'intelligence artificielle transforme concrètement une conciergerie de luxe en Martinique. Exemples réels, chiffres, et argumentation.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="nav" id="mainNav">
-    <div class="nav-container">
-      <a href="/" class="nav-logo">
-        <span class="logo-text">Terrazza</span>
-        <span class="logo-accent">di Sole</span>
-      </a>
-      <div class="nav-links">
-        <a href="#properties" class="nav-link">Properties</a>
-        <a href="#timeline" class="nav-link">Project Timeline</a>
-        <a href="#stakeholders" class="nav-link">Intervenants</a>
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </div>
-      <div class="nav-actions">
-        <a href="/login" class="nav-btn nav-btn-outline">Login</a>
-        <a href="/register" class="nav-btn nav-btn-primary">Register</a>
-      </div>
-      <button class="nav-menu-toggle" id="menuToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-content">
-      <a href="#properties" class="mobile-link">Properties</a>
-      <a href="#timeline" class="mobile-link">Project Timeline</a>
-      <a href="#stakeholders" class="mobile-link">Intervenants</a>
-      <a href="#services" class="mobile-link">Services</a>
-      <a href="#contact" class="mobile-link">Contact</a>
-      <div class="mobile-actions">
-        <a href="/login" class="nav-btn nav-btn-outline">Login</a>
-        <a href="/register" class="nav-btn nav-btn-primary">Register</a>
+<!-- ===== HERO ===== -->
+<header class="hero" style="background: linear-gradient(135deg, #0B3D5C 0%, #1A6B5C 50%, #D4A843 100%);">
+  <div class="hero-bg" style="background-image: url('/images/hero-martinique.png');"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Martinique, Caraïbes FWI</p>
+    <h1 class="hero-title">
+      Votre Conciergerie +<br>
+      <span style="color: var(--gold-lemon);">L'Intelligence Artificielle</span>
+    </h1>
+    <p class="hero-subtitle">
+      Comment l'IA transforme concrètement une conciergerie de luxe.<br>Sans jargon. Avec des exemples. Des chiffres.
+    </p>
+  </div>
+</header>
+
+<!-- ===== THE PROBLEM (Vivid Scenario) ===== -->
+<section class="section problem-section" id="probleme">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Le problème actuel</span>
+      <h2>Vous connaissez ça ?</h2>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-visual">
+        <img src="/images/scenario-avant.png" alt="Smartphone avec notifications non lues" loading="lazy">
+      </div>
+      <div class="scenario-text">
+        <h3>3h du matin, un dimanche.</h3>
+        <p>Votre téléphone vibre. Un client allemand veut réserver un catamaran pour demain. Vous dormez. Le matin, vous lisez le message... 12h plus tard. Le bateau est parti.</p>
+        <p><strong>Résultat :</strong> 1 200€ de perdu. Un client mécontent qui part sur TripAdvisor.</p>
+        <div class="stat-pill">
+          <span class="stat-number">40%</span>
+          <span class="stat-label">des demandes arrivent en dehors des horaires</span>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Hero Section -->
-  <section class="hero" id="hero">
-    <div class="hero-video-container">
-      <div class="hero-bg-image"></div>
-      <div class="hero-video-overlay"></div>
-    </div>
-    
-    <div class="hero-content">
-      <h1 class="hero-title">
-        <span class="title-line">Terrazza</span>
-        <span class="title-line title-accent">di Sole</span>
-      </h1>
-      <p class="hero-tagline">La dolce vita, elevated.</p>
-      <p class="hero-subtitle">Luxury Concierge MVP — Project Overview</p>
+<!-- ===== EXAMPLE 1: AI CHATBOT (The Concrete Demo) ===== -->
+<section class="section example-section" id="exemple-chatbot">
+  <div class="container">
+    <div class="example-header">
+      <span class="example-number">Exemple 1</span>
+      <h2>L'Assistant qui ne dort jamais</h2>
+      <p class="example-subtitle">Un chatbot IA conversationnel pour votre conciergerie</p>
     </div>
 
-    <div class="hero-scroll-indicator">
-      <div class="scroll-line"></div>
-      <span>Scroll to explore</span>
-    </div>
-  </section>
-
-  <!-- Project Timeline Section (for client) -->
-  <section class="timeline-section" id="timeline">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Project Overview</span>
-        <h2 class="section-title">Project Timeline</h2>
-        <p class="section-subtitle">Your agentic workflow pipeline — from foundation to launch</p>
-      </div>
-
-      <div class="timeline-container">
-        <div class="timeline-track"></div>
-        
-        <div class="timeline-phase" data-phase="1">
-          <div class="phase-marker completed">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
+    <div class="comparison">
+      <!-- SANS IA -->
+      <div class="comparison-col sans-ia">
+        <div class="comparison-badge">Sans IA</div>
+        <div class="chat-demo">
+          <div class="chat-msg client">
+            <div class="msg-bubble">Bonjour, je voudrais réserver un catamaran pour demain matin. C'est possible ? — <strong>3h14</strong></div>
           </div>
-          <div class="phase-content">
-            <span class="phase-label">Phase 1</span>
-            <h3 class="phase-title">Foundation</h3>
-            <p class="phase-duration">Jan - Mar 2024</p>
-            <ul class="phase-tasks">
-              <li class="task completed">
-                <span class="task-status"></span>
-                <span>Discovery & Requirements</span>
-              </li>
-              <li class="task completed">
-                <span class="task-status"></span>
-                <span>Brand Identity & Design</span>
-              </li>
-              <li class="task completed">
-                <span class="task-status"></span>
-                <span>Platform Architecture</span>
-              </li>
-            </ul>
+          <div class="chat-gap"></div>
+          <div class="chat-msg client">
+            <div class="msg-bubble" style="opacity:0.6">Hello ? Y'a quelqu'un ? — <strong>9h00</strong></div>
+          </div>
+          <div class="chat-msg concierge">
+            <div class="msg-bubble concierge-bubble">Bonjour désolé j'ai vu votre message que maintenant... Le catamaran est déjà réservé. — <strong>15h30</strong></div>
+          </div>
+          <div class="chat-msg client">
+            <div class="msg-bubble" style="background:#FEE2E2;color:#991B1B">😤 Merci de rien. Je trouverai ailleurs.</div>
           </div>
         </div>
-
-        <div class="timeline-phase" data-phase="2">
-          <div class="phase-marker in-progress">
-            <div class="pulse-ring"></div>
-            <span class="phase-number">2</span>
-          </div>
-          <div class="phase-content">
-            <span class="phase-label">Phase 2</span>
-            <h3 class="phase-title">Build</h3>
-            <p class="phase-duration">Apr - Jun 2024</p>
-            <ul class="phase-tasks">
-              <li class="task in-progress">
-                <span class="task-status"></span>
-                <span>MVP Development</span>
-                <span class="task-badge">Current</span>
-              </li>
-              <li class="task pending">
-                <span class="task-status"></span>
-                <span>Integration & Testing</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-phase" data-phase="3">
-          <div class="phase-marker pending">
-            <span class="phase-number">3</span>
-          </div>
-          <div class="phase-content">
-            <span class="phase-label">Phase 3</span>
-            <h3 class="phase-title">Launch</h3>
-            <p class="phase-duration">Jul - Sep 2024</p>
-            <ul class="phase-tasks">
-              <li class="task pending">
-                <span class="task-status"></span>
-                <span>Concierge Training</span>
-              </li>
-              <li class="task pending">
-                <span class="task-status"></span>
-                <span>Soft Launch</span>
-              </li>
-              <li class="task pending">
-                <span class="task-status"></span>
-                <span>Full Launch & Marketing</span>
-              </li>
-            </ul>
-          </div>
+        <div class="comparison-result bad">
+          <strong>❌ Perte : 1 200€</strong>
+          <br>❌ Client perdu
+          <br>❌ Mauvaise review
         </div>
       </div>
 
-      <div class="timeline-progress">
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 45%"></div>
-        </div>
-        <div class="progress-stats">
-          <span>45% Complete</span>
-          <span>Est. Launch: September 2024</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stakeholders / Intervenants Section -->
-  <section class="stakeholders-section" id="stakeholders">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Concierge Ecosystem</span>
-        <h2 class="section-title">Intervenants Clés</h2>
-        <p class="section-subtitle">The network of partners delivering exceptional luxury experiences</p>
-      </div>
-
-      <div class="stakeholders-grid">
-        <!-- Core Team -->
-        <div class="stakeholder-card core">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
+      <!-- AVEC IA -->
+      <div class="comparison-col avec-ia">
+        <div class="comparison-badge badge-ia">Avec IA</div>
+        <div class="chat-demo">
+          <div class="chat-msg client">
+            <div class="msg-bubble">Bonjour, je voudrais réserver un catamaran pour demain matin. C'est possible ? — <strong>3h14</strong></div>
           </div>
-          <h3 class="stakeholder-name">Propriétaire du Bien</h3>
-          <p class="stakeholder-role">Property Owner</p>
-          <span class="stakeholder-category core">Core</span>
-        </div>
-
-        <div class="stakeholder-card core">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Client Luxe</h3>
-          <p class="stakeholder-role">Luxury Guest</p>
-          <span class="stakeholder-category core">Core</span>
-        </div>
-
-        <div class="stakeholder-card core">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"></circle>
-              <path d="M12 16v-4M12 8h.01"></path>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Concierge Team</h3>
-          <p class="stakeholder-role">Service Client</p>
-          <span class="stakeholder-category core">Core</span>
-        </div>
-
-        <!-- Operations -->
-        <div class="stakeholder-card operations">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Technicien Maintenance</h3>
-          <p class="stakeholder-role">Plomberie, Électricité, Clim</p>
-          <span class="stakeholder-category operations">Operations</span>
-        </div>
-
-        <div class="stakeholder-card operations">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"></path>
-              <path d="M13 13l6 6"></path>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Société de Nettoyage</h3>
-          <p class="stakeholder-role">Premium Cleaning Service</p>
-          <span class="stakeholder-category operations">Operations</span>
-        </div>
-
-        <div class="stakeholder-card operations">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <circle cx="8.5" cy="8.5" r="1.5"></circle>
-              <polyline points="21 15 16 10 5 21"></polyline>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Photographe Immobilier</h3>
-          <p class="stakeholder-role">Visual Content</p>
-          <span class="stakeholder-category operations">Operations</span>
-        </div>
-
-        <!-- Platforms -->
-        <div class="stakeholder-card platforms">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Plateformes</h3>
-          <p class="stakeholder-role">Airbnb • Booking • VRBO</p>
-          <span class="stakeholder-category platforms">Platforms</span>
-        </div>
-
-        <div class="stakeholder-card platforms">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <line x1="12" y1="1" x2="12" y2="23"></line>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Gestionnaire Revenus</h3>
-          <p class="stakeholder-role">Revenue & Pricing</p>
-          <span class="stakeholder-category platforms">Revenue</span>
-        </div>
-
-        <!-- Premium Services -->
-        <div class="stakeholder-card premium">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
-              <circle cx="7" cy="17" r="2"></circle>
-              <path d="M9 17h6"></path>
-              <circle cx="17" cy="17" r="2"></circle>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Chauffeur Privé</h3>
-          <p class="stakeholder-role">Premium Transport</p>
-          <span class="stakeholder-category premium">Premium</span>
-        </div>
-
-        <div class="stakeholder-card premium">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Chef à Domicile</h3>
-          <p class="stakeholder-role">Private Chef Service</p>
-          <span class="stakeholder-category premium">Premium</span>
-        </div>
-
-        <div class="stakeholder-card premium">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Spa & Bien-être</h3>
-          <p class="stakeholder-role">Masseur, Spa à Domicile</p>
-          <span class="stakeholder-category premium">Premium</span>
-        </div>
-
-        <div class="stakeholder-card premium">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Guide Touristique</h3>
-          <p class="stakeholder-role">Local Experiences</p>
-          <span class="stakeholder-category premium">Premium</span>
-        </div>
-
-        <!-- Legal & Finance -->
-        <div class="stakeholder-card legal">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Assurance & Juridique</h3>
-          <p class="stakeholder-role">Legal Protection</p>
-          <span class="stakeholder-category legal">Legal</span>
-        </div>
-
-        <div class="stakeholder-card legal">
-          <div class="stakeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-              <line x1="8" y1="21" x2="16" y2="21"></line>
-              <line x1="12" y1="17" x2="12" y2="21"></line>
-            </svg>
-          </div>
-          <h3 class="stakeholder-name">Comptable</h3>
-          <p class="stakeholder-role">Finance & Tax</p>
-          <span class="stakeholder-category legal">Finance</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Properties Section -->
-  <section class="properties-section" id="properties">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Curated Escapes</span>
-        <h2 class="section-title">Cliffside Properties</h2>
-        <p class="section-subtitle">Hand-selected retreats perched above the Mediterranean</p>
-      </div>
-
-      <div class="properties-grid" id="propertiesGrid">
-        <!-- Properties loaded via JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section with Parallax -->
-  <section class="services-section" id="services">
-    <div class="service-panel" data-panel="1">
-      <div class="service-image">
-        <div class="image-zoom"></div>
-      </div>
-      <div class="service-content">
-        <span class="service-number">01</span>
-        <h3 class="service-title">Cliffside Suites</h3>
-        <p class="service-description">Private balconies with floor-to-ceiling sea views. Hand-painted Vietri ceramic details. Infinity-edge terraces suspended above the Mediterranean.</p>
-        <a href="#contact" class="service-link">Inquire Now</a>
-      </div>
-    </div>
-
-    <div class="service-panel" data-panel="2">
-      <div class="service-image">
-        <div class="image-zoom"></div>
-      </div>
-      <div class="service-content">
-        <span class="service-number">02</span>
-        <h3 class="service-title">Limonaia Spa</h3>
-        <p class="service-description">Treatments infused with local lemon and olive essences in a converted 18th-century lemon house. Mediterranean wellness rituals.</p>
-        <a href="#contact" class="service-link">Book Treatment</a>
-      </div>
-    </div>
-
-    <div class="service-panel" data-panel="3">
-      <div class="service-image">
-        <div class="image-zoom"></div>
-      </div>
-      <div class="service-content">
-        <span class="service-number">03</span>
-        <h3 class="service-title">Cucina della Costa</h3>
-        <p class="service-description">Michelin-adjacent tasting menus featuring hand-caught seafood and heirloom tomatoes. Private chef experiences on your terrace.</p>
-        <a href="#contact" class="service-link">Reserve Table</a>
-      </div>
-    </div>
-
-    <div class="service-panel" data-panel="4">
-      <div class="service-image">
-        <div class="image-zoom"></div>
-      </div>
-      <div class="service-content">
-        <span class="service-number">04</span>
-        <h3 class="service-title">Sentiero degli Dei</h3>
-        <p class="service-description">Guided hikes along the legendary Path of the Gods with packed gourmet picnics. Exclusive access to hidden coastal trails.</p>
-        <a href="#contact" class="service-link">Plan Adventure</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section class="contact-section" id="contact">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Get in Touch</span>
-        <h2 class="section-title">Your Concierge Awaits</h2>
-        <p class="section-subtitle">Let us craft your perfect Amalfi escape</p>
-      </div>
-
-      <div class="contact-grid">
-        <form class="contact-form" id="contactForm">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required placeholder="Your name">
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required placeholder="your@email.com">
+          <div class="chat-msg ia">
+            <div class="msg-bubble ia-bubble">
+              🌴 Bonjour ! Bien sûr ! J'ai vérifié : le catamaran <strong>"Caraïbes Dream"</strong> est disponible demain 9h-16h. Prix : 850€ pour 6 pers.<br><br>
+              Souhaitez-vous :<br>
+              → Un <strong>pack champagne</strong> (+120€)<br>
+              → Un <strong>transfert depuis votre villa</strong> (+80€)
             </div>
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" placeholder="+33 ...">
+            <span class="ia-label">🤖 IA — Réponse en 8 secondes</span>
+          </div>
+          <div class="chat-msg client">
+            <div class="msg-bubble">Parfait ! Je prends le pack champagne aussi. Comment je paye ?</div>
+          </div>
+          <div class="chat-msg ia">
+            <div class="msg-bubble ia-bubble">
+              ✅ Réservation confirmée ! Total : <strong>970€</strong><br>
+              Un lien de paiement sécurisé vient de vous être envoyé par email.<br>
+              📧 Votre reçu + détails du skipper arrivent dans 2 min.
             </div>
-          </div>
-          <div class="form-group">
-            <label for="subject">Subject</label>
-            <select id="subject" name="subject">
-              <option value="inquiry">General Inquiry</option>
-              <option value="booking">Booking Request</option>
-              <option value="concierge">Concierge Services</option>
-              <option value="partnership">Partnership</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="4" required placeholder="Tell us about your dream Italian escape..."></textarea>
-          </div>
-          <button type="submit" class="submit-btn">
-            <span>Send Message</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-          </button>
-        </form>
-
-        <div class="contact-info">
-          <div class="info-card">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-            </div>
-            <h4>Location</h4>
-            <p>Via Pasitea, 123<br>Positano, Amalfi Coast<br>Italy</p>
-          </div>
-          <div class="info-card">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-            </div>
-            <h4>Direct Line</h4>
-            <p>+39 089 123 4567</p>
-          </div>
-          <div class="info-card">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-            </div>
-            <h4>Concierge Hours</h4>
-            <p>24/7 Availability<br>For our registered guests</p>
+            <span class="ia-label">🤖 IA — Paiement intégré</span>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-map">
-      <div class="map-container">
-        <svg viewBox="0 0 800 400" class="coastal-map">
-          <!-- Simplified Amalfi Coast illustration -->
-          <defs>
-            <linearGradient id="seaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style="stop-color:#1A4B7A;stop-opacity:0.3" />
-              <stop offset="100%" style="stop-color:#1A4B7A;stop-opacity:0.1" />
-            </linearGradient>
-          </defs>
-          <path class="coastline" d="M0,200 Q100,180 200,220 Q300,260 400,240 Q500,220 600,250 Q700,280 800,260" fill="none" stroke="#5A8F6E" stroke-width="3"/>
-          <circle class="landmark" cx="200" cy="220" r="8" data-name="Positano"/>
-          <circle class="landmark" cx="350" cy="230" r="8" data-name="Praiano"/>
-          <circle class="landmark active" cx="500" cy="235" r="10" data-name="Terrazza"/>
-          <circle class="landmark" cx="650" cy="250" r="8" data-name="Amalfi"/>
-          <circle class="landmark" cx="750" cy="260" r="8" data-name="Ravello"/>
-          <text x="200" y="250" class="map-label">Positano</text>
-          <text x="350" y="260" class="map-label">Praiano</text>
-          <text x="500" y="265" class="map-label highlight">Terrazza di Sole</text>
-          <text x="650" y="280" class="map-label">Amalfi</text>
-          <text x="750" y="290" class="map-label">Ravello</text>
-        </svg>
-      </div>
-    </div>
-    <div class="footer-content">
-      <div class="footer-brand">
-        <span class="logo-text">Terrazza</span>
-        <span class="logo-accent">di Sole</span>
-        <p class="footer-tagline">La dolce vita, elevated.</p>
-      </div>
-      <div class="footer-links">
-        <a href="#properties">Properties</a>
-        <a href="#timeline">Timeline</a>
-        <a href="#stakeholders">Intervenants</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2024 Terrazza di Sole. Luxury Concierge MVP.</p>
-        <p>Built with <span style="color: #C75B39;">♥</span> for exceptional experiences</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Booking Modal -->
-  <div class="modal" id="bookingModal">
-    <div class="modal-overlay"></div>
-    <div class="modal-content">
-      <button class="modal-close" id="closeModal">&times;</button>
-      <h2 class="modal-title">Reserve Your Terrazza</h2>
-      <form class="booking-form" id="bookingForm">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Check-in</label>
-            <input type="date" id="checkin" name="checkin" required>
-          </div>
-          <div class="form-group">
-            <label>Check-out</label>
-            <input type="date" id="checkout" name="checkout" required>
-          </div>
+        <div class="comparison-result good">
+          <strong>✅ Gain : 970€</strong>
+          <br>✅ Client satisfait
+          <br>✅ Upsell champagne (+120€)
         </div>
-        <div class="form-group">
-          <label>Guests</label>
-          <select id="guests" name="guests">
-            <option value="1">1 Guest</option>
-            <option value="2" selected>2 Guests</option>
-            <option value="3">3 Guests</option>
-            <option value="4">4 Guests</option>
-            <option value="5">5+ Guests</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Special Requests</label>
-          <textarea id="requests" name="requests" rows="3" placeholder="Any special requests or preferences..."></textarea>
-        </div>
-        <div class="booking-summary">
-          <div class="summary-row">
-            <span>Property</span>
-            <span id="summaryProperty">Select a property</span>
-          </div>
-          <div class="summary-row">
-            <span>Duration</span>
-            <span id="summaryDuration">— nights</span>
-          </div>
-          <div class="summary-row total">
-            <span>Total</span>
-            <span id="summaryTotal">€0</span>
-          </div>
-        </div>
-        <button type="submit" class="booking-submit">
-          <span>Request Reservation</span>
-        </button>
-        <p class="booking-note">* Reservation request will be confirmed by our concierge within 24 hours</p>
-      </form>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- Toast Notification -->
-  <div class="toast" id="toast">
-    <span class="toast-message"></span>
+<!-- ===== EXAMPLE 2: MULTILINGUAL ===== -->
+<section class="section example-section alt-bg" id="exemple-langues">
+  <div class="container">
+    <div class="example-header">
+      <span class="example-number">Exemple 2</span>
+      <h2>Parler 10 langues... sans les parler</h2>
+      <p class="example-subtitle">Vos clients viennent de partout. Vous, vous parlez français.</p>
+    </div>
+
+    <div class="lang-demo">
+      <div class="lang-card">
+        <div class="lang-flag">🇩🇪</div>
+        <div class="lang-content">
+          <div class="lang-client">"Können wir morgen früh eine Wanderung zum Mount Pelée buchen?"</div>
+          <div class="lang-arrow">↓ Traduit en 2 secondes ↓</div>
+          <div class="lang-ia">"Bonjour ! Oui, l'excursion randonnée Mont Pelée est disponible demain 7h. Guide francophone + petit-déjeuner créole inclus. 145€/pers. Vous confirmez ?"</div>
+        </div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-flag">🇺🇸</div>
+        <div class="lang-content">
+          <div class="lang-client">"Do you have vegan options for the rum tasting tour?"</div>
+          <div class="lang-arrow">↓ Traduit en 2 secondes ↓</div>
+          <div class="lang-ia">"Absolutely! We have a vegan rum experience with fresh tropical fruit pairings. The distillery also offers coconut-based tastings. Shall I reserve 2 spots for Thursday?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="argument-block">
+      <div class="argument-icon">🎯</div>
+      <div class="argument-text">
+        <strong>L'argument :</strong> Sans IA, chaque touriste étranger = friction. Avec l'IA, chaque touriste = opportunité. L'IA ne se contente pas de traduire. Elle <em>adapte le ton</em> (formel pour les Allemands, chaleureux pour les Américains), <em>connaît les spécificités locales</em> (vegan à la distillerie), et <em>propose l'upsell</em>.
+      </div>
+    </div>
   </div>
+</section>
 
-  <script src="/js/app.js"></script>
+<!-- ===== EXAMPLE 3: REVENUE PREDICTION ===== -->
+<section class="section example-section" id="exemple-revenus">
+  <div class="container">
+    <div class="example-header">
+      <span class="example-number">Exemple 3</span>
+      <h2>Prévoir... pour mieux gagner</h2>
+      <p class="example-subtitle">L'IA analyse vos données pour prédire et optimiser</p>
+    </div>
+
+    <div class="revenue-demo">
+      <div class="revenue-card">
+        <div class="revenue-title">📅 Demain — 15 août (haute saison)</div>
+        <div class="revenue-prediction">
+          <div class="pred-row">
+            <span class="pred-label">Taux d'occupation estimé</span>
+            <span class="pred-bar"><span class="pred-fill" style="width: 95%; background: var(--green-leaf);"></span></span>
+            <span class="pred-value">95%</span>
+          </div>
+          <div class="pred-row">
+            <span class="pred-label">Demandes attendues</span>
+            <span class="pred-bar"><span class="pred-fill" style="width: 85%; background: var(--gold-lemon);"></span></span>
+            <span class="pred-value">42</span>
+          </div>
+          <div class="pred-insight">
+            💡 <strong>Conseil IA :</strong> "Vous serez débordé. Proposez le <em>package 'Sérénité'</em> (transfert + activité + resto) à 380€ pour canaliser les demandes complexes."
+          </div>
+        </div>
+      </div>
+
+      <div class="revenue-card">
+        <div class="revenue-title">📅 Dans 3 semaines — 5 septembre (basse saison)</div>
+        <div class="revenue-prediction">
+          <div class="pred-row">
+            <span class="pred-label">Taux d'occupation estimé</span>
+            <span class="pred-bar"><span class="pred-fill" style="width: 30%; background: var(--terracotta);"></span></span>
+            <span class="pred-value">30%</span>
+          </div>
+          <div class="pred-row">
+            <span class="pred-label">Demandes attendues</span>
+            <span class="pred-bar"><span class="pred-fill" style="width: 15%; background: var(--terracotta);"></span></span>
+            <span class="pred-value">8</span>
+          </div>
+          <div class="pred-insight">
+            💡 <strong>Conseil IA :</strong> "Créez une <em>promotion 'Retour au calme'</em> : -20% sur les excursions + dîner romantique inclus. Ciblez les couples de 35-50 ans sur Instagram."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="argument-block">
+      <div class="argument-icon">💰</div>
+      <div class="argument-text">
+        <strong>Le résultat :</strong> Sans IA, vous réagissez. Avec l'IA, vous anticipez. Basse saison = vous proactif, pas désespéré. Haute saison = vous optimisé, pas débordé.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXAMPLE 4: PERSONALIZATION MEMORY ===== -->
+<section class="section example-section alt-bg" id="exemple-memoire">
+  <div class="container">
+    <div class="example-header">
+      <span class="example-number">Exemple 4</span>
+      <h2>Se souvenir de tout... sans se souvenir de rien</h2>
+      <p class="example-subtitle">L'IA garde en mémoire chaque préférence de chaque client</p>
+    </div>
+
+    <div class="memory-demo">
+      <div class="memory-client">
+        <div class="memory-avatar">👩‍💼</div>
+        <div class="memory-name">Marie-Claire D.</div>
+        <div class="memory-status">Client depuis 2021 — 3 séjours</div>
+      </div>
+      <div class="memory-dossier">
+        <div class="memory-title">📁 Dossier client (créé automatiquement par l'IA)</div>
+        <div class="memory-tags">
+          <span class="m-tag">🍾 Aime le champagne rosé</span>
+          <span class="m-tag">🏝️ Préfère les plages de sable blanc</span>
+          <span class="m-tag">🎂 Anniversaire le 14 juin</span>
+          <span class="m-tag">🐕 Voyage avec son chien (Bichon)</span>
+          <span class="m-tag">🦐 Allergique aux crustacés</span>
+          <span class="m-tag">🌅 Aime lever du soleil (pas couchers)</span>
+          <span class="m-tag">📸 Instagramme tout</span>
+        </div>
+      </div>
+      <div class="memory-action">
+        <div class="action-arrow">⬇️ Quand elle revient 2 ans plus tard... ⬇️</div>
+        <div class="memory-message">
+          "Bonjour Marie-Claire ! Ravie de vous revoir ! 🎉<br>
+          J'ai préparé pour vous et Biscuit votre <strong>villa préférée</strong> avec accès direct plage.<br>
+          Pour votre arrivée : une <strong>bouteille de champagne rosé</strong> bien fraîche.<br>
+          J'ai noté que vous aimez les <strong>levers de soleil</strong> : le catamaran 'Aurore' est réservé demain 6h !"
+        </div>
+      </div>
+    </div>
+
+    <div class="argument-block">
+      <div class="argument-icon">❤️</div>
+      <div class="argument-text">
+        <strong>Le résultat :</strong> Marie-Claire pleure de joie. Elle parle de vous à tout Paris. Vous gagnez un ambassadeur gratuit — et des clients qui reviennent 3x plus cher.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BEFORE / AFTER SUMMARY ===== -->
+<section class="section bilan-section" id="bilan">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Le bilan</span>
+      <h2>Avant / Après</h2>
+    </div>
+
+    <div class="bilan-grid">
+      <div class="bilan-col">
+        <div class="bilan-header bad">Sans IA</div>
+        <div class="bilan-item">📱 Réponses manuelles — retardées</div>
+        <div class="bilan-item">🌍 Limité au français</div>
+        <div class="bilan-item">🎲 Tarifs au feeling</div>
+        <div class="bilan-item">😰 Surcharge en haute saison</div>
+        <div class="bilan-item">📉 Vide en basse saison</div>
+        <div class="bilan-item">🤷 Clients oubliés</div>
+        <div class="bilan-item">⏰ Vous travaillez 24/7</div>
+        <div class="bilan-total bad">
+          💸 <strong>Perte estimée :</strong> 15 000-25 000€/an de revenus manqués
+        </div>
+      </div>
+
+      <div class="bilan-col">
+        <div class="bilan-header good">Avec IA</div>
+        <div class="bilan-item">⚡ Réponses instantanées — 24/7</div>
+        <div class="bilan-item">🌐 10 langues fluides</div>
+        <div class="bilan-item">📊 Prix optimisés par données</div>
+        <div class="bilan-item">🧘 Calme organisé en haute saison</div>
+        <div class="bilan-item">📈 Promotions intelligentes en basse</div>
+        <div class="bilan-item">💎 Chaque client VIP perso</div>
+        <div class="bilan-item">☕ Vous dormez, l'IA travaille</div>
+        <div class="bilan-total good">
+          💰 <strong>Gain estimé :</strong> +30-50% de revenus en 6 mois
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="section cta-section" id="contact">
+  <div class="container">
+    <div class="cta-box">
+      <h2>Vous voyez le potentiel ?</h2>
+      <p>Chaque jour sans IA = des clients qui passent à côté.</p>
+      <p>Chaque jour avec IA = des revenus qui dorment quand vous dormez.</p>
+      <div class="cta-buttons">
+        <a href="mailto:contact@example.com?subject=Conciergerie%20Martinique%20-%20Découverte%20IA" class="cta-primary">📩 Discutons de votre conciergerie</a>
+      </div>
+      <p class="cta-note">Sans engagement. Un simple appel pour voir ce que l'IA peut faire pour VOUS.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <p>Présentation IA pour conciergerie de luxe — Martinique, Caraïbes FWI</p>
+    <p class="footer-note">Généré pour démonstration. Les chiffres sont des estimations basées sur des cas réels du secteur.</p>
+  </div>
+</footer>
+
+<script>
+// Simple scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.example-section, .scenario-card, .bilan-item, .memory-dossier, .revenue-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+document.querySelectorAll('.revealed').forEach(el => {
+  el.style.opacity = '1';
+  el.style.transform = 'translateY(0)';
+});
+</script>
+
 </body>
 </html>
