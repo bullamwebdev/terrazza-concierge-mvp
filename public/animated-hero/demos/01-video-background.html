@@ -3,30 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 1: Video Background Crossfade</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Demo 1: Video Background</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #000;
-      color: #fff;
-      min-height: 100vh;
-    }
+    html, body { height: 100%; overflow: hidden; }
+    body { background: #000; color: #fff; font-family: -apple-system, sans-serif; }
 
-    .demo-container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-    }
+    .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
 
-    /* ===== VIDEO BACKGROUND ===== */
+    /* Video */
     .video-bg {
       position: absolute;
       inset: 0;
@@ -35,121 +20,147 @@
       object-fit: cover;
       opacity: 0;
       transition: opacity 1s ease-out;
-      transform: translateY(15%);
     }
+    .video-bg.loaded { opacity: 1; }
 
-    .video-bg.loaded {
-      opacity: 1;
-    }
-
-    .video-bg.fade-out {
-      opacity: 0;
-    }
-
-    /* Gradient overlay for readability */
-    .video-overlay {
+    /* Gradient overlay */
+    .demo::after {
+      content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.3) 0%,
-        rgba(0, 0, 0, 0.1) 50%,
-        rgba(0, 0, 0, 0.5) 100%
-      );
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 100%);
       z-index: 1;
     }
 
-    /* ===== DEMO INFO ===== */
-    .demo-info {
+    /* Content */
+    .content {
       position: relative;
       z-index: 10;
-      text-align: center;
-      max-width: 600px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 40px 60px;
     }
 
-    .demo-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
-      color: white;
-      padding: 8px 20px;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 50px;
-      font-size: 12px;
+      margin-bottom: 20px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.3s forwards;
     }
 
-    .demo-title {
-      font-size: 48px;
+    .title {
+      font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 600;
-      margin-bottom: 16px;
       line-height: 1.1;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.5s forwards;
     }
 
-    .demo-description {
+    .title .highlight {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    .subtitle {
       font-size: 18px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 32px;
+      color: rgba(255,255,255,0.7);
+      max-width: 480px;
       line-height: 1.6;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.7s forwards;
     }
 
-    /* ===== CODE BLOCK ===== */
-    .code-block {
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: left;
-      font-family: 'Monaco', 'Menlo', monospace;
-      font-size: 13px;
-      color: #e5e7eb;
-      overflow-x: auto;
-      max-width: 100%;
-      margin-top: 32px;
-    }
-
-    .code-block .comment { color: #6b7280; }
-    .code-block .keyword { color: #a78bfa; }
-    .code-block .string { color: #34d399; }
-    .code-block .number { color: #fbbf24; }
-
-    /* ===== STATUS ===== */
-    .status {
+    /* Nav */
+    .nav {
       position: fixed;
-      top: 20px;
-      right: 20px;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 12px 20px;
-      font-size: 14px;
+      padding: 20px 40px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out 0.1s forwards;
     }
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #10b981;
-      animation: pulse 2s ease-in-out infinite;
+    .logo { font-size: 18px; font-weight: 600; }
+    .logo span { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover { color: #fff; }
+
+    .cta {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    .status-dot.fading {
-      background: #fbbf24;
+    /* Burger */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
+    .burger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s ease; }
+    .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .burger.active span:nth-child(2) { opacity: 0; }
+    .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(20px);
+      padding: 100px 24px 24px;
+      transition: right 0.3s ease;
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
+    .mobile-menu.open { right: 0; }
+    .mobile-menu a { color: #fff; text-decoration: none; font-size: 18px; font-weight: 500; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 98; }
+    .menu-overlay.active { opacity: 1; pointer-events: auto; }
 
-    /* ===== NAV ===== */
+    /* Demo nav */
     .demo-nav {
       position: fixed;
       bottom: 20px;
@@ -157,122 +168,98 @@
       transform: translateX(-50%);
       z-index: 100;
       display: flex;
-      gap: 8px;
-    }
-
-    .demo-nav a {
-      background: rgba(255, 255, 255, 0.1);
+      gap: 6px;
+      background: rgba(0,0,0,0.5);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 8px;
+      border-radius: 12px;
+    }
+    .demo-nav a {
+      color: rgba(255,255,255,0.6);
       text-decoration: none;
-      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
       transition: all 0.2s ease;
     }
+    .demo-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .demo-nav a.active { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: #fff; }
 
-    .demo-nav a:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-    .demo-nav a.active {
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
-      border-color: transparent;
+    @media (max-width: 768px) {
+      .nav-links, .cta { display: none; }
+      .burger { display: flex; }
+      .content { padding: 0 24px 40px; }
     }
   </style>
 </head>
 <body>
 
-<div class="status" id="status">
-  <div class="status-dot" id="statusDot"></div>
-  <span id="statusText">Video playing...</span>
-</div>
-
-<div class="demo-container">
-  <video class="video-bg" id="heroVideo" autoplay muted loop playsinline>
+<div class="demo">
+  <video class="video-bg" id="video" autoplay muted loop playsinline>
     <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4" type="video/mp4">
   </video>
-  <div class="video-overlay"></div>
 
-  <div class="demo-info">
-    <div class="demo-badge">Demo 1 of 6</div>
-    <h1 class="demo-title">Video Background Crossfade</h1>
-    <p class="demo-description">
-      Seamless looping video with fade-in on load and fade-out before loop restart.
-      Uses <code>requestAnimationFrame</code> for smooth 60fps transitions.
-    </p>
-
-    <div class="code-block">
-      <span class="comment">// Crossfade logic</span><br>
-      <span class="keyword">const</span> fadeDuration = <span class="number">500</span>; <span class="comment">// ms</span><br><br>
-      
-      <span class="comment">// Fade out at end of video</span><br>
-      <span class="keyword">if</span> (timeRemaining <= <span class="number">0.55</span>) {<br>
-      &nbsp;&nbsp;video.style.opacity = <span class="number">0</span>;<br>
-      }<br><br>
-      
-      <span class="comment">// Reset and fade in</span><br>
-      video.currentTime = <span class="number">0</span>;<br>
-      video.play();<br>
-      video.style.opacity = <span class="number">1</span>;
+  <nav class="nav">
+    <div class="logo"><span>WiseGenerative</span></div>
+    <div class="nav-links">
+      <a href="#">Accueil</a>
+      <a href="#">Solutions</a>
+      <a href="#">Tarifs</a>
     </div>
+    <button class="cta">Réserver une Démo</button>
+    <button class="burger" id="burger">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="menu-overlay" id="overlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Accueil</a>
+    <a href="#">Solutions</a>
+    <a href="#">Tarifs</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <div class="content">
+    <div class="eyebrow">🎬 Demo 1 — Video Background</div>
+    <h1 class="title">
+      Seamless <span class="highlight">Video Loop</span>
+    </h1>
+    <p class="subtitle">Full-screen video with smooth crossfade transitions at loop points. Uses requestAnimationFrame for 60fps opacity animations.</p>
   </div>
 </div>
 
 <div class="demo-nav">
-  <a href="01-video-background.html" class="active">1. Video</a>
-  <a href="02-character-reveal.html">2. Char Reveal</a>
-  <a href="03-fade-in.html">3. Fade In</a>
-  <a href="04-liquid-glass.html">4. Liquid Glass</a>
-  <a href="05-gradient-text.html">5. Gradient Text</a>
-  <a href="06-burger-menu.html">6. Burger Menu</a>
+  <a href="01-video-background.html" class="active">1</a>
+  <a href="02-character-reveal.html">2</a>
+  <a href="03-fade-in.html">3</a>
+  <a href="04-liquid-glass.html">4</a>
+  <a href="05-gradient-text.html">5</a>
+  <a href="06-burger-menu.html">6</a>
 </div>
 
 <script>
-  const video = document.getElementById('heroVideo');
-  const statusDot = document.getElementById('statusDot');
-  const statusText = document.getElementById('statusText');
+  const video = document.getElementById('video');
+  video.addEventListener('loadeddata', () => video.classList.add('loaded'));
 
-  // Track video state
-  let isFading = false;
-
-  video.addEventListener('loadeddata', () => {
-    video.classList.add('loaded');
-    statusText.textContent = 'Video loaded ✓';
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('overlay');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    menu.classList.toggle('open');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
   });
-
-  video.addEventListener('timeupdate', () => {
-    const duration = video.duration;
-    const current = video.currentTime;
-    const timeRemaining = duration - current;
-
-    // Fade out in last 0.5 seconds
-    if (timeRemaining <= 0.55 && !isFading) {
-      isFading = true;
-      video.classList.add('fade-out');
-      statusDot.classList.add('fading');
-      statusText.textContent = 'Fading out...';
-    }
-
-    // Update opacity based on time
-    if (timeRemaining <= 0.55) {
-      video.style.opacity = timeRemaining / 0.55;
-    }
-  });
-
-  video.addEventListener('ended', () => {
-    video.classList.remove('fade-out');
-    video.style.opacity = 0;
-    
-    setTimeout(() => {
-      video.currentTime = 0;
-      video.play();
-      video.style.opacity = 1;
-      isFading = false;
-      statusDot.classList.remove('fading');
-      statusText.textContent = 'Video playing...';
-    }, 100);
+  overlay.addEventListener('click', () => {
+    burger.classList.remove('active');
+    menu.classList.remove('open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
   });
 </script>
 

@@ -3,202 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 4: Liquid Glass Effect</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Demo 4: Liquid Glass</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #000;
-      color: #fff;
-      min-height: 100vh;
-      position: relative;
-    }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: -apple-system, sans-serif; color: #fff; }
 
-    /* Background image for glass effect demo */
-    .bg-image {
+    /* Background */
+    .bg {
       position: fixed;
       inset: 0;
-      background: 
-        linear-gradient(135deg, rgba(124, 58, 237, 0.3) 0%, rgba(20, 184, 166, 0.3) 100%),
-        url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1920&q=80');
+      background: linear-gradient(135deg, rgba(124,58,237,0.3) 0%, rgba(20,184,166,0.3) 100%), url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1920&q=80');
       background-size: cover;
       background-position: center;
-      z-index: 0;
     }
 
-    .demo-container {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    .demo { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
+
+    .eyebrow {
+      display: inline-flex;
       align-items: center;
-      padding: 80px 24px 100px;
-    }
-
-    .demo-info {
-      text-align: center;
-      max-width: 800px;
-      margin-bottom: 60px;
-    }
-
-    .demo-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
-      color: white;
-      padding: 8px 20px;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 50px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.3s forwards;
     }
 
-    .demo-title {
-      font-size: 36px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
+    .title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 600; line-height: 1.1; text-align: center; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.8s ease-out 0.5s forwards; }
 
-    .demo-description {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.6;
-    }
-
-    /* ===== LIQUID GLASS VARIANTS ===== */
     .glass-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
+      gap: 24px;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1000px;
     }
 
     .glass-card {
-      padding: 32px;
+      padding: 40px;
       border-radius: 20px;
       text-align: center;
+      font-size: 18px;
+      font-weight: 500;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.7s forwards;
     }
 
-    .glass-card-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+    .glass-card span { font-size: 40px; display: block; margin-bottom: 16px; }
+    .glass-card p { font-size: 14px; margin-top: 8px; color: rgba(255,255,255,0.7); font-weight: 400; }
 
-    .glass-card-code {
-      font-family: 'Monaco', 'Menlo', monospace;
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 20px;
-    }
-
-    /* Liquid Glass - Light */
-    .liquid-glass-light {
-      background: rgba(255, 255, 255, 0.05);
+    .glass-light {
+      background: rgba(255,255,255,0.05);
       backdrop-filter: blur(12px) saturate(180%);
       -webkit-backdrop-filter: blur(12px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
     }
 
-    /* Liquid Glass - Dark */
-    .liquid-glass-dark {
-      background: rgba(0, 0, 0, 0.4);
+    .glass-dark {
+      background: rgba(0,0,0,0.4);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.05);
     }
 
-    /* Liquid Glass - Colored */
-    .liquid-glass-purple {
-      background: rgba(124, 58, 237, 0.15);
+    .glass-purple {
+      background: rgba(124,58,237,0.15);
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid rgba(124, 58, 237, 0.3);
-      box-shadow: inset 0 1px 1px rgba(124, 58, 237, 0.1);
+      border: 1px solid rgba(124,58,237,0.3);
+      box-shadow: inset 0 1px 1px rgba(124,58,237,0.1);
     }
 
-    .liquid-glass-teal {
-      background: rgba(20, 184, 166, 0.15);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid rgba(20, 184, 166, 0.3);
-      box-shadow: inset 0 1px 1px rgba(20, 184, 166, 0.1);
-    }
-
-    /* Liquid Glass - Frosted */
-    .liquid-glass-frosted {
-      background: rgba(255, 255, 255, 0.1);
+    .glass-frosted {
+      background: rgba(255,255,255,0.1);
       backdrop-filter: blur(24px) saturate(200%);
       -webkit-backdrop-filter: blur(24px) saturate(200%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: inset 0 2px 2px rgba(255,255,255,0.1);
     }
 
-    /* Demo content inside cards */
-    .demo-content {
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out 0.1s forwards;
+    }
+    .logo { font-size: 18px; font-weight: 600; }
+    .logo span { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover { color: #fff; }
+    .cta {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .burger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s ease; }
+    .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .burger.active span:nth-child(2) { opacity: 0; }
+    .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(20px);
+      padding: 100px 24px 24px;
+      transition: right 0.3s ease;
+      z-index: 99;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 12px;
+      gap: 8px;
     }
+    .mobile-menu.open { right: 0; }
+    .mobile-menu a { color: #fff; text-decoration: none; font-size: 18px; font-weight: 500; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 98; }
+    .menu-overlay.active { opacity: 1; pointer-events: auto; }
 
-    .demo-icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
-
-    .demo-text {
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .demo-subtext {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    /* ===== CODE BLOCK ===== */
-    .code-section {
-      margin-top: 60px;
-      width: 100%;
-      max-width: 800px;
-    }
-
-    .code-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .code-block {
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 24px;
-      font-family: 'Monaco', 'Menlo', monospace;
-      font-size: 13px;
-      color: #e5e7eb;
-      overflow-x: auto;
-    }
-
-    .code-block .comment { color: #6b7280; }
-    .code-block .property { color: #a78bfa; }
-    .code-block .value { color: #34d399; }
-    .code-block .unit { color: #fbbf24; }
-
-    /* ===== NAV ===== */
     .demo-nav {
       position: fixed;
       bottom: 20px;
@@ -206,149 +165,105 @@
       transform: translateX(-50%);
       z-index: 100;
       display: flex;
-      gap: 8px;
-    }
-
-    .demo-nav a {
-      background: rgba(255, 255, 255, 0.1);
+      gap: 6px;
+      background: rgba(0,0,0,0.5);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 14px;
-      transition: all 0.2s ease;
+      padding: 8px;
+      border-radius: 12px;
     }
+    .demo-nav a { color: rgba(255,255,255,0.6); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; transition: all 0.2s ease; }
+    .demo-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .demo-nav a.active { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: #fff; }
 
-    .demo-nav a:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-    .demo-nav a.active {
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
-      border-color: transparent;
+    @media (max-width: 768px) {
+      .nav-links, .cta { display: none; }
+      .burger { display: flex; }
+      .demo { padding: 24px; }
     }
   </style>
 </head>
 <body>
 
-<div class="bg-image"></div>
+<div class="bg"></div>
 
-<div class="demo-container">
-  <div class="demo-info">
-    <div class="demo-badge">Demo 4 of 6</div>
-    <h1 class="demo-title">Liquid Glass Effect</h1>
-    <p class="demo-description">
-      Frosted glass with backdrop-filter blur, saturate, and subtle borders.
-      Works best on top of images or gradients.
-    </p>
+<nav class="nav">
+  <div class="logo"><span>WiseGenerative</span></div>
+  <div class="nav-links">
+    <a href="#">Accueil</a>
+    <a href="#">Solutions</a>
+    <a href="#">Tarifs</a>
   </div>
+  <button class="cta">Réserver une Démo</button>
+  <button class="burger" id="burger">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="menu-overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#">Accueil</a>
+  <a href="#">Solutions</a>
+  <a href="#">Tarifs</a>
+  <a href="#">Contact</a>
+</div>
+
+<div class="demo">
+  <div class="eyebrow">🪟 Demo 4 — Liquid Glass</div>
+  <h1 class="title">Frosted Glass Effects</h1>
 
   <div class="glass-grid">
-    <!-- Light -->
-    <div class="glass-card liquid-glass-light">
-      <div class="glass-card-title">Light</div>
-      <div class="glass-card-code">blur(12px) saturate(180%)</div>
-      <div class="demo-content">
-        <div class="demo-icon">🏠</div>
-        <div class="demo-text">Navbar</div>
-        <div class="demo-subtext">5% white background</div>
-      </div>
+    <div class="glass-card glass-light">
+      <span>🏠</span>
+      Light<br>
+      <p>5% white, subtle border</p>
     </div>
-
-    <!-- Dark -->
-    <div class="glass-card liquid-glass-dark">
-      <div class="glass-card-title">Dark</div>
-      <div class="glass-card-code">blur(20px) saturate(180%)</div>
-      <div class="demo-content">
-        <div class="demo-icon">🎬</div>
-        <div class="demo-text">Video Overlay</div>
-        <div class="demo-subtext">40% black background</div>
-      </div>
+    <div class="glass-card glass-dark">
+      <span>🎬</span>
+      Dark<br>
+      <p>40% black, high blur</p>
     </div>
-
-    <!-- Purple -->
-    <div class="glass-card liquid-glass-purple">
-      <div class="glass-card-title">Purple Tint</div>
-      <div class="glass-card-code">blur(16px) + purple(15%)</div>
-      <div class="demo-content">
-        <div class="demo-icon">💜</div>
-        <div class="demo-text">Branded</div>
-        <div class="demo-subtext">Brand color tint</div>
-      </div>
+    <div class="glass-card glass-purple">
+      <span>💜</span>
+      Purple<br>
+      <p>Brand tinted glass</p>
     </div>
-
-    <!-- Teal -->
-    <div class="glass-card liquid-glass-teal">
-      <div class="glass-card-title">Teal Tint</div>
-      <div class="glass-card-code">blur(16px) + teal(15%)</div>
-      <div class="demo-content">
-        <div class="demo-icon">🌊</div>
-        <div class="demo-text">Secondary</div>
-        <div class="demo-subtext">Accent color</div>
-      </div>
-    </div>
-
-    <!-- Frosted -->
-    <div class="glass-card liquid-glass-frosted">
-      <div class="glass-card-title">Frosted</div>
-      <div class="glass-card-code">blur(24px) saturate(200%)</div>
-      <div class="demo-content">
-        <div class="demo-icon">❄️</div>
-        <div class="demo-text">Modal / Popup</div>
-        <div class="demo-subtext">Maximum blur</div>
-      </div>
-    </div>
-
-    <!-- Combined -->
-    <div class="glass-card liquid-glass-light" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(20, 184, 166, 0.1) 100%); backdrop-filter: blur(16px);">
-      <div class="glass-card-title">Gradient</div>
-      <div class="glass-card-code">blur(16px) + gradient</div>
-      <div class="demo-content">
-        <div class="demo-icon">✨</div>
-        <div class="demo-text">Premium</div>
-        <div class="demo-subtext">Gradient + glass</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Code -->
-  <div class="code-section">
-    <h3 class="code-title">CSS Implementation</h3>
-    <div class="code-block">
-<span class="comment">/* Base liquid glass */</span>
-<span class="property">.liquid-glass</span> {
-  <span class="property">background</span>: <span class="value">rgba(255, 255, 255, 0.05)</span>;
-  <span class="property">backdrop-filter</span>: <span class="value">blur(12px) saturate(180%)</span>;
-  <span class="property">-webkit-backdrop-filter</span>: <span class="value">blur(12px) saturate(180%)</span>;
-  <span class="property">border</span>: <span class="value">1px solid rgba(255, 255, 255, 0.1)</span>;
-  <span class="property">box-shadow</span>: <span class="value">inset 0 1px 1px rgba(255, 255, 255, 0.1)</span>;
-}
-
-<span class="comment">/* Dark variant */</span>
-<span class="property">.liquid-glass-dark</span> {
-  <span class="property">background</span>: <span class="value">rgba(0, 0, 0, 0.4)</span>;
-  <span class="property">border-color</span>: <span class="value">rgba(255, 255, 255, 0.08)</span>;
-}
-
-<span class="comment">/* Colored variant */</span>
-<span class="property">.liquid-glass-purple</span> {
-  <span class="property">background</span>: <span class="value">rgba(124, 58, 237, 0.15)</span>;
-  <span class="property">border-color</span>: <span class="value">rgba(124, 58, 237, 0.3)</span>;
-}
+    <div class="glass-card glass-frosted">
+      <span>❄️</span>
+      Frosted<br>
+      <p>Maximum blur + vibrance</p>
     </div>
   </div>
 </div>
 
 <div class="demo-nav">
-  <a href="01-video-background.html">1. Video</a>
-  <a href="02-character-reveal.html">2. Char Reveal</a>
-  <a href="03-fade-in.html">3. Fade In</a>
-  <a href="04-liquid-glass.html" class="active">4. Liquid Glass</a>
-  <a href="05-gradient-text.html">5. Gradient Text</a>
-  <a href="06-burger-menu.html">6. Burger Menu</a>
+  <a href="01-video-background.html">1</a>
+  <a href="02-character-reveal.html">2</a>
+  <a href="03-fade-in.html">3</a>
+  <a href="04-liquid-glass.html" class="active">4</a>
+  <a href="05-gradient-text.html">5</a>
+  <a href="06-burger-menu.html">6</a>
 </div>
+
+<script>
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('overlay');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    menu.classList.toggle('open');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  overlay.addEventListener('click', () => {
+    burger.classList.remove('active');
+    menu.classList.remove('open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+</script>
 
 </body>
 </html>
