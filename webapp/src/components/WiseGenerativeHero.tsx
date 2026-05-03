@@ -94,22 +94,13 @@ export function WiseGenerativeHero() {
   }, [fadeTo]);
 
   return (
-    <section className="relative min-h-screen bg-black overflow-hidden">
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ transform: 'translateY(17%)', opacity: 0 }}
-      >
-        <source
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4"
-          type="video/mp4"
-        />
-      </video>
+    <section className="relative min-h-screen bg-white overflow-hidden">
+      {/* Background Image (Martinique) */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1920&q=80')" }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white/90" />
 
       {/* Content Layer */}
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -119,14 +110,23 @@ export function WiseGenerativeHero() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="liquid-glass-dark rounded-full px-6 py-3 flex items-center justify-between max-w-5xl mx-auto"
+            className="flex items-center justify-between max-w-6xl mx-auto"
           >
             {/* Logo */}
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-teal-400 flex items-center justify-center">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-teal-500 flex items-center justify-center shadow-lg shadow-purple-200">
                 <span className="text-white font-bold text-sm">WG</span>
               </div>
-              <span className="text-white font-semibold text-lg">WiseGenerative</span>
+              <span className="text-xl font-semibold tracking-tight"
+                style={{ 
+                  background: 'linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
+                WiseGenerative
+              </span>
             </div>
 
             {/* Center Links */}
@@ -140,8 +140,10 @@ export function WiseGenerativeHero() {
                 <a
                   key={link.label}
                   href={`#${link.label.toLowerCase()}`}
-                  className="text-sm transition-colors"
-                  style={{ color: link.active ? '#ffffff' : 'rgba(255,255,255,0.6)' }}
+                  className="text-sm font-medium transition-colors"
+                  style={{ 
+                    color: link.active ? '#7C3AED' : '#6B7280',
+                  }}
                 >
                   {link.label}
                 </a>
@@ -149,7 +151,13 @@ export function WiseGenerativeHero() {
             </div>
 
             {/* CTA Button */}
-            <button className="bg-gradient-to-r from-purple-600 to-teal-500 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:scale-[1.03] transition-transform">
+            <button 
+              className="px-6 py-2.5 rounded-full text-sm font-medium text-white shadow-lg transition-transform hover:scale-[1.03]"
+              style={{ 
+                background: 'linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%)',
+                boxShadow: '0 8px 30px rgba(124, 58, 237, 0.25)'
+              }}
+            >
               Réserver une Démo
             </button>
           </motion.div>
@@ -163,57 +171,79 @@ export function WiseGenerativeHero() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-4xl"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white mb-6 tracking-tight leading-[1.05]"
-              style={{ fontFamily: "'Playfair Display', serif" }}
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-md mb-6 border border-purple-100">
+              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-purple-600 to-teal-500 flex items-center justify-center">
+                <span className="text-white font-bold text-[10px]">WG</span>
+              </div>
+              <span className="text-sm font-medium text-purple-700">Solutions IA Innovantes</span>
+            </div>
+
+            <h1 
+              className="text-4xl md:text-5xl lg:text-6xl font-normal mb-6 tracking-tight leading-[1.1]"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#1F2937' }}
             >
-              L'IA au Service de Votre{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
-                Conciergerie
-              </span>
+              Bonjour <span 
+                className="font-semibold"
+                style={{ 
+                  background: 'linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >Andrew</span>,<br />
+              l'IA transforme votre conciergerie
             </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-base md:text-lg text-white/70 mb-8 max-w-2xl mx-auto leading-relaxed"
+              className="text-base md:text-lg mb-8 max-w-2xl mx-auto leading-relaxed"
+              style={{ color: '#4B5563' }}
             >
-              Comment l'intelligence artificielle transforme concrètement une conciergerie de luxe en Martinique. 
-              Exemples réels, chiffres, et argumentation.
+              Cette page est pour vous. Pas de jargon technique — juste des exemples concrets, 
+              des chiffres réels, et ce que l'IA peut faire pour votre business dès demain.
             </motion.p>
 
+            {/* Andrew Greeting Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center justify-center gap-4"
+              className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/70 backdrop-blur-md shadow-lg border border-white/50"
             >
-              <button className="bg-white text-black px-8 py-3.5 rounded-full font-medium hover:bg-gray-100 transition-colors">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-100 to-teal-100 flex items-center justify-center text-xl">
+                👋
+              </div>
+              <div className="text-left">
+                <div className="text-sm font-medium" style={{ color: '#1F2937' }}>Présentation personnalisée</div>
+                <div className="text-xs" style={{ color: '#6B7280' }}>Conciergerie de luxe · Martinique · Caraïbes</div>
+              </div>
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap items-center justify-center gap-4 mt-8"
+            >
+              <button 
+                className="px-8 py-3.5 rounded-full font-medium text-white transition-transform hover:scale-[1.03] shadow-xl"
+                style={{ 
+                  background: 'linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%)',
+                  boxShadow: '0 8px 30px rgba(124, 58, 237, 0.3)'
+                }}
+              >
                 Découvrir les Solutions
               </button>
-              <button className="liquid-glass-dark border border-white/20 text-white px-8 py-3.5 rounded-full font-medium hover:bg-white/10 transition-colors">
+              <button className="px-8 py-3.5 rounded-full font-medium border-2 transition-colors hover:bg-gray-50"
+                style={{ borderColor: '#E5E7EB', color: '#374151' }}
+              >
                 Voir la Vidéo
               </button>
             </motion.div>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="flex justify-center gap-8 md:gap-16 mt-16 pb-12"
-          >
-            {[
-              { value: '40%', label: 'Temps économisé' },
-              { value: '24/7', label: 'Disponibilité' },
-              { value: '+30%', label: 'Satisfaction client' },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-2xl md:text-3xl font-semibold text-white">{stat.value}</div>
-                <div className="text-xs md:text-sm text-white/50 mt-1">{stat.label}</div>
-              </div>
-            ))}
           </motion.div>
         </div>
       </div>
