@@ -28,15 +28,23 @@ def strip_ansi(text):
     return ANSI_RE.sub('', text)
 
 def parse_composio_json(raw_output):
-    """Extract JSON from composio CLI output (handles ANSI + wrapper lines)."""
+    """Extract JSON from composio CLI output (handles ANSI + multi-line JSON)."""
     clean = strip_ansi(raw_output)
-    for line in clean.split('\n'):
-        line = line.strip()
-        if line.startswith('{') and line.endswith('}'):
-            try:
-                return json.loads(line)
-            except json.JSONDecodeError:
-                pass
+    # Try to find JSON — it may be multi-line
+    # Look for the first '{' that starts a valid JSON object
+    start = clean.find('{')
+    if start == -1:
+        return None
+    # Try progressively larger slices
+    for end in range(len(clean), start, -1):
+        try:
+            candidate = clean[start:end]
+            # Must end with '}'
+            candidate = candidate.rstrip()
+            if candidate.endswith('}'):
+                return json.loads(candidate)
+        except json.JSONDecodeError:
+            continue
     return None
 
 def run_composio(tool_slug, payload_dict):
