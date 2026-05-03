@@ -21,7 +21,7 @@
       transition: opacity 1s ease-out;
       z-index: 0;
     }
-    .video-bg.loaded { opacity: 1; }
+    .video-bg.loaded { opacity: 1; filter: hue-rotate(120deg) saturate(1.2); }
 
     .demo::after {
       content: '';
@@ -164,7 +164,7 @@
 
 <div class="demo">
   <video class="video-bg" id="video" autoplay muted loop playsinline>
-    <source src="https://videos.pexels.com/video-files/857251/857251-hd_1920_1080_25fps.mp4" type="video/mp4">
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4" type="video/mp4">
   </video>
 
   <nav class="nav">
