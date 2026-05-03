@@ -3,13 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 3: Fade In Animations</title>
+  <title>Demo 3: Fade In + Staggered Cards</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
-    body { background: #0a0a0a; color: #fff; font-family: -apple-system, sans-serif; }
+    body { font-family: -apple-system, sans-serif; color: #fff; }
 
-    .demo { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
+    .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+
+    /* Animated gradient background */
+    .bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      z-index: 0;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .demo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      mix-blend-mode: overlay;
+      z-index: 1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
 
     .eyebrow {
       display: inline-flex;
@@ -53,19 +92,19 @@
       opacity: 0;
       transform: translateY(40px);
       transition: all 0.8s ease-out;
+      backdrop-filter: blur(8px);
     }
     .anim-card.animate { opacity: 1; transform: translateY(0); }
 
+    .anim-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+    }
+
     .anim-card span { font-size: 36px; display: block; margin-bottom: 12px; }
 
-    .anim-card:nth-child(1) { transition-delay: 0s; }
-    .anim-card:nth-child(2) { transition-delay: 0.15s; }
-    .anim-card:nth-child(3) { transition-delay: 0.3s; }
-    .anim-card:nth-child(4) { transition-delay: 0.45s; }
-    .anim-card:nth-child(5) { transition-delay: 0.6s; }
-    .anim-card:nth-child(6) { transition-delay: 0.75s; }
-
-    /* Replay button */
     .replay-btn {
       position: fixed;
       top: 20px;
@@ -95,7 +134,7 @@
       justify-content: space-between;
     }
     .logo { font-size: 18px; font-weight: 600; }
-    .logo span { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .logo span { background: linear-gradient(135deg, #a78bfa 0%, #5eead4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .nav-links { display: flex; gap: 28px; }
     .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
     .nav-links a:hover { color: #fff; }
@@ -122,7 +161,7 @@
     @media (max-width: 768px) {
       .nav-links, .cta { display: none; }
       .burger { display: flex; }
-      .demo { padding: 24px; }
+      .content { padding: 24px; }
       .replay-btn { top: auto; bottom: 80px; right: 50%; transform: translateX(50%); }
     }
   </style>
@@ -131,27 +170,31 @@
 
 <button class="replay-btn" id="replayBtn">↻ Replay Animation</button>
 
-<nav class="nav">
-  <div class="logo"><span>WiseGenerative</span></div>
-  <div class="nav-links">
-    <a href="#">Accueil</a>
-    <a href="#">Solutions</a>
-    <a href="#">Tarifs</a>
-  </div>
-  <button class="cta">Réserver une Démo</button>
-</nav>
-
 <div class="demo">
-  <div class="eyebrow" id="eyebrow">🌫️ Demo 3 — Fade In</div>
-  <h1 class="title" id="title">Staggered Content Reveal</h1>
+  <div class="bg"></div>
 
-  <div class="animation-grid" id="grid">
-    <div class="anim-card"><span>👋</span>Fade In</div>
-    <div class="anim-card"><span>⬆️</span>Slide Up</div>
-    <div class="anim-card"><span>⬆️</span>Scale In</div>
-    <div class="anim-card"><span>⬅️</span>Slide Left</div>
-    <div class="anim-card"><span>➡️</span>Slide Right</div>
-    <div class="anim-card"><span>⬇️</span>Slide Down</div>
+  <nav class="nav">
+    <div class="logo"><span>WiseGenerative</span></div>
+    <div class="nav-links">
+      <a href="#">Accueil</a>
+      <a href="#">Solutions</a>
+      <a href="#">Tarifs</a>
+    </div>
+    <button class="cta">Réserver une Démo</button>
+  </nav>
+
+  <div class="content">
+    <div class="eyebrow" id="eyebrow">Demo 3 — Fade In + Stagger</div>
+    <h1 class="title" id="title">Staggered Content Reveal</h1>
+
+    <div class="animation-grid" id="grid">
+      <div class="anim-card"><span>👋</span>Fade In</div>
+      <div class="anim-card"><span>⬆️</span>Slide Up</div>
+      <div class="anim-card"><span>⬆️</span>Scale In</div>
+      <div class="anim-card"><span>⬅️</span>Slide Left</div>
+      <div class="anim-card"><span>➡️</span>Slide Right</div>
+      <div class="anim-card"><span>⬇️</span>Slide Down</div>
+    </div>
   </div>
 </div>
 
@@ -166,16 +209,12 @@
 
 <script>
   function playAnimation() {
-    // Reset
-    ['eyebrow', 'title'].forEach(id => {
-      document.getElementById(id).classList.remove('animate');
-    });
+    document.getElementById('eyebrow').classList.remove('animate');
+    document.getElementById('title').classList.remove('animate');
     document.querySelectorAll('.anim-card').forEach(card => card.classList.remove('animate'));
 
-    // Force reflow
     void document.body.offsetWidth;
 
-    // Animate
     setTimeout(() => document.getElementById('eyebrow').classList.add('animate'), 100);
     setTimeout(() => document.getElementById('title').classList.add('animate'), 300);
     setTimeout(() => {

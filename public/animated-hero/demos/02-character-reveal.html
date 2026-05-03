@@ -3,14 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 2: Character Reveal + Stagger</title>
+  <title>Demo 2: Character Reveal + Image</title>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
-    body { background: #0a0a0a; color: #fff; font-family: 'Instrument Serif', Georgia, serif; }
+    body { font-family: 'Instrument Serif', Georgia, serif; color: #fff; }
 
-    .demo { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; }
+    .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+
+    /* Animated background */
+    .bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      z-index: 0;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .demo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      mix-blend-mode: overlay;
+      z-index: 1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
 
     .eyebrow {
       display: inline-flex;
@@ -132,12 +171,10 @@
     .demo-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .demo-nav a.active { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: #fff; }
 
-    @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-
     @media (max-width: 768px) {
       .nav-links, .cta { display: none; }
       .burger { display: flex; }
-      .demo { padding: 24px; }
+      .content { padding: 24px; }
     }
   </style>
 </head>
@@ -159,14 +196,18 @@
 </nav>
 
 <div class="demo">
-  <div class="eyebrow" id="eyebrow">Demo 2 — Character Reveal</div>
+  <div class="bg"></div>
 
-  <h1 class="title" id="heading">
-    <span class="line" id="line1"></span>
-    <span class="line" id="line2"></span>
-  </h1>
+  <div class="content">
+    <div class="eyebrow" id="eyebrow">Demo 2 — Character Reveal + Image</div>
 
-  <p class="subtitle" id="subtitle">Each character slides in with staggered timing. Click Replay to see again.</p>
+    <h1 class="title" id="heading">
+      <span class="line" id="line1"></span>
+      <span class="line" id="line2"></span>
+    </h1>
+
+    <p class="subtitle" id="subtitle">Each character slides in with staggered timing. Click Replay to see again.</p>
+  </div>
 </div>
 
 <div class="demo-nav">

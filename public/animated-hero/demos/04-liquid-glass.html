@@ -3,15 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 4: Liquid Glass</title>
+  <title>Demo 4: Liquid Glass + Image</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
     body { font-family: -apple-system, sans-serif; color: #fff; }
 
-    .bg { position: fixed; inset: 0; background: linear-gradient(135deg, rgba(124,58,237,0.3) 0%, rgba(20,184,166,0.3) 100%), url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1920&q=80'); background-size: cover; background-position: center; }
+    .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
 
-    .demo { position: relative; z-index: 1; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
+    /* Animated background image */
+    .bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      animation: bgZoom 20s ease infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes bgZoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+
+    .demo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
 
     .eyebrow {
       display: inline-flex;
@@ -56,13 +89,45 @@
     }
     .glass-card.animate { opacity: 1; transform: translateY(0); }
 
+    .glass-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      transition: all 0.3s ease;
+    }
+
     .glass-card span { font-size: 40px; display: block; margin-bottom: 16px; }
     .glass-card p { font-size: 14px; margin-top: 8px; color: rgba(255,255,255,0.7); font-weight: 400; }
 
-    .glass-light { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%); border: 1px solid rgba(255,255,255,0.1); }
-    .glass-dark { background: rgba(0,0,0,0.4); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255,255,255,0.08); }
-    .glass-purple { background: rgba(124,58,237,0.15); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(124,58,237,0.3); }
-    .glass-frosted { background: rgba(255,255,255,0.1); backdrop-filter: blur(24px) saturate(200%); -webkit-backdrop-filter: blur(24px) saturate(200%); border: 1px solid rgba(255,255,255,0.15); }
+    .glass-light {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+    }
+
+    .glass-dark {
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.05);
+    }
+
+    .glass-purple {
+      background: rgba(124,58,237,0.15);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(124,58,237,0.3);
+      box-shadow: inset 0 1px 1px rgba(124,58,237,0.1);
+    }
+
+    .glass-frosted {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: inset 0 2px 2px rgba(255,255,255,0.1);
+    }
 
     .glass-card:nth-child(1) { transition-delay: 0s; }
     .glass-card:nth-child(2) { transition-delay: 0.15s; }
@@ -98,7 +163,7 @@
       justify-content: space-between;
     }
     .logo { font-size: 18px; font-weight: 600; }
-    .logo span { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .logo span { background: linear-gradient(135deg, #a78bfa 0%, #5eead4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .nav-links { display: flex; gap: 28px; }
     .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
     .nav-links a:hover { color: #fff; }
@@ -134,27 +199,29 @@
 
 <button class="replay-btn" id="replayBtn">↻ Replay Animation</button>
 
-<div class="bg"></div>
-
-<nav class="nav">
-  <div class="logo"><span>WiseGenerative</span></div>
-  <div class="nav-links">
-    <a href="#">Accueil</a>
-    <a href="#">Solutions</a>
-    <a href="#">Tarifs</a>
-  </div>
-  <button class="cta">Réserver une Démo</button>
-</nav>
-
 <div class="demo">
-  <div class="eyebrow" id="eyebrow">🪟 Demo 4 — Liquid Glass</div>
-  <h1 class="title" id="title">Frosted Glass Effects</h1>
+  <div class="bg"></div>
 
-  <div class="glass-grid" id="grid">
-    <div class="glass-card glass-light"><span>🏠</span>Light<br><p>5% white, subtle</p></div>
-    <div class="glass-card glass-dark"><span>🎬</span>Dark<br><p>40% black, high blur</p></div>
-    <div class="glass-card glass-purple"><span>💜</span>Purple<br><p>Brand tinted glass</p></div>
-    <div class="glass-card glass-frosted"><span>❄️</span>Frosted<br><p>Max blur + vibrance</p></div>
+  <nav class="nav">
+    <div class="logo"><span>WiseGenerative</span></div>
+    <div class="nav-links">
+      <a href="#">Accueil</a>
+      <a href="#">Solutions</a>
+      <a href="#">Tarifs</a>
+    </div>
+    <button class="cta">Réserver une Démo</button>
+  </nav>
+
+  <div class="content">
+    <div class="eyebrow" id="eyebrow">Demo 4 — Liquid Glass + Image</div>
+    <h1 class="title" id="title">Frosted Glass Effects</h1>
+
+    <div class="glass-grid" id="grid">
+      <div class="glass-card glass-light"><span>🏠</span>Light<br><p>5% white, subtle</p></div>
+      <div class="glass-card glass-dark"><span>🎬</span>Dark<br><p>40% black, high blur</p></div>
+      <div class="glass-card glass-purple"><span>💜</span>Purple<br><p>Brand tinted glass</p></div>
+      <div class="glass-card glass-frosted"><span>❄️</span>Frosted<br><p>Max blur + vibrance</p></div>
+    </div>
   </div>
 </div>
 
@@ -169,9 +236,8 @@
 
 <script>
   function playAnimation() {
-    ['eyebrow', 'title'].forEach(id => {
-      document.getElementById(id).classList.remove('animate');
-    });
+    document.getElementById('eyebrow').classList.remove('animate');
+    document.getElementById('title').classList.remove('animate');
     document.querySelectorAll('.glass-card').forEach(card => card.classList.remove('animate'));
 
     void document.body.offsetWidth;
