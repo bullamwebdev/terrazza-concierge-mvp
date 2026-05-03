@@ -1,5 +1,4 @@
 import { useRef, useEffect, useCallback } from 'react';
-import { motion } from 'motion/react';
 
 export function WiseGenerativeHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -97,34 +96,22 @@ export function WiseGenerativeHero() {
     <section className="relative min-h-screen bg-white overflow-hidden">
       {/* Background Image (Martinique) */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-fade-in"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1920&q=80')" }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white/90 animate-fade-in" />
 
       {/* Content Layer */}
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Navbar */}
-        <nav className="px-6 md:px-12 lg:px-16 pt-6">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center justify-between max-w-6xl mx-auto"
-          >
+        <nav className="px-6 md:px-12 lg:px-16 pt-6 animate-slide-down">
+          <div className="flex items-center justify-between max-w-6xl mx-auto">
             {/* Logo */}
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-teal-500 flex items-center justify-center shadow-lg shadow-purple-200">
                 <span className="text-white font-bold text-sm">WG</span>
               </div>
-              <span className="text-xl font-semibold tracking-tight"
-                style={{ 
-                  background: 'linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}
-              >
+              <span className="text-xl font-semibold tracking-tight wise-gradient-text">
                 WiseGenerative
               </span>
             </div>
@@ -152,27 +139,18 @@ export function WiseGenerativeHero() {
 
             {/* CTA Button */}
             <button 
-              className="px-6 py-2.5 rounded-full text-sm font-medium text-white shadow-lg transition-transform hover:scale-[1.03]"
-              style={{ 
-                background: 'linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%)',
-                boxShadow: '0 8px 30px rgba(124, 58, 237, 0.25)'
-              }}
+              className="px-6 py-2.5 rounded-full text-sm font-medium text-white shadow-lg transition-transform hover:scale-[1.03] wise-gradient-bg"
             >
               Réserver une Démo
             </button>
-          </motion.div>
+          </div>
         </nav>
 
         {/* Hero Content */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-4xl"
-          >
+          <div className="max-w-4xl">
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-md mb-6 border border-purple-100">
+            <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-md mb-6 border border-purple-100" style={{ animationDelay: '0.2s' }}>
               <div className="w-6 h-6 rounded-md bg-gradient-to-br from-purple-600 to-teal-500 flex items-center justify-center">
                 <span className="text-white font-bold text-[10px]">WG</span>
               </div>
@@ -180,38 +158,25 @@ export function WiseGenerativeHero() {
             </div>
 
             <h1 
-              className="text-4xl md:text-5xl lg:text-6xl font-normal mb-6 tracking-tight leading-[1.1]"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#1F2937' }}
+              className="animate-fade-up text-4xl md:text-5xl lg:text-6xl font-normal mb-6 tracking-tight leading-[1.1]"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif", color: '#1F2937', animationDelay: '0.4s' }}
             >
-              Bonjour <span 
-                className="font-semibold"
-                style={{ 
-                  background: 'linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}
-              >Andrew</span>,<br />
+              Bonjour <span className="wise-gradient-text font-semibold">Andrew</span>,<br />
               l'IA transforme votre conciergerie
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-base md:text-lg mb-8 max-w-2xl mx-auto leading-relaxed"
-              style={{ color: '#4B5563' }}
+            <p
+              className="animate-fade-up text-base md:text-lg mb-8 max-w-2xl mx-auto leading-relaxed"
+              style={{ color: '#4B5563', animationDelay: '0.6s' }}
             >
               Cette page est pour vous. Pas de jargon technique — juste des exemples concrets, 
               des chiffres réels, et ce que l'IA peut faire pour votre business dès demain.
-            </motion.p>
+            </p>
 
             {/* Andrew Greeting Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/70 backdrop-blur-md shadow-lg border border-white/50"
+            <div
+              className="animate-fade-up inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/70 backdrop-blur-md shadow-lg border border-white/50"
+              style={{ animationDelay: '0.8s' }}
             >
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-100 to-teal-100 flex items-center justify-center text-xl">
                 👋
@@ -220,21 +185,15 @@ export function WiseGenerativeHero() {
                 <div className="text-sm font-medium" style={{ color: '#1F2937' }}>Présentation personnalisée</div>
                 <div className="text-xs" style={{ color: '#6B7280' }}>Conciergerie de luxe · Martinique · Caraïbes</div>
               </div>
-            </motion.div>
+            </div>
 
             {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center justify-center gap-4 mt-8"
+            <div
+              className="animate-fade-up flex flex-wrap items-center justify-center gap-4 mt-8"
+              style={{ animationDelay: '1s' }}
             >
               <button 
-                className="px-8 py-3.5 rounded-full font-medium text-white transition-transform hover:scale-[1.03] shadow-xl"
-                style={{ 
-                  background: 'linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%)',
-                  boxShadow: '0 8px 30px rgba(124, 58, 237, 0.3)'
-                }}
+                className="px-8 py-3.5 rounded-full font-medium text-white transition-transform hover:scale-[1.03] shadow-xl wise-gradient-bg"
               >
                 Découvrir les Solutions
               </button>
@@ -243,8 +202,8 @@ export function WiseGenerativeHero() {
               >
                 Voir la Vidéo
               </button>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
