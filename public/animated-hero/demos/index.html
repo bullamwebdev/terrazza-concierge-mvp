@@ -1,298 +1,379 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Animation Demos Index</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>WiseGenerative — L'IA au Service de Votre Conciergerie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-      color: #fff;
-      min-height: 100vh;
-      padding: 40px 24px;
-    }
+    html, body { height: 100%; overflow-x: hidden; }
+    body { font-family: 'Inter', sans-serif; color: #fff; background: #0a0a0f; }
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
-      color: white;
-      padding: 8px 20px;
-      border-radius: 50px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.6);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* ===== DEMO GRID ===== */
-    .demo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .demo-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 700px;
       overflow: hidden;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .demo-card:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(124, 58, 237, 0.3);
-      transform: translateY(-4px);
-    }
-
-    .demo-preview {
-      height: 180px;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(20, 184, 166, 0.2) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
-      position: relative;
-      overflow: hidden;
     }
 
-    .demo-preview::after {
+    /* Animated gradient background */
+    .animated-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: 
+        radial-gradient(ellipse at 20% 30%, rgba(124, 58, 237, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(20, 184, 166, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(167, 139, 250, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(94, 234, 212, 0.15) 0%, transparent 40%);
+      background-size: 200% 200%;
+      animation: bgShift 12s ease-in-out infinite;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { background-position: 0% 50%, 100% 0%, 50% 100%, 100% 100%; }
+      33% { background-position: 100% 50%, 0% 100%, 100% 0%, 0% 0%; }
+      66% { background-position: 50% 100%, 50% 0%, 0% 50%, 50% 50%; }
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      z-index: 1;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,58,237,0.8) 0%, transparent 70%);
+      top: -150px; left: -150px;
+      animation: float1 20s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(20,184,166,0.7) 0%, transparent 70%);
+      bottom: -100px; right: -100px;
+      animation: float2 25s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(167,139,250,0.6) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      animation: float3 22s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(120px, 100px) scale(1.2); }
+      50% { transform: translate(80px, 200px) scale(0.9); }
+      75% { transform: translate(-80px, 80px) scale(1.1); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-100px, -120px) scale(1.3); }
+      66% { transform: translate(-180px, -60px) scale(0.8); }
+    }
+    @keyframes float3 {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-30%, -70%) scale(1.2); }
+    }
+
+    /* Dark overlay for readability */
+    .hero::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+      z-index: 2;
     }
 
-    .demo-content {
-      padding: 24px;
-    }
-
-    .demo-number {
-      font-size: 12px;
-      font-weight: 600;
-      color: #a78bfa;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-    }
-
-    .demo-title {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .demo-desc {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.5;
-    }
-
-    .demo-tags {
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.6s ease-out;
     }
+    .nav.animate { opacity: 1; transform: translateY(0); }
 
-    .tag {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 4px 12px;
-      border-radius: 50px;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.7);
-    }
+    .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; }
+    .logo span { background: linear-gradient(135deg, #a78bfa 0%, #5eead4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    /* ===== LIVE HERO ===== */
-    .live-hero {
-      margin-top: 60px;
-      text-align: center;
-    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s ease; }
+    .nav-links a:hover { color: #fff; }
 
-    .live-hero-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    .live-hero-link {
-      display: inline-block;
+    .cta-btn {
       background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
       color: white;
-      padding: 16px 32px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
-    }
-
-    .live-hero-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(124, 58, 237, 0.4);
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      margin-top: 60px;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.4);
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
       font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(124,58,237,0.3); }
+
+    /* Burger menu */
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .burger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s ease; }
+    .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .burger.active span:nth-child(2) { opacity: 0; }
+    .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 280px; height: 100vh;
+      background: rgba(10, 10, 15, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 99;
+      padding: 80px 32px;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .mobile-menu.open { right: 0; }
+    .mobile-menu a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 18px; font-weight: 500; }
+    .mobile-menu a:hover { color: #fff; }
+    .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 98; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .mobile-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ===== HERO CONTENT ===== */
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 32px;
     }
 
-    footer a {
-      color: #a78bfa;
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease-out 0.3s;
+    }
+    .eyebrow.animate { opacity: 1; transform: translateY(0); }
+
+    h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease-out 0.5s;
+    }
+    h1.animate { opacity: 1; transform: translateY(0); }
+
+    h1 .accent {
+      background: linear-gradient(135deg, #a78bfa 0%, #5eead4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease-out 0.7s;
+    }
+    .tagline.animate { opacity: 1; transform: translateY(0); }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease-out 0.9s;
+    }
+    .cta-group.animate { opacity: 1; transform: translateY(0); }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
       text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: #fff;
+      border: none;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3); }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.15); }
+
+    /* ===== SCROLL INDICATOR ===== */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 1s ease-out 1.2s;
+    }
+    .scroll-indicator.animate { opacity: 1; }
+    .scroll-indicator span { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; text-transform: uppercase; }
+    .scroll-arrow { width: 20px; height: 20px; border-right: 2px solid rgba(255,255,255,0.5); border-bottom: 2px solid rgba(255,255,255,0.5); transform: rotate(45deg); animation: bounce 2s infinite; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) rotate(45deg); }
+      50% { transform: translateY(10px) rotate(45deg); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links, .cta-btn { display: none; }
+      .burger { display: flex; }
+      .nav { padding: 16px 24px; }
+      .content { padding: 0 24px; }
+      .scroll-indicator { bottom: 20px; }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <header>
-    <div class="badge">MotionSites Pattern Library</div>
-    <h1>Animation Demos</h1>
-    <p class="subtitle">
-      Interactive demos of each animation pattern extracted from MotionSites.
-      Click any demo to see it in action.
-    </p>
-  </header>
+  <!-- Navigation -->
+  <nav class="nav" id="navbar">
+    <div class="logo"><span>WiseGenerative</span></div>
+    <div class="nav-links">
+      <a href="#">Accueil</a>
+      <a href="#">Solutions</a>
+      <a href="#">Tarifs</a>
+      <a href="#">Contact</a>
+    </div>
+    <button class="cta-btn">Réserver une Démo</button>
+    <div class="burger" id="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
 
-  <div class="demo-grid">
-    <a href="demos/01-video-background.html" class="demo-card">
-      <div class="demo-preview">🎬</div>
-      <div class="demo-content">
-        <div class="demo-number">Demo 1 of 6</div>
-        <div class="demo-title">Video Background Crossfade</div>
-        <div class="demo-desc">Seamless looping video with fade-in/out at loop points using requestAnimationFrame.</div>
-        <div class="demo-tags">
-          <span class="tag">Video</span>
-          <span class="tag">Crossfade</span>
-          <span class="tag">60fps</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="demos/02-character-reveal.html" class="demo-card">
-      <div class="demo-preview">✨</div>
-      <div class="demo-content">
-        <div class="demo-number">Demo 2 of 6</div>
-        <div class="demo-title">Character Reveal Animation</div>
-        <div class="demo-desc">Character-by-character text reveal with staggered timing and expo-out easing.</div>
-        <div class="demo-tags">
-          <span class="tag">Text</span>
-          <span class="tag">Animation</span>
-          <span class="tag">Stagger</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="demos/03-fade-in.html" class="demo-card">
-      <div class="demo-preview">🌫️</div>
-      <div class="demo-content">
-        <div class="demo-number">Demo 3 of 6</div>
-        <div class="demo-title">Fade In Animations</div>
-        <div class="demo-desc">Multiple fade-in variants: fade, slide up/down, scale in, slide left/right.</div>
-        <div class="demo-tags">
-          <span class="tag">Fade</span>
-          <span class="tag">Slide</span>
-          <span class="tag">Scale</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="demos/04-liquid-glass.html" class="demo-card">
-      <div class="demo-preview">🪟</div>
-      <div class="demo-content">
-        <div class="demo-number">Demo 4 of 6</div>
-        <div class="demo-title">Liquid Glass Effect</div>
-        <div class="demo-desc">Frosted glass with backdrop-filter blur, saturate, and subtle borders.</div>
-        <div class="demo-tags">
-          <span class="tag">Glass</span>
-          <span class="tag">Blur</span>
-          <span class="tag">Backdrop</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="demos/05-gradient-text.html" class="demo-card">
-      <div class="demo-preview">🌈</div>
-      <div class="demo-content">
-        <div class="demo-number">Demo 5 of 6</div>
-        <div class="demo-title">Gradient Text Animation</div>
-        <div class="demo-desc">Animated gradients on text using background-clip and keyframe animations.</div>
-        <div class="demo-tags">
-          <span class="tag">Gradient</span>
-          <span class="tag">Text</span>
-          <span class="tag">Animation</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="demos/06-burger-menu.html" class="demo-card">
-      <div class="demo-preview">📱</div>
-      <div class="demo-content">
-        <div class="demo-number">Demo 6 of 6</div>
-        <div class="demo-title">Mobile Burger Menu</div>
-        <div class="demo-desc">Slide-in overlay menu with hamburger-to-X animation, backdrop blur, body scroll lock.</div>
-        <div class="demo-tags">
-          <span class="tag">Mobile</span>
-          <span class="tag">Menu</span>
-          <span class="tag">Animation</span>
-        </div>
-      </div>
-    </a>
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#">Accueil</a>
+    <a href="#">Solutions</a>
+    <a href="#">Tarifs</a>
+    <a href="#">Contact</a>
+    <a href="#" style="color: #a78bfa;">Réserver une Démo</a>
   </div>
 
-  <div class="live-hero">
-    <h2 class="live-hero-title">Full Implementation</h2>
-    <a href="../index.html" class="live-hero-link">
-      View Live Animated Hero →
-    </a>
-  </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="animated-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-  <footer>
-    <p>Extracted from MotionSites • Integrated with WiseGenerative branding</p>
-    <p style="margin-top: 8px;">
-      Pipeline: <a href="#">animated-website</a> • WikiMind: <a href="#">concepts/animated-hero</a>
-    </p>
-  </footer>
-</div>
+    <div class="content">
+      <div class="eyebrow" id="eyebrow">Nouvelle ère digitale</div>
+      
+      <h1 id="headline">
+        L'IA au Service de<br>Votre <span class="accent">Conciergerie</span>
+      </h1>
+      
+      <p class="tagline" id="tagline">
+        Automatisez vos tâches, personnalisez votre service et offrez une expérience inégalée à vos clients.
+      </p>
+      
+      <div class="cta-group" id="ctaGroup">
+        <a href="#" class="btn btn-primary">Réserver une Démo</a>
+        <a href="#" class="btn btn-secondary">Voir les Solutions</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+      <span>Découvrir</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <script>
+    // Animations on load
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => document.getElementById('navbar').classList.add('animate'), 100);
+      setTimeout(() => document.getElementById('eyebrow').classList.add('animate'), 300);
+      setTimeout(() => document.getElementById('headline').classList.add('animate'), 500);
+      setTimeout(() => document.getElementById('tagline').classList.add('animate'), 700);
+      setTimeout(() => document.getElementById('ctaGroup').classList.add('animate'), 900);
+      setTimeout(() => document.getElementById('scrollIndicator').classList.add('animate'), 1200);
+    });
+
+    // Burger menu
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+      mobileOverlay.classList.toggle('open');
+    });
+
+    mobileOverlay.addEventListener('click', () => {
+      burger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      mobileOverlay.classList.remove('open');
+    });
+  </script>
 
 </body>
 </html>
