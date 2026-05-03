@@ -48,7 +48,16 @@
   }
 
   function splitLinesToChars(element) {
-    const lines = element.innerHTML.split('\n');
+    // Save original HTML, replace <br> with newlines for line splitting
+    const originalHTML = element.innerHTML;
+    const textWithBreaks = originalHTML.replace(/<br\s*\/?>/gi, '\n');
+    
+    // Strip all HTML tags to get pure text content
+    const temp = document.createElement('div');
+    temp.innerHTML = textWithBreaks;
+    const text = temp.textContent || temp.innerText || '';
+    
+    const lines = text.split('\n').filter(line => line.trim() !== '');
     element.innerHTML = '';
     let totalChars = 0;
     const allChars = [];
