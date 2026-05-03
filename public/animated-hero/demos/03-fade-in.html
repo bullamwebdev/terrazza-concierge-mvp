@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 3: Fade In Animations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .demo-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 24px 100px;
+    }
+
+    .demo-info {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 60px;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .demo-title {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .demo-description {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+    }
+
+    /* ===== FADE IN ANIMATIONS ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ===== DEMO CARDS ===== */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .demo-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .demo-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #a78bfa;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .demo-card-code {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+    }
+
+    .demo-card-content {
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Fade elements */
+    .fade-example {
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    .slide-up-example {
+      opacity: 0;
+      animation: slideUp 0.8s ease-out forwards;
+    }
+
+    .slide-down-example {
+      opacity: 0;
+      animation: slideDown 0.6s ease-out forwards;
+    }
+
+    .scale-in-example {
+      opacity: 0;
+      animation: scaleIn 0.6s ease-out forwards;
+    }
+
+    .slide-left-example {
+      opacity: 0;
+      animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    .slide-right-example {
+      opacity: 0;
+      animation: slideInRight 0.8s ease-out forwards;
+    }
+
+    /* Delayed examples */
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+    .delay-700 { animation-delay: 0.7s; }
+    .delay-800 { animation-delay: 0.8s; }
+
+    /* Content styles */
+    .content-box {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(20, 184, 166, 0.2) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .content-circle {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .content-text {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .content-badge {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 14px;
+    }
+
+    /* ===== TIMELINE ===== */
+    .timeline {
+      margin-top: 60px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .timeline-title {
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .timeline-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .timeline-time {
+      font-family: 'Monaco', monospace;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      width: 80px;
+      text-align: right;
+    }
+
+    .timeline-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .timeline-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7C3AED 0%, #14B8A6 100%);
+      border-radius: 4px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    .timeline-label {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      width: 120px;
+    }
+
+    /* ===== NAV ===== */
+    .demo-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+    }
+
+    .demo-nav a {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .demo-nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .demo-nav a.active {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      border-color: transparent;
+    }
+
+    /* ===== CONTROLS ===== */
+    .controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .control-btn {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: transform 0.2s ease;
+    }
+
+    .control-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+<div class="controls">
+  <button class="control-btn" onclick="location.reload()">↻ Replay All</button>
+</div>
+
+<div class="demo-container">
+  <div class="demo-info">
+    <div class="demo-badge">Demo 3 of 6</div>
+    <h1 class="demo-title">Fade In Animations</h1>
+    <p class="demo-description">
+      Multiple fade-in variants with staggered delays for sequential content reveals.
+    </p>
+  </div>
+
+  <div class="demo-grid">
+    <!-- Basic Fade -->
+    <div class="demo-card">
+      <div class="demo-card-title">Fade In</div>
+      <div class="demo-card-code">fadeIn 1s ease-out</div>
+      <div class="demo-card-content">
+        <div class="content-box fade-example">Simple opacity</div>
+      </div>
+    </div>
+
+    <!-- Slide Up -->
+    <div class="demo-card">
+      <div class="demo-card-title">Slide Up</div>
+      <div class="demo-card-code">slideUp 0.8s ease-out</div>
+      <div class="demo-card-content">
+        <div class="content-circle slide-up-example">👋</div>
+      </div>
+    </div>
+
+    <!-- Slide Down -->
+    <div class="demo-card">
+      <div class="demo-card-title">Slide Down</div>
+      <div class="demo-card-code">slideDown 0.6s ease-out</div>
+      <div class="demo-card-content">
+        <div class="content-text slide-down-example delay-200">Navbar</div>
+      </div>
+    </div>
+
+    <!-- Scale In -->
+    <div class="demo-card">
+      <div class="demo-card-title">Scale In</div>
+      <div class="demo-card-code">scaleIn 0.6s ease-out</div>
+      <div class="demo-card-content">
+        <div class="content-badge scale-in-example delay-300">Eyebrow Badge</div>
+      </div>
+    </div>
+
+    <!-- Slide Left -->
+    <div class="demo-card">
+      <div class="demo-card-title">Slide Left</div>
+      <div class="demo-card-code">slideInLeft 0.8s ease-out</div>
+      <div class="demo-card-content">
+        <div class="content-text slide-left-example delay-400">← From Left</div>
+      </div>
+    </div>
+
+    <!-- Slide Right -->
+    <div class="demo-card">
+      <div class="demo-card-title">Slide Right</div>
+      <div class="demo-card-code">slideInRight 0.8s ease-out</div>
+      <div class="demo-card-content">
+        <div class="content-text slide-right-example delay-500">From Right →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline">
+    <h3 class="timeline-title">Animation Timeline</h3>
+    
+    <div class="timeline-row">
+      <div class="timeline-time">0ms</div>
+      <div class="timeline-bar">
+        <div class="timeline-fill" style="width: 100%; animation-delay: 0s;"></div>
+      </div>
+      <div class="timeline-label">Fade In</div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="timeline-time">200ms</div>
+      <div class="timeline-bar">
+        <div class="timeline-fill" style="width: 100%; animation-delay: 0.2s;"></div>
+      </div>
+      <div class="timeline-label">Slide Up</div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="timeline-time">400ms</div>
+      <div class="timeline-bar">
+        <div class="timeline-fill" style="width: 100%; animation-delay: 0.4s;"></div>
+      </div>
+      <div class="timeline-label">Scale In</div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="timeline-time">600ms</div>
+      <div class="timeline-bar">
+        <div class="timeline-fill" style="width: 100%; animation-delay: 0.6s;"></div>
+      </div>
+      <div class="timeline-label">Slide Left</div>
+    </div>
+
+    <div class="timeline-row">
+      <div class="timeline-time">800ms</div>
+      <div class="timeline-bar">
+        <div class="timeline-fill" style="width: 100%; animation-delay: 0.8s;"></div>
+      </div>
+      <div class="timeline-label">Slide Right</div>
+    </div>
+  </div>
+</div>
+
+<div class="demo-nav">
+  <a href="01-video-background.html">1. Video</a>
+  <a href="02-character-reveal.html">2. Char Reveal</a>
+  <a href="03-fade-in.html" class="active">3. Fade In</a>
+  <a href="04-liquid-glass.html">4. Liquid Glass</a>
+  <a href="05-gradient-text.html">5. Gradient Text</a>
+  <a href="06-burger-menu.html">6. Burger Menu</a>
+</div>
+
+</body>
+</html>

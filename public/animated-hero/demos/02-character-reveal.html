@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 2: Character Reveal Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .demo-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    /* ===== DEMO INFO ===== */
+    .demo-info {
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .demo-title {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 40px;
+    }
+
+    /* ===== ANIMATED HEADING ===== */
+    .hero-heading {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 40px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-heading .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero-heading .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px) rotateX(-40deg);
+      animation: charReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-heading .highlight {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    @keyframes charReveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px) rotateX(-40deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+      }
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* ===== VARIANTS ===== */
+    .variants {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .variant-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+    }
+
+    .variant-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #a78bfa;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .variant-heading {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 24px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .variant-code {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    /* ===== CONTROLS ===== */
+    .controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .control-btn.primary {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      border: none;
+    }
+
+    /* ===== NAV ===== */
+    .demo-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+    }
+
+    .demo-nav a {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .demo-nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .demo-nav a.active {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      border-color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+<div class="controls">
+  <button class="control-btn primary" onclick="replayAnimation()">
+    ↻ Replay Animation
+  </button>
+  <button class="control-btn" onclick="changeText()">
+    ✏️ Change Text
+  </button>
+</div>
+
+<div class="demo-container">
+  <div class="demo-info">
+    <div class="demo-badge">Demo 2 of 6</div>
+    <h2 class="demo-title">Character-by-character reveal with staggered timing and expo-out easing</h2>
+
+    <!-- Main Demo -->
+    <h1 class="hero-heading" id="mainHeading">
+      <span class="line" data-text="Bonjour Andrew,"></span>
+      <span class="line" data-text="l'IA transforme tout."></span>
+    </h1>
+
+    <!-- Variants -->
+    <div class="variants">
+      <div class="variant-card">
+        <div class="variant-title">Variant A: Fast (20ms/char)</div>
+        <h3 class="variant-heading" id="variantA">
+          <span class="line" data-text="Speed matters."></span>
+        </h3>
+        <div class="variant-code">charDelay: 20ms</div>
+      </div>
+
+      <div class="variant-card">
+        <div class="variant-title">Variant B: Medium (40ms/char)</div>
+        <h3 class="variant-heading" id="variantB">
+          <span class="line" data-text="Perfect balance."></span>
+        </h3>
+        <div class="variant-code">charDelay: 40ms</div>
+      </div>
+
+      <div class="variant-card">
+        <div class="variant-title">Variant C: Slow (60ms/char)</div>
+        <h3 class="variant-heading" id="variantC">
+          <span class="line" data-text="Dramatic effect."></span>
+        </h3>
+        <div class="variant-code">charDelay: 60ms</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="demo-nav">
+  <a href="01-video-background.html">1. Video</a>
+  <a href="02-character-reveal.html" class="active">2. Char Reveal</a>
+  <a href="03-fade-in.html">3. Fade In</a>
+  <a href="04-liquid-glass.html">4. Liquid Glass</a>
+  <a href="05-gradient-text.html">5. Gradient Text</a>
+  <a href="06-burger-menu.html">6. Burger Menu</a>
+</div>
+
+<script>
+  const textVariants = [
+    { line1: "Bonjour Andrew,", line2: "l'IA transforme tout." },
+    { line1: "Welcome to the future,", line2: "where motion matters." },
+    { line1: "Design is not just", line2: "what it looks like." },
+    { line1: "Create with purpose,", line2: "build with passion." }
+  ];
+  let currentVariant = 0;
+
+  function animateHeading(elementId, lineDelay = 0, charDelayMs = 30) {
+    const heading = document.getElementById(elementId);
+    const lines = heading.querySelectorAll('.line');
+    
+    lines.forEach((line, lineIndex) => {
+      const text = line.dataset.text;
+      line.innerHTML = '';
+      
+      [...text].forEach((char, charIndex) => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        
+        // Highlight specific words
+        if (elementId === 'mainHeading' && (char === 'A' && text.substring(charIndex, charIndex + 6) === 'Andrew')) {
+          span.classList.add('highlight');
+        }
+        
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.style.animationDelay = `${lineDelay + lineIndex * 400 + charIndex * charDelayMs}ms`;
+        line.appendChild(span);
+      });
+    });
+  }
+
+  function replayAnimation() {
+    // Clear and re-animate
+    animateHeading('mainHeading', 200, 30);
+    animateHeading('variantA', 0, 20);
+    animateHeading('variantB', 0, 40);
+    animateHeading('variantC', 0, 60);
+  }
+
+  function changeText() {
+    currentVariant = (currentVariant + 1) % textVariants.length;
+    const variant = textVariants[currentVariant];
+    
+    const mainLines = document.querySelectorAll('#mainHeading .line');
+    mainLines[0].dataset.text = variant.line1;
+    mainLines[1].dataset.text = variant.line2;
+    
+    replayAnimation();
+  }
+
+  // Initial animation
+  document.addEventListener('DOMContentLoaded', () => {
+    animateHeading('mainHeading', 200, 30);
+    animateHeading('variantA', 0, 20);
+    animateHeading('variantB', 0, 40);
+    animateHeading('variantC', 0, 60);
+  });
+</script>
+
+</body>
+</html>

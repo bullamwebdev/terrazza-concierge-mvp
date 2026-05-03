@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation Demos Index</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ===== DEMO GRID ===== */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .demo-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .demo-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(124, 58, 237, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .demo-preview {
+      height: 180px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(20, 184, 166, 0.2) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .demo-preview::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    }
+
+    .demo-content {
+      padding: 24px;
+    }
+
+    .demo-number {
+      font-size: 12px;
+      font-weight: 600;
+      color: #a78bfa;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .demo-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .demo-desc {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+    }
+
+    .demo-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ===== LIVE HERO ===== */
+    .live-hero {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .live-hero-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .live-hero-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+    }
+
+    .live-hero-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(124, 58, 237, 0.4);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #a78bfa;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="badge">MotionSites Pattern Library</div>
+    <h1>Animation Demos</h1>
+    <p class="subtitle">
+      Interactive demos of each animation pattern extracted from MotionSites.
+      Click any demo to see it in action.
+    </p>
+  </header>
+
+  <div class="demo-grid">
+    <a href="demos/01-video-background.html" class="demo-card">
+      <div class="demo-preview">🎬</div>
+      <div class="demo-content">
+        <div class="demo-number">Demo 1 of 6</div>
+        <div class="demo-title">Video Background Crossfade</div>
+        <div class="demo-desc">Seamless looping video with fade-in/out at loop points using requestAnimationFrame.</div>
+        <div class="demo-tags">
+          <span class="tag">Video</span>
+          <span class="tag">Crossfade</span>
+          <span class="tag">60fps</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="demos/02-character-reveal.html" class="demo-card">
+      <div class="demo-preview">✨</div>
+      <div class="demo-content">
+        <div class="demo-number">Demo 2 of 6</div>
+        <div class="demo-title">Character Reveal Animation</div>
+        <div class="demo-desc">Character-by-character text reveal with staggered timing and expo-out easing.</div>
+        <div class="demo-tags">
+          <span class="tag">Text</span>
+          <span class="tag">Animation</span>
+          <span class="tag">Stagger</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="demos/03-fade-in.html" class="demo-card">
+      <div class="demo-preview">🌫️</div>
+      <div class="demo-content">
+        <div class="demo-number">Demo 3 of 6</div>
+        <div class="demo-title">Fade In Animations</div>
+        <div class="demo-desc">Multiple fade-in variants: fade, slide up/down, scale in, slide left/right.</div>
+        <div class="demo-tags">
+          <span class="tag">Fade</span>
+          <span class="tag">Slide</span>
+          <span class="tag">Scale</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="demos/04-liquid-glass.html" class="demo-card">
+      <div class="demo-preview">🪟</div>
+      <div class="demo-content">
+        <div class="demo-number">Demo 4 of 6</div>
+        <div class="demo-title">Liquid Glass Effect</div>
+        <div class="demo-desc">Frosted glass with backdrop-filter blur, saturate, and subtle borders.</div>
+        <div class="demo-tags">
+          <span class="tag">Glass</span>
+          <span class="tag">Blur</span>
+          <span class="tag">Backdrop</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="demos/05-gradient-text.html" class="demo-card">
+      <div class="demo-preview">🌈</div>
+      <div class="demo-content">
+        <div class="demo-number">Demo 5 of 6</div>
+        <div class="demo-title">Gradient Text Animation</div>
+        <div class="demo-desc">Animated gradients on text using background-clip and keyframe animations.</div>
+        <div class="demo-tags">
+          <span class="tag">Gradient</span>
+          <span class="tag">Text</span>
+          <span class="tag">Animation</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="demos/06-burger-menu.html" class="demo-card">
+      <div class="demo-preview">📱</div>
+      <div class="demo-content">
+        <div class="demo-number">Demo 6 of 6</div>
+        <div class="demo-title">Mobile Burger Menu</div>
+        <div class="demo-desc">Slide-in overlay menu with hamburger-to-X animation, backdrop blur, body scroll lock.</div>
+        <div class="demo-tags">
+          <span class="tag">Mobile</span>
+          <span class="tag">Menu</span>
+          <span class="tag">Animation</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="live-hero">
+    <h2 class="live-hero-title">Full Implementation</h2>
+    <a href="../index.html" class="live-hero-link">
+      View Live Animated Hero →
+    </a>
+  </div>
+
+  <footer>
+    <p>Extracted from MotionSites • Integrated with WiseGenerative branding</p>
+    <p style="margin-top: 8px;">
+      Pipeline: <a href="#">animated-website</a> • WikiMind: <a href="#">concepts/animated-hero</a>
+    </p>
+  </footer>
+</div>
+
+</body>
+</html>

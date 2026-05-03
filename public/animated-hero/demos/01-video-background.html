@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 1: Video Background Crossfade</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .demo-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ===== VIDEO BACKGROUND ===== */
+    .video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-out;
+      transform: translateY(15%);
+    }
+
+    .video-bg.loaded {
+      opacity: 1;
+    }
+
+    .video-bg.fade-out {
+      opacity: 0;
+    }
+
+    /* Gradient overlay for readability */
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.5) 100%
+      );
+      z-index: 1;
+    }
+
+    /* ===== DEMO INFO ===== */
+    .demo-info {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .demo-title {
+      font-size: 48px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .demo-description {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    /* ===== CODE BLOCK ===== */
+    .code-block {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 13px;
+      color: #e5e7eb;
+      overflow-x: auto;
+      max-width: 100%;
+      margin-top: 32px;
+    }
+
+    .code-block .comment { color: #6b7280; }
+    .code-block .keyword { color: #a78bfa; }
+    .code-block .string { color: #34d399; }
+    .code-block .number { color: #fbbf24; }
+
+    /* ===== STATUS ===== */
+    .status {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .status-dot.fading {
+      background: #fbbf24;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ===== NAV ===== */
+    .demo-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+    }
+
+    .demo-nav a {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .demo-nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .demo-nav a.active {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      border-color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+<div class="status" id="status">
+  <div class="status-dot" id="statusDot"></div>
+  <span id="statusText">Video playing...</span>
+</div>
+
+<div class="demo-container">
+  <video class="video-bg" id="heroVideo" autoplay muted loop playsinline>
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+
+  <div class="demo-info">
+    <div class="demo-badge">Demo 1 of 6</div>
+    <h1 class="demo-title">Video Background Crossfade</h1>
+    <p class="demo-description">
+      Seamless looping video with fade-in on load and fade-out before loop restart.
+      Uses <code>requestAnimationFrame</code> for smooth 60fps transitions.
+    </p>
+
+    <div class="code-block">
+      <span class="comment">// Crossfade logic</span><br>
+      <span class="keyword">const</span> fadeDuration = <span class="number">500</span>; <span class="comment">// ms</span><br><br>
+      
+      <span class="comment">// Fade out at end of video</span><br>
+      <span class="keyword">if</span> (timeRemaining <= <span class="number">0.55</span>) {<br>
+      &nbsp;&nbsp;video.style.opacity = <span class="number">0</span>;<br>
+      }<br><br>
+      
+      <span class="comment">// Reset and fade in</span><br>
+      video.currentTime = <span class="number">0</span>;<br>
+      video.play();<br>
+      video.style.opacity = <span class="number">1</span>;
+    </div>
+  </div>
+</div>
+
+<div class="demo-nav">
+  <a href="01-video-background.html" class="active">1. Video</a>
+  <a href="02-character-reveal.html">2. Char Reveal</a>
+  <a href="03-fade-in.html">3. Fade In</a>
+  <a href="04-liquid-glass.html">4. Liquid Glass</a>
+  <a href="05-gradient-text.html">5. Gradient Text</a>
+  <a href="06-burger-menu.html">6. Burger Menu</a>
+</div>
+
+<script>
+  const video = document.getElementById('heroVideo');
+  const statusDot = document.getElementById('statusDot');
+  const statusText = document.getElementById('statusText');
+
+  // Track video state
+  let isFading = false;
+
+  video.addEventListener('loadeddata', () => {
+    video.classList.add('loaded');
+    statusText.textContent = 'Video loaded ✓';
+  });
+
+  video.addEventListener('timeupdate', () => {
+    const duration = video.duration;
+    const current = video.currentTime;
+    const timeRemaining = duration - current;
+
+    // Fade out in last 0.5 seconds
+    if (timeRemaining <= 0.55 && !isFading) {
+      isFading = true;
+      video.classList.add('fade-out');
+      statusDot.classList.add('fading');
+      statusText.textContent = 'Fading out...';
+    }
+
+    // Update opacity based on time
+    if (timeRemaining <= 0.55) {
+      video.style.opacity = timeRemaining / 0.55;
+    }
+  });
+
+  video.addEventListener('ended', () => {
+    video.classList.remove('fade-out');
+    video.style.opacity = 0;
+    
+    setTimeout(() => {
+      video.currentTime = 0;
+      video.play();
+      video.style.opacity = 1;
+      isFading = false;
+      statusDot.classList.remove('fading');
+      statusText.textContent = 'Video playing...';
+    }, 100);
+  });
+</script>
+
+</body>
+</html>

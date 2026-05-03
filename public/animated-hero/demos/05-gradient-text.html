@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 5: Gradient Text Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .demo-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 24px 100px;
+    }
+
+    .demo-info {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 60px;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .demo-title {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .demo-description {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+    }
+
+    /* ===== GRADIENT TEXT VARIANTS ===== */
+    .gradient-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 48px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .gradient-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .gradient-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .gradient-code {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    /* Gradient Animations */
+    .gradient-static {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gradient-animated {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 50%, #7C3AED 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    .gradient-rainbow {
+      background: linear-gradient(
+        90deg,
+        #ff6b6b,
+        #feca57,
+        #48dbfb,
+        #ff9ff3,
+        #54a0ff,
+        #5f27cd,
+        #ff6b6b
+      );
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: rainbowShift 5s linear infinite;
+    }
+
+    .gradient-3d {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .gradient-shimmer {
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 1) 50%,
+        rgba(255, 255, 255, 0.3) 100%
+      ),
+      linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      background-size: 200% 100%, 100% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 2s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes rainbowShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* ===== SHOWCASE ===== */
+    .showcase {
+      margin-top: 60px;
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    .showcase-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 32px;
+    }
+
+    .showcase-text {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(3rem, 10vw, 6rem);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .showcase-subtitle {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ===== COLOR PALETTE ===== */
+    .palette {
+      margin-top: 60px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .palette-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .palette-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .palette-swatch {
+      width: 60px;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .palette-info {
+      flex: 1;
+    }
+
+    .palette-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .palette-hex {
+      font-family: 'Monaco', monospace;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ===== NAV ===== */
+    .demo-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+    }
+
+    .demo-nav a {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .demo-nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .demo-nav a.active {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      border-color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+<div class="demo-container">
+  <div class="demo-info">
+    <div class="demo-badge">Demo 5 of 6</div>
+    <h1 class="demo-title">Gradient Text Animation</h1>
+    <p class="demo-description">
+      Animated gradients on text using background-clip and keyframes.
+      Works in all modern browsers with -webkit- prefix.
+    </p>
+  </div>
+
+  <div class="gradient-grid">
+    <!-- Static -->
+    <div class="gradient-card">
+      <div class="gradient-label">Static Gradient</div>
+      <div class="gradient-text gradient-static">
+        WiseGenerative
+      </div>
+      <div class="gradient-code">
+background: linear-gradient(<br>
+&nbsp;&nbsp;135deg,<br>
+&nbsp;&nbsp;#7C3AED 0%,<br>
+&nbsp;&nbsp;#14B8A6 100%<br>
+);
+      </div>
+    </div>
+
+    <!-- Animated -->
+    <div class="gradient-card">
+      <div class="gradient-label">Animated Shift</div>
+      <div class="gradient-text gradient-animated">
+        Andrew
+      </div>
+      <div class="gradient-code">
+background-size: 200% 200%;<br>
+animation: gradientShift<br>
+&nbsp;&nbsp;3s ease infinite;<br><br>
+@keyframes gradientShift {<br>
+&nbsp;&nbsp;0%, 100% { pos: 0% }<br>
+&nbsp;&nbsp;50% { pos: 100% }<br>
+}
+      </div>
+    </div>
+
+    <!-- Rainbow -->
+    <div class="gradient-card">
+      <div class="gradient-label">Rainbow</div>
+      <div class="gradient-text gradient-rainbow">
+        Creative
+      </div>
+      <div class="gradient-code">
+background: linear-gradient(<br>
+&nbsp;&nbsp;90deg,<br>
+&nbsp;&nbsp;#ff6b6b, #feca57,<br>
+&nbsp;&nbsp;#48dbfb, #ff9ff3...<br>
+);
+      </div>
+    </div>
+
+    <!-- 3D Glow -->
+    <div class="gradient-card">
+      <div class="gradient-label">3D Glow</div>
+      <div class="gradient-text gradient-3d">
+        Premium
+      </div>
+      <div class="gradient-code">
+background: linear-gradient(<br>
+&nbsp;&nbsp;135deg,<br>
+&nbsp;&nbsp;#667eea 0%,<br>
+&nbsp;&nbsp;#764ba2 100%<br>
+);<br>
+text-shadow: 0 4px 20px<br>
+&nbsp;&nbsp;rgba(102, 126, 234, 0.4);
+      </div>
+    </div>
+
+    <!-- Shimmer -->
+    <div class="gradient-card">
+      <div class="gradient-label">Shimmer</div>
+      <div class="gradient-text gradient-shimmer">
+        Shine
+      </div>
+      <div class="gradient-code">
+background: linear-gradient(<br>
+&nbsp;&nbsp;120deg,<br>
+&nbsp;&nbsp;rgba(255,255,255,0.3) 0%,<br>
+&nbsp;&nbsp;rgba(255,255,255,1) 50%,<br>
+&nbsp;&nbsp;rgba(255,255,255,0.3) 100%<br>
+), linear-gradient(...);
+      </div>
+    </div>
+  </div>
+
+  <!-- Showcase -->
+  <div class="showcase">
+    <h3 class="showcase-title">Full Showcase</h3>
+    <div class="showcase-text gradient-animated">
+      Bonjour Andrew
+    </div>
+    <p class="showcase-subtitle">Purple to Teal, animated at 3s cycle</p>
+  </div>
+
+  <!-- Color Palette -->
+  <div class="palette">
+    <h3 class="palette-title">WiseGenerative Colors</h3>
+    
+    <div class="palette-row">
+      <div class="palette-swatch" style="background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);"></div>
+      <div class="palette-info">
+        <div class="palette-name">Primary Gradient</div>
+        <div class="palette-hex">#7C3AED → #14B8A6</div>
+      </div>
+    </div>
+
+    <div class="palette-row">
+      <div class="palette-swatch" style="background: #7C3AED;"></div>
+      <div class="palette-info">
+        <div class="palette-name">Purple (Primary)</div>
+        <div class="palette-hex">#7C3AED</div>
+      </div>
+    </div>
+
+    <div class="palette-row">
+      <div class="palette-swatch" style="background: #14B8A6;"></div>
+      <div class="palette-info">
+        <div class="palette-name">Teal (Secondary)</div>
+        <div class="palette-hex">#14B8A6</div>
+      </div>
+    </div>
+
+    <div class="palette-row">
+      <div class="palette-swatch" style="background: #F59E0B;"></div>
+      <div class="palette-info">
+        <div class="palette-name">Gold (Accent)</div>
+        <div class="palette-hex">#F59E0B</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="demo-nav">
+  <a href="01-video-background.html">1. Video</a>
+  <a href="02-character-reveal.html">2. Char Reveal</a>
+  <a href="03-fade-in.html">3. Fade In</a>
+  <a href="04-liquid-glass.html">4. Liquid Glass</a>
+  <a href="05-gradient-text.html" class="active">5. Gradient Text</a>
+  <a href="06-burger-menu.html">6. Burger Menu</a>
+</div>
+
+</body>
+</html>
