@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 4: Liquid Glass + Image</title>
+  <title>Demo 4: Liquid Glass + Video</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
@@ -11,27 +11,23 @@
 
     .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
 
-    /* Animated background image */
-    .bg {
+    .video-bg {
       position: absolute;
       inset: 0;
-      background: url('https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&q=80');
-      background-size: cover;
-      background-position: center;
-      animation: bgZoom 20s ease infinite alternate;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-out;
       z-index: 0;
     }
-
-    @keyframes bgZoom {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.1); }
-    }
+    .video-bg.loaded { opacity: 1; }
 
     .demo::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.3);
+      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.4) 100%);
       z-index: 1;
     }
 
@@ -200,7 +196,9 @@
 <button class="replay-btn" id="replayBtn">↻ Replay Animation</button>
 
 <div class="demo">
-  <div class="bg"></div>
+  <video class="video-bg" id="video" autoplay muted loop playsinline>
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4" type="video/mp4">
+  </video>
 
   <nav class="nav">
     <div class="logo"><span>WiseGenerative</span></div>
@@ -213,7 +211,7 @@
   </nav>
 
   <div class="content">
-    <div class="eyebrow" id="eyebrow">Demo 4 — Liquid Glass + Image</div>
+    <div class="eyebrow" id="eyebrow">Demo 4 — Liquid Glass + Video</div>
     <h1 class="title" id="title">Frosted Glass Effects</h1>
 
     <div class="glass-grid" id="grid">
@@ -235,6 +233,9 @@
 </div>
 
 <script>
+  const video = document.getElementById('video');
+  video.addEventListener('loadeddata', () => video.classList.add('loaded'));
+
   function playAnimation() {
     document.getElementById('eyebrow').classList.remove('animate');
     document.getElementById('title').classList.remove('animate');

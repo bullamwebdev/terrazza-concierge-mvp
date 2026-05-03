@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 6: Burger Menu + Parallax</title>
+  <title>Demo 6: Burger Menu + Video</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
@@ -11,31 +11,23 @@
 
     .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
 
-    /* Animated gradient background */
-    .bg {
+    .video-bg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-out;
       z-index: 0;
     }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    .video-bg.loaded { opacity: 1; }
 
     .demo::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=1920&q=80');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.1;
-      mix-blend-mode: overlay;
+      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.4) 100%);
       z-index: 1;
     }
 
@@ -199,10 +191,12 @@
 </nav>
 
 <div class="demo">
-  <div class="bg"></div>
+  <video class="video-bg" id="video" autoplay muted loop playsinline>
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4" type="video/mp4">
+  </video>
 
   <div class="content">
-    <div class="eyebrow" id="eyebrow">Demo 6 — Burger Menu + Parallax</div>
+    <div class="eyebrow" id="eyebrow">Demo 6 — Burger Menu + Video</div>
     <h1 class="title" id="title">Mobile Navigation</h1>
     <p class="subtitle" id="subtitle">Slide-in overlay menu with hamburger-to-X animation.</p>
 
@@ -228,6 +222,9 @@
 </div>
 
 <script>
+  const video = document.getElementById('video');
+  video.addEventListener('loadeddata', () => video.classList.add('loaded'));
+
   function playAnimation() {
     ['eyebrow', 'title', 'subtitle', 'instruction', 'demoBurger'].forEach(id => {
       document.getElementById(id).classList.remove('animate');
