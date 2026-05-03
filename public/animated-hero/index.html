@@ -2,149 +2,459 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WiseGenerative — AI Concierge</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>WiseGenerative | L'IA au Service de Votre Conciergerie</title>
+  <meta name="description" content="Comment l'intelligence artificielle transforme concrètement une conciergerie de luxe en Martinique. Exemples réels, chiffres, et argumentation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ============================================
+       WISEGENERATIVE — Animated Hero
+       Light Theme: White × Grey × Purple
+       ============================================ */
+
+    :root {
+      --purple-900: #581C87;
+      --purple-700: #7C3AED;
+      --purple-500: #A78BFA;
+      --purple-300: #C4B5FD;
+      --purple-100: #EDE9FE;
+      --purple-50: #F5F3FF;
+      --teal-700: #0F766E;
+      --teal-500: #14B8A6;
+      --teal-300: #5EEAD4;
+      --teal-100: #CCFBF1;
+      --white: #FFFFFF;
+      --grey-50: #F9FAFB;
+      --grey-100: #F3F4F6;
+      --grey-200: #E5E7EB;
+      --grey-400: #9CA3AF;
+      --grey-500: #6B7280;
+      --grey-600: #4B5563;
+      --grey-700: #374151;
+      --grey-800: #1F2937;
+      --grey-900: #111827;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+      --shadow-purple: 0 8px 30px rgba(124, 58, 237, 0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
     body {
       font-family: 'Source Sans 3', -apple-system, sans-serif;
+      color: var(--grey-800);
+      background: var(--white);
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-      margin: 0;
     }
-    
-    /* Gradient text utility */
-    .gradient-text {
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+
+    /* ===== NAVBAR ===== */
+    .wise-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--grey-200);
+      padding: 0 var(--space-lg);
+      animation: slideDown 0.6s ease-out forwards;
+    }
+
+    .wise-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1140px;
+      margin: 0 auto;
+      height: 64px;
+    }
+
+    .wise-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .wise-logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--purple-700) 0%, var(--teal-500) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wise-logo-img span {
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .wise-logo-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--purple-700) 0%, var(--teal-500) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    
-    .gradient-bg {
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+
+    .wise-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
     }
-    
-    /* Animations */
+
+    .wise-nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--grey-500);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .wise-nav-links a:hover {
+      color: var(--purple-700);
+    }
+
+    .wise-nav-links a.active {
+      color: var(--purple-700);
+    }
+
+    .wise-cta-btn {
+      background: linear-gradient(135deg, var(--purple-700) 0%, var(--teal-500) 100%);
+      color: white !important;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: var(--shadow-purple);
+    }
+
+    .wise-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(124, 58, 237, 0.25);
+    }
+
+    .wise-burger {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .wise-burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 44px;
+        height: 44px;
+        background: #fff;
+        border: 1px solid #E5E7EB;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 10px;
+        z-index: 101;
+      }
+      .wise-burger span {
+        display: block;
+        width: 22px;
+        height: 2.5px;
+        background: #1F2937;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+      .wise-nav-links {
+        position: fixed;
+        top: 0;
+        right: -110%;
+        width: 85%;
+        max-width: 340px;
+        height: 100dvh;
+        background: #fff;
+        flex-direction: column;
+        padding: 100px 2rem 2rem;
+        gap: 1rem;
+        transition: right 0.35s ease;
+        box-shadow: -20px 0 60px rgba(0,0,0,0.15);
+        z-index: 99;
+      }
+      .wise-nav-links.open { right: 0; }
+      .wise-nav-links a { font-size: 1.15rem; padding: 12px 0; }
+      .wise-nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 98;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+      }
+      .wise-nav-overlay.active { opacity: 1; pointer-events: auto; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 120px 24px 48px;
+      background: linear-gradient(180deg, var(--purple-50) 0%, var(--white) 60%, var(--grey-50) 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120%;
+      height: 60%;
+      background: radial-gradient(ellipse at center, rgba(167,139,250,0.12) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+      opacity: 0.25;
+      animation: fadeIn 1.2s ease-out forwards;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.3) 0%,
+        rgba(255,255,255,0.6) 50%,
+        rgba(249,250,251,0.95) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      color: var(--purple-700);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 16px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+      border: 1px solid var(--purple-100);
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.2s forwards;
+    }
+
+    .hero-eyebrow img {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.25rem, 5.5vw, 4rem);
+      font-weight: 600;
+      color: var(--grey-900);
+      line-height: 1.15;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.4s forwards;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--purple-700) 0%, var(--teal-500) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--grey-500);
+      max-width: 560px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.6s forwards;
+    }
+
+    .andrew-greeting {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 16px;
+      padding: 12px 20px;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out 0.8s forwards;
+    }
+
+    .andrew-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--purple-100) 0%, var(--teal-100) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .andrew-text {
+      text-align: left;
+    }
+
+    .andrew-name {
+      font-weight: 600;
+      color: var(--grey-800);
+      font-size: 0.95rem;
+    }
+
+    .andrew-desc {
+      font-size: 0.8rem;
+      color: var(--grey-500);
+    }
+
+    /* ===== ANIMATIONS ===== */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-    
+
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
+
     @keyframes slideDown {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
-    .anim-fade-in { animation: fadeIn 1.2s ease-out forwards; }
-    .anim-slide-down { opacity: 0; animation: slideDown 0.6s ease-out 0.1s forwards; }
-    .anim-fade-up { opacity: 0; animation: fadeUp 0.8s ease-out forwards; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-400 { animation-delay: 0.4s; }
-    .delay-600 { animation-delay: 0.6s; }
-    .delay-800 { animation-delay: 0.8s; }
-    .delay-1000 { animation-delay: 1s; }
   </style>
 </head>
-<body class="m-0 overflow-x-hidden bg-white">
+<body>
+
+<!-- NAVBAR -->
+<nav class="wise-nav">
+  <div class="wise-nav-inner">
+    <a href="#" class="wise-logo">
+      <div class="wise-logo-img"><span>WG</span></div>
+      <span class="wise-logo-text">WiseGenerative</span>
+    </a>
+
+    <button class="wise-burger" id="wiseBurger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="wise-nav-links" id="wiseNavLinks">
+      <a href="#" class="active">Accueil</a>
+      <a href="#">Solutions</a>
+      <a href="#">Tarifs</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <a href="#" class="wise-cta-btn">Réserver une Démo</a>
+  </div>
+</nav>
+<div class="wise-nav-overlay" id="wiseNavOverlay"></div>
 
 <!-- HERO -->
-<section class="relative min-h-screen overflow-hidden">
-  
-  <!-- Background -->
-  <div 
-    class="absolute inset-0 bg-cover bg-center bg-no-repeat anim-fade-in"
-    style="background-image: url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1920&q=80');"
-  ></div>
-  <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/50 to-white/95"></div>
+<header class="hero" id="hero">
+  <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1920&q=80');"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=100&q=80" alt="WG" style="width:24px;height:24px;border-radius:6px;object-fit:cover;">
+      Solutions IA Innovantes
+    </div>
+    <h1 class="hero-title">
+      Bonjour <span>Andrew</span>,<br>
+      l'IA transforme votre conciergerie
+    </h1>
+    <p class="hero-subtitle">
+      Cette page est pour vous. Pas de jargon technique — juste des exemples concrets,<br>des chiffres réels, et ce que l'IA peut faire pour votre business dès demain.
+    </p>
 
-  <!-- Content -->
-  <div class="relative z-10 flex flex-col min-h-screen px-6">
-    
-    <!-- Navbar -->
-    <nav class="anim-slide-down pt-6 pb-4">
-      <div class="flex items-center justify-between max-w-6xl mx-auto">
-        <!-- Logo -->
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-md">
-            <span class="text-white font-bold text-sm">WG</span>
-          </div>
-          <span class="text-xl font-semibold tracking-tight gradient-text">WiseGenerative</span>
-        </div>
-
-        <!-- Links -->
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#" class="text-sm font-medium text-purple-600">Accueil</a>
-          <a href="#" class="text-sm font-medium text-gray-500 hover:text-purple-600 transition-colors">Solutions</a>
-          <a href="#" class="text-sm font-medium text-gray-500 hover:text-purple-600 transition-colors">Tarifs</a>
-          <a href="#" class="text-sm font-medium text-gray-500 hover:text-purple-600 transition-colors">Contact</a>
-        </div>
-
-        <!-- CTA -->
-        <button class="px-6 py-2.5 rounded-full text-sm font-medium text-white shadow-lg transition-transform hover:scale-105 gradient-bg">
-          Réserver une Démo
-        </button>
-      </div>
-    </nav>
-
-    <!-- Hero Content -->
-    <div class="flex-1 flex flex-col items-center justify-center text-center">
-      <div class="max-w-3xl">
-        
-        <!-- Eyebrow -->
-        <div class="anim-fade-up delay-200 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-md mb-6 border border-purple-100">
-          <div class="w-6 h-6 rounded-md gradient-bg flex items-center justify-center">
-            <span class="text-white font-bold text-[10px]">WG</span>
-          </div>
-          <span class="text-sm font-medium text-purple-700">Solutions IA Innovantes</span>
-        </div>
-
-        <!-- Headline -->
-        <h1 class="anim-fade-up delay-400 text-4xl md:text-5xl lg:text-6xl font-normal mb-6 tracking-tight leading-tight"
-          style="font-family: 'Playfair Display', Georgia, serif; color: #1F2937;"
-        >
-          Bonjour <span class="gradient-text font-semibold">Andrew</span>,<br />
-          l'IA transforme votre conciergerie
-        </h1>
-
-        <!-- Subtitle -->
-        <p class="anim-fade-up delay-600 text-base md:text-lg mb-8 max-w-2xl mx-auto leading-relaxed text-gray-600"
-        >
-          Cette page est pour vous. Pas de jargon technique — juste des exemples concrets, 
-          des chiffres réels, et ce que l'IA peut faire pour votre business dès demain.
-        </p>
-
-        <!-- Andrew Card -->
-        <div class="anim-fade-up delay-800 inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/70 backdrop-blur-md shadow-lg border border-white/50 mb-8"
-        >
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-100 to-teal-100 flex items-center justify-center text-xl">
-            👋
-          </div>
-          <div class="text-left">
-            <div class="text-sm font-medium text-gray-900">Présentation personnalisée</div>
-            <div class="text-xs text-gray-500">Conciergerie de luxe · Martinique · Caraïbes</div>
-          </div>
-        </div>
-
-        <!-- CTA Buttons -->
-        <div class="anim-fade-up delay-1000 flex flex-wrap items-center justify-center gap-4"
-        >
-          <button class="px-8 py-3.5 rounded-full font-medium text-white transition-transform hover:scale-105 shadow-xl gradient-bg">
-            Découvrir les Solutions
-          </button>
-          <button class="px-8 py-3.5 rounded-full font-medium border-2 border-gray-200 text-gray-700 transition-colors hover:bg-gray-50">
-            Voir la Vidéo
-          </button>
-        </div>
+    <div class="andrew-greeting">
+      <div class="andrew-avatar">👋</div>
+      <div class="andrew-text">
+        <div class="andrew-name">Présentation personnalisée</div>
+        <div class="andrew-desc">Conciergerie de luxe · Martinique · Caraïbes</div>
       </div>
     </div>
   </div>
-</section>
+</header>
+
+<script>
+// Burger menu toggle
+const burger = document.getElementById('wiseBurger');
+const navLinks = document.getElementById('wiseNavLinks');
+const navOverlay = document.getElementById('wiseNavOverlay');
+
+if (burger && navLinks) {
+  burger.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    burger.classList.toggle('active');
+    navLinks.classList.toggle('open');
+    if (navOverlay) navOverlay.classList.toggle('active');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      burger.classList.remove('active');
+      navLinks.classList.remove('open');
+      if (navOverlay) navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  if (navOverlay) {
+    navOverlay.addEventListener('click', () => {
+      burger.classList.remove('active');
+      navLinks.classList.remove('open');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  }
+}
+</script>
 
 </body>
 </html>
