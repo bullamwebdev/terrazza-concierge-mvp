@@ -1365,7 +1365,30 @@ a { text-decoration: none; color: inherit; }
   }
 
   .wise-nav-links {
-    display: none;
+    /* removed display:none — handled by mobile nav section above */
+  }
+
+  .memory-demo {
+    padding: var(--space-lg);
+    margin: 0 var(--space-sm);
+  }
+
+  .memory-dossier {
+    padding: var(--space-md);
+  }
+
+  .memory-tags {
+    gap: var(--space-xs);
+  }
+
+  .m-tag {
+    font-size: 0.75rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .memory-message {
+    padding: var(--space-md);
+    font-size: 0.9rem;
   }
 
   .scenario-card {
