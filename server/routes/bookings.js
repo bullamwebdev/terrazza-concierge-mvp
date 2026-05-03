@@ -1,9 +1,9 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const { DB_PATH } = require('../database');
 
 const router = express.Router();
-const DB_PATH = path.join(__dirname, '..', '..', 'server', 'database', 'terrazza.db');
 
 function getDb() {
   return new sqlite3.Database(DB_PATH);

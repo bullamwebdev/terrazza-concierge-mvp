@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const { DB_PATH } = require('../database');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'terrazza-secret-key-change-in-production';
-const DB_PATH = path.join(__dirname, '..', 'database', 'terrazza.db');
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];

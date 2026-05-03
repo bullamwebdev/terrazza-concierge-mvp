@@ -2,10 +2,10 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const { DB_PATH } = require('../database');
 const { generateToken } = require('../middleware/auth');
 
 const router = express.Router();
-const DB_PATH = path.join(__dirname, '..', '..', 'server', 'database', 'terrazza.db');
 
 function getDb() {
   return new sqlite3.Database(DB_PATH);
