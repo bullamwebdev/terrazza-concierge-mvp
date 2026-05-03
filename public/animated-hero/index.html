@@ -9,6 +9,23 @@
     <link rel="stylesheet" crossorigin href="./assets/index-B12zXgDY.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="padding:40px;font-family:sans-serif;text-align:center">
+        <h2>Loading MotionSites Heroes...</h2>
+        <p id="load-status">Initializing React app...</p>
+      </div>
+    </div>
+    <script>
+      window.addEventListener('error', function(e) {
+        document.getElementById('load-status').innerHTML =
+          '<span style="color:red">Error: ' + e.message + '</span>'
+      })
+      setTimeout(function() {
+        var el = document.getElementById('load-status')
+        if (el && el.textContent === 'Initializing React app...') {
+          el.innerHTML = '<span style="color:orange">Still loading. If stuck, check console for errors.</span>'
+        }
+      }, 3000)
+    </script>
   </body>
 </html>
