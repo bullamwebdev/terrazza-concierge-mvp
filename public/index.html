@@ -9,6 +9,86 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
+  <!-- Mobile nav CSS inline to bypass cache issues -->
+  <style>
+    .wise-burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      z-index: 101;
+    }
+    .wise-burger:hover { background: #F9FAFB; border-color: #C4B5FD; }
+    .wise-burger span {
+      display: block;
+      width: 22px;
+      height: 2.5px;
+      background: #1F2937;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center;
+    }
+    .wise-burger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    .wise-burger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .wise-burger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+    .wise-nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 98;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .wise-nav-overlay.active { opacity: 1; pointer-events: auto; }
+
+    @media (max-width: 768px) {
+      .wise-nav-links {
+        position: fixed;
+        top: 0;
+        right: -110%;
+        width: 85%;
+        max-width: 340px;
+        height: 100dvh;
+        background: #fff;
+        flex-direction: column;
+        padding: 100px 2rem 2rem;
+        gap: 1rem;
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -20px 0 60px rgba(0,0,0,0.15);
+        z-index: 99;
+        overflow-y: auto;
+        display: flex;
+      }
+      .wise-nav-links.open { right: 0; }
+      .wise-nav-links a {
+        font-size: 1.15rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid #F3F4F6;
+        color: #374151;
+        width: 100%;
+        text-decoration: none;
+      }
+      .wise-nav-links a:last-child {
+        border-bottom: none;
+        margin-top: 2rem;
+        text-align: center;
+      }
+      .wise-burger { display: flex; }
+      body:has(.wise-nav-links.open) { overflow: hidden; }
+    }
+  </style>
 </head>
 <body>
 
