@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotionSites Heroes — Fluid Asset Streams</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @font-face {
+      font-family: "Helvetica Regular";
+      src: url("https://db.onlinewebfonts.com/t/a64ff11d2c24584c767f6257e880dc65.woff2") format("woff2");
+    }
+    body { font-family: "Helvetica Regular", ui-sans-serif, system-ui, sans-serif; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .anim-fade-up { opacity: 0; animation: fadeUp 0.8s ease-out forwards; }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+  </style>
+</head>
+<body class="m-0 overflow-x-hidden bg-[#f0f0f0]">
+
+<!-- Hero Wrapper -->
+<div class="w-full h-screen flex items-center justify-center p-3 md:p-5">
+  <section class="relative w-full max-w-[1536px] h-full rounded-[1.5rem] md:rounded-[3rem] overflow-hidden shadow-none flex flex-col items-center bg-white/10">
+
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover object-[65%] lg:object-center z-0"
+      poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect width='1' height='1' fill='%23e5e7eb'/%3E%3C/svg%3E"
+    >
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260428_193507_4286c423-2fd9-4efd-92bd-91a939453fc1.mp4" type="video/mp4">
+    </video>
+
+    <!-- Content Layer -->
+    <div class="relative z-10 w-full h-full flex flex-col items-center">
+
+      <!-- Navbar -->
+      <nav class="flex items-center justify-between py-6 px-6 md:px-10 w-full">
+        <div class="flex-1 hidden md:block"></div>
+        <ul class="hidden md:flex items-center gap-8 text-[rgb(45,45,45)] font-normal text-sm">
+          <li class="cursor-pointer hover:opacity-70 transition-opacity">Ecosystem</li>
+          <li class="cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-1 group">
+            Economics <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5"></i>
+          </li>
+          <li class="cursor-pointer hover:opacity-70 transition-opacity">Developers</li>
+          <li class="cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-1 group">
+            Governance <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5"></i>
+          </li>
+        </ul>
+        <div class="md:hidden"><span class="tracking-tighter text-xl text-[rgba(30,50,90,0.9)]">RIVR</span></div>
+        <div class="flex-1 flex justify-end">
+          <button class="flex items-center bg-[rgba(30,50,90,0.8)] text-white rounded-full pl-2 pr-4 md:pr-6 py-1.5 md:py-2 gap-2 md:gap-3 hover:bg-[rgba(30,50,90,1)] transition-colors">
+            <div class="bg-white/20 p-1 md:p-1.5 rounded-full">
+              <i data-lucide="arrow-up-right" class="w-4 h-4 md:w-5 md:h-5 text-white"></i>
+            </div>
+            <span class="text-xs md:text-sm font-normal">Book Demo</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Text Container -->
+      <div class="w-full flex flex-col items-center pt-8 px-6 text-center max-w-4xl">
+
+        <!-- Badge -->
+        <div class="anim-fade-up delay-1 flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-md border border-white/20 mx-auto mb-3 w-fit">
+          <i data-lucide="sparkles" class="w-4 h-4 text-[rgba(30,50,90,0.8)]"></i>
+          <span class="text-[14px] font-normal text-[rgba(30,50,90,0.9)]">Fluid Staking</span>
+        </div>
+
+        <h1 class="anim-fade-up delay-2 text-4xl sm:text-5xl md:text-6xl lg:text-[80px] font-normal text-[#5E6470] mb-2 tracking-tight leading-[1.05]">
+          Fluid Asset Streams
+        </h1>
+
+        <p class="anim-fade-up delay-3 text-sm sm:text-base md:text-lg text-[#5E6470] opacity-80 leading-relaxed max-w-xl font-normal">
+          Access Smart Vaults, stake RIVR, NFTs, transform rigid holdings into liquid cash instantly.
+        </p>
+      </div>
+
+      <!-- Bottom Left Card -->
+      <div class="anim-fade-up delay-3 absolute bottom-28 right-4 left-auto md:left-6 md:right-auto md:bottom-6 lg:bottom-10 lg:left-10 p-3 md:p-4 lg:p-5 rounded-[1.2rem] md:rounded-[1.5rem] lg:rounded-[2.2rem] bg-white/30 backdrop-blur-xl flex flex-col gap-2 lg:gap-3 min-w-[140px] md:min-w-[150px] lg:min-w-[180px] w-fit">
+        <div class="flex flex-col">
+          <span class="text-2xl md:text-3xl font-normal text-[rgba(30,50,90,0.9)] tracking-tight">5.2K</span>
+          <span class="text-[10px] md:text-[12px] font-normal text-[rgba(30,50,90,0.6)] uppercase tracking-wider">Active Yielders</span>
+        </div>
+        <button class="flex items-center bg-white rounded-full pl-1.5 pr-5 py-1.5 gap-2 hover:bg-white/90 transition-colors self-start">
+          <div class="bg-[rgba(30,50,90,0.1)] p-1 rounded-full">
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-[rgba(30,50,90,0.9)]"></i>
+          </div>
+          <span class="text-[14px] font-normal text-[rgba(30,50,90,0.9)]">Join Discord</span>
+        </button>
+      </div>
+
+      <!-- Bottom Right Corner -->
+      <div class="anim-fade-up delay-4 absolute bottom-0 right-0 p-3 pt-5 pl-8 sm:p-4 sm:pt-6 sm:pl-10 md:p-6 md:pt-8 md:pl-14 bg-[#f0f0f0] rounded-tl-[1.5rem] sm:rounded-tl-[2rem] md:rounded-tl-[3.5rem] flex items-center gap-3 sm:gap-4 md:gap-6">
+        <div class="absolute -top-[1.5rem] sm:-top-[2rem] md:-top-[3.5rem] right-0 w-[1.5rem] sm:w-[2rem] md:w-[3.5rem] h-[1.5rem] sm:h-[2rem] md:h-[3.5rem] pointer-events-none">
+          <svg width="100%" height="100%" viewBox="0 0 56 56" fill="none"><path d="M56 56V0C56 30.9279 30.9279 56 0 56H56Z" fill="#f0f0f0"/></svg>
+        </div>
+        <div class="absolute bottom-0 -left-[1.5rem] sm:-left-[2rem] md:-left-[3.5rem] w-[1.5rem] sm:w-[2rem] md:w-[3.5rem] h-[1.5rem] sm:h-[2rem] md:h-[3.5rem] pointer-events-none">
+          <svg width="100%" height="100%" viewBox="0 0 56 56" fill="none"><path d="M56 56H0C30.9279 56 56 30.9279 56 0V56Z" fill="#f0f0f0"/></svg>
+        </div>
+        <div class="bg-[rgba(30,50,90,0.05)] w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center border border-[rgba(30,50,90,0.1)]">
+          <i data-lucide="arrow-up-right" class="text-[rgba(30,50,90,0.8)] w-5 h-5 md:w-6 md:h-6"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-[16px] md:text-[20px] font-normal text-[rgba(30,50,90,0.95)]">Documentation</span>
+          <div class="flex items-center gap-1 text-[rgba(30,50,90,0.6)] cursor-pointer hover:text-[rgba(30,50,90,0.8)] transition-colors">
+            <span class="text-[12px] md:text-[15px] font-normal">Library</span>
+            <i data-lucide="chevron-right" class="w-3 h-3 md:w-4 md:h-4"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+    // Video debugging
+    const video = document.querySelector('video');
+    if (video) {
+      video.addEventListener('error', function(e) {
+        console.error('Video error:', e);
+        video.style.display = 'none';
+      });
+      video.addEventListener('loadeddata', function() {
+        console.log('Video loaded successfully');
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
