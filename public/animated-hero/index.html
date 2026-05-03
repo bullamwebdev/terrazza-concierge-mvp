@@ -4,28 +4,11 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MotionSites Heroes — All Demos</title>
-    <script type="module" crossorigin src="./assets/index-B0hLQNl2.js"></script>
+    <title>MotionSites Heroes</title>
+    <script type="module" crossorigin src="./assets/index-BRjcm2Vk.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-B12zXgDY.css">
   </head>
   <body>
-    <div id="root">
-      <div style="padding:40px;font-family:sans-serif;text-align:center">
-        <h2>Loading MotionSites Heroes...</h2>
-        <p id="load-status">Initializing React app...</p>
-      </div>
-    </div>
-    <script>
-      window.addEventListener('error', function(e) {
-        document.getElementById('load-status').innerHTML =
-          '<span style="color:red">Error: ' + e.message + '</span>'
-      })
-      setTimeout(function() {
-        var el = document.getElementById('load-status')
-        if (el && el.textContent === 'Initializing React app...') {
-          el.innerHTML = '<span style="color:orange">Still loading. If stuck, check console for errors.</span>'
-        }
-      }, 3000)
-    </script>
+    <div id="root"></div>
   </body>
 </html>
