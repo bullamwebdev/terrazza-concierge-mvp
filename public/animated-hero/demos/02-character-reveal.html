@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 2: Character Reveal + Image</title>
+  <title>Demo 2: Character Reveal + MotionSites Video</title>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -12,31 +12,24 @@
 
     .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
 
-    /* Animated background */
-    .bg {
+    /* MotionSites-style video background */
+    .video-bg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       z-index: 0;
+      opacity: 0;
+      transition: opacity 1s ease-out;
     }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    .video-bg.loaded { opacity: 1; }
 
     .demo::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920&q=80');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.15;
-      mix-blend-mode: overlay;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.5) 100%);
       z-index: 1;
     }
 
@@ -171,6 +164,8 @@
     .demo-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .demo-nav a.active { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: #fff; }
 
+    @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
     @media (max-width: 768px) {
       .nav-links, .cta { display: none; }
       .burger { display: flex; }
@@ -196,10 +191,13 @@
 </nav>
 
 <div class="demo">
-  <div class="bg"></div>
+  <!-- MotionSites-style video background -->
+  <video class="video-bg" id="video" autoplay muted loop playsinline>
+    <source src="https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8" type="application/x-mpegURL">
+  </video>
 
   <div class="content">
-    <div class="eyebrow" id="eyebrow">Demo 2 — Character Reveal + Image</div>
+    <div class="eyebrow" id="eyebrow">Demo 2 — Character Reveal + Video</div>
 
     <h1 class="title" id="heading">
       <span class="line" id="line1"></span>
@@ -220,6 +218,10 @@
 </div>
 
 <script>
+  // Video fade-in
+  const video = document.getElementById('video');
+  video.addEventListener('loadeddata', () => video.classList.add('loaded'));
+
   const texts = [
     ['Bonjour', 'Andrew'],
     ['Welcome to', 'the Future'],
