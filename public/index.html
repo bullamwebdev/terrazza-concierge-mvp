@@ -26,6 +26,7 @@
       <a href="#bilan">Bilan</a>
       <a href="#contact" class="wise-nav-cta">Discutons</a>
     </div>
+    <div class="wise-nav-overlay" id="wiseNavOverlay"></div>
     <button class="wise-burger" id="wiseBurger" aria-label="Menu">
       <span></span>
       <span></span>
@@ -535,6 +536,7 @@ document.querySelectorAll('.scenario-card, .comparison-col, .lang-card, .revenue
 // Burger menu toggle
 const burger = document.getElementById('wiseBurger');
 const navLinks = document.getElementById('wiseNavLinks');
+const navOverlay = document.getElementById('wiseNavOverlay');
 
 if (burger && navLinks) {
   burger.addEventListener('click', (e) => {
@@ -542,6 +544,7 @@ if (burger && navLinks) {
     e.stopPropagation();
     burger.classList.toggle('active');
     navLinks.classList.toggle('open');
+    if (navOverlay) navOverlay.classList.toggle('active');
     document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
   });
 
@@ -550,15 +553,26 @@ if (burger && navLinks) {
     link.addEventListener('click', () => {
       burger.classList.remove('active');
       navLinks.classList.remove('open');
+      if (navOverlay) navOverlay.classList.remove('active');
       document.body.style.overflow = '';
     });
   });
 
-  // Close menu when clicking outside
+  // Close menu when clicking overlay or outside
+  if (navOverlay) {
+    navOverlay.addEventListener('click', () => {
+      burger.classList.remove('active');
+      navLinks.classList.remove('open');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  }
+
   document.addEventListener('click', (e) => {
     if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !burger.contains(e.target)) {
       burger.classList.remove('active');
       navLinks.classList.remove('open');
+      if (navOverlay) navOverlay.classList.remove('active');
       document.body.style.overflow = '';
     }
   });
