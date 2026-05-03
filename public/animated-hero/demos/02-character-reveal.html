@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 2: Character Reveal</title>
+  <title>Demo 2: Character Reveal + Stagger</title>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,7 +27,11 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
     }
+    .eyebrow.animate { opacity: 1; transform: translateY(0); }
 
     .title {
       font-size: clamp(2.5rem, 8vw, 5rem);
@@ -41,13 +45,13 @@
     .title .char {
       display: inline-block;
       opacity: 0;
-      transform: translateX(-18px);
+      transform: translateY(30px);
       transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .title .char.visible { opacity: 1; transform: translateX(0); }
+    .title .char.visible { opacity: 1; transform: translateY(0); }
 
     .title .highlight {
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      background: linear-gradient(135deg, #a78bfa 0%, #5eead4 100%);
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -61,9 +65,12 @@
       color: rgba(255,255,255,0.6);
       margin-top: 24px;
       text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
     }
+    .subtitle.animate { opacity: 1; transform: translateY(0); }
 
-    /* Controls */
     .controls {
       position: fixed;
       top: 80px;
@@ -87,7 +94,6 @@
     .btn:hover { background: rgba(255,255,255,0.15); }
     .btn.primary { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); border: none; }
 
-    /* Nav */
     .nav {
       position: fixed;
       top: 0;
@@ -98,9 +104,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      font-family: -apple-system, sans-serif;
     }
-    .logo { font-size: 18px; font-weight: 600; font-family: -apple-system, sans-serif; }
-    .logo span { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .logo { font-size: 18px; font-weight: 600; }
+    .logo span { background: linear-gradient(135deg, #a78bfa 0%, #5eead4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .nav-links { display: flex; gap: 28px; }
     .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
     .nav-links a:hover { color: #fff; }
@@ -131,7 +138,6 @@
       .nav-links, .cta { display: none; }
       .burger { display: flex; }
       .demo { padding: 24px; }
-      .controls { top: 80px; right: 10px; }
     }
   </style>
 </head>
@@ -153,14 +159,14 @@
 </nav>
 
 <div class="demo">
-  <div class="eyebrow">✨ Demo 2 — Character Reveal</div>
+  <div class="eyebrow" id="eyebrow">Demo 2 — Character Reveal</div>
 
   <h1 class="title" id="heading">
     <span class="line" id="line1"></span>
     <span class="line" id="line2"></span>
   </h1>
 
-  <p class="subtitle">Each character slides in with staggered timing. Click Replay to see again.</p>
+  <p class="subtitle" id="subtitle">Each character slides in with staggered timing. Click Replay to see again.</p>
 </div>
 
 <div class="demo-nav">
@@ -184,17 +190,24 @@
   function playAnimation() {
     const line1 = document.getElementById('line1');
     const line2 = document.getElementById('line2');
+    const eyebrow = document.getElementById('eyebrow');
+    const subtitle = document.getElementById('subtitle');
     const t = texts[textIndex];
 
-    // Build HTML with chars
+    // Reset
+    eyebrow.classList.remove('animate');
+    subtitle.classList.remove('animate');
     line1.innerHTML = '';
     line2.innerHTML = '';
 
+    void document.body.offsetWidth;
+
+    // Build chars
     [...t[0]].forEach((char, i) => {
       const span = document.createElement('span');
       span.className = 'char';
       span.textContent = char === ' ' ? '\u00A0' : char;
-      span.style.transitionDelay = `${i * 30}ms`;
+      span.style.transitionDelay = `${i * 40}ms`;
       line1.appendChild(span);
     });
 
@@ -203,15 +216,17 @@
       span.className = 'char';
       if (t[1] === 'Andrew') span.classList.add('highlight');
       span.textContent = char === ' ' ? '\u00A0' : char;
-      span.style.transitionDelay = `${400 + i * 30}ms`;
+      span.style.transitionDelay = `${400 + i * 40}ms`;
       line2.appendChild(span);
     });
 
-    // Trigger animation
+    // Animate
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
+        eyebrow.classList.add('animate');
         line1.querySelectorAll('.char').forEach(c => c.classList.add('visible'));
         line2.querySelectorAll('.char').forEach(c => c.classList.add('visible'));
+        setTimeout(() => subtitle.classList.add('animate'), 600);
       });
     });
   }
@@ -221,7 +236,6 @@
     playAnimation();
   }
 
-  // Auto-play on load
   document.addEventListener('DOMContentLoaded', playAnimation);
 </script>
 
