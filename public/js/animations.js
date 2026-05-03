@@ -84,25 +84,23 @@
     return allChars;
   }
 
-  // ── Hero Character Animation ──────────────────────────────
+  // ── Hero Title Animation ──────────────────────────────
+  // Simple fade-in instead of character-by-character (avoids HTML parsing issues)
   function initHeroAnimation() {
     const heroTitle = document.querySelector('.hero-title');
     if (!heroTitle) return;
 
-    const chars = splitLinesToChars(heroTitle);
-    const charDelay = 0.03; // 30ms
-    const initialDelay = 0.2; // 200ms
-
-    chars.forEach(({ el, lineIndex, charIndex, totalIndex }) => {
-      const delay = initialDelay + (lineIndex * lineIndex * charDelay) + (charIndex * charDelay);
-      gsap.to(el, {
+    // Just fade in the whole title — no character splitting
+    gsap.fromTo(heroTitle,
+      { opacity: 0, y: 30 },
+      {
         opacity: 1,
-        x: 0,
-        duration: 0.5,
-        delay: delay,
+        y: 0,
+        duration: 1,
+        delay: 0.2,
         ease: 'expo.out',
-      });
-    });
+      }
+    );
   }
 
   // ── Fade Up Elements ─────────────────────────────────────
