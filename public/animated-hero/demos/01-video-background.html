@@ -1,151 +1,230 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 1: Video Background</title>
+  <title>WiseGenerative — L'IA au Service de Votre Conciergerie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
-    body { font-family: -apple-system, sans-serif; color: #fff; }
+    body { font-family: 'Inter', sans-serif; color: #fff; }
 
-    .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
-
-    /* Video background - FULL OPACITY */
-    .video-bg {
-      position: absolute;
-      inset: 0;
+    .hero {
+      position: relative;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0f;
     }
 
-    /* Dark overlay for text readability */
-    .demo::after {
+    /* ===== ANIMATED BACKGROUND ===== */
+    .animated-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: 
+        radial-gradient(ellipse at 20% 30%, rgba(124, 58, 237, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(20, 184, 166, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(167, 139, 250, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(94, 234, 212, 0.15) 0%, transparent 40%);
+      background-size: 200% 200%;
+      animation: bgShift 12s ease-in-out infinite;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { background-position: 0% 50%, 100% 0%, 50% 100%, 100% 100%; }
+      33% { background-position: 100% 50%, 0% 100%, 100% 0%, 0% 0%; }
+      66% { background-position: 50% 100%, 50% 0%, 0% 50%, 50% 50%; }
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.6;
+      z-index: 1;
+    }
+    .orb-1 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(124,58,237,0.8) 0%, transparent 70%);
+      top: -100px; left: -100px;
+      animation: float1 15s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(20,184,166,0.7) 0%, transparent 70%);
+      bottom: -50px; right: -50px;
+      animation: float2 18s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(167,139,250,0.6) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      animation: float3 20s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(100px, 80px) scale(1.2); }
+      50% { transform: translate(50px, 150px) scale(0.9); }
+      75% { transform: translate(-50px, 50px) scale(1.1); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-80px, -100px) scale(1.3); }
+      66% { transform: translate(-150px, -50px) scale(0.8); }
+    }
+    @keyframes float3 {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-30%, -70%) scale(1.2); }
+    }
+
+    /* Noise texture overlay */
+    .noise {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Dark overlay for readability */
+    .hero::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%);
-      z-index: 1;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+      z-index: 3;
     }
 
-    /* Content */
+    /* ===== CONTENT ===== */
     .content {
       position: relative;
       z-index: 10;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 40px 60px;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 32px;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      background: rgba(255,255,255,0.1);
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 50px;
-      margin-bottom: 20px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 32px;
       opacity: 0;
       transform: translateY(20px);
-      transition: all 0.8s ease-out;
+      transition: all 1s ease-out 0.3s;
     }
     .eyebrow.animate { opacity: 1; transform: translateY(0); }
 
-    .title {
+    h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
       font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 600;
-      line-height: 1.1;
-      margin-bottom: 16px;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
+      transform: translateY(40px);
+      transition: all 1s ease-out 0.5s;
     }
-    .title.animate { opacity: 1; transform: translateY(0); }
+    h1.animate { opacity: 1; transform: translateY(0); }
 
-    .title .highlight {
+    h1 .accent {
       background: linear-gradient(135deg, #a78bfa 0%, #5eead4 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .subtitle {
-      font-size: 18px;
-      color: rgba(255,255,255,0.7);
-      max-width: 480px;
-      line-height: 1.6;
+    .tagline {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 40px;
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.8s ease-out;
+      transition: all 1s ease-out 0.7s;
     }
-    .subtitle.animate { opacity: 1; transform: translateY(0); }
+    .tagline.animate { opacity: 1; transform: translateY(0); }
 
-    /* Nav */
-    .nav {
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease-out 0.9s;
+    }
+    .cta-group.animate { opacity: 1; transform: translateY(0); }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: #fff;
+      border: none;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3); }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.15); }
+
+    /* Top bar */
+    .top-bar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 100;
-      padding: 20px 40px;
+      padding: 24px 40px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       opacity: 0;
-      transform: translateY(-20px);
-      transition: all 0.6s ease-out;
+      transition: opacity 0.8s ease-out 1.1s;
     }
-    .nav.animate { opacity: 1; transform: translateY(0); }
+    .top-bar.animate { opacity: 1; }
 
-    .logo { font-size: 18px; font-weight: 600; }
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
     .logo span { background: linear-gradient(135deg, #a78bfa 0%, #5eead4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    .nav-links { display: flex; gap: 28px; }
-    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s ease; }
-    .nav-links a:hover { color: #fff; }
+    .nav-link { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s ease; }
+    .nav-link:hover { color: #fff; }
 
-    .cta {
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 50px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .cta:hover { transform: translateY(-2px); }
-
-    .burger { display: none; }
-
-    .replay-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 101;
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .replay-btn:hover { transform: scale(1.05); }
-
+    /* Demo nav */
     .demo-nav {
       position: fixed;
       bottom: 20px;
@@ -164,69 +243,62 @@
     .demo-nav a.active { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: #fff; }
 
     @media (max-width: 768px) {
-      .nav-links, .cta { display: none; }
-      .burger { display: flex; }
-      .content { padding: 0 24px 40px; }
+      .top-bar { padding: 20px 24px; }
+      .content { padding: 0 24px; }
     }
   </style>
 </head>
 <body>
 
-<button class="replay-btn" id="replayBtn">↻ Replay</button>
+  <!-- Animated background -->
+  <div class="hero">
+    <div class="animated-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="noise"></div>
 
-<div class="demo">
-  <!-- Video background ONLY -->
-  <video class="video-bg" id="video" autoplay muted loop playsinline>
-    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4" type="video/mp4">
-  </video>
+    <header class="top-bar" id="topBar">
+      <div class="logo"><span>WiseGenerative</span></div>
+      <a href="#" class="nav-link">Explorer</a>
+    </header>
 
-  <nav class="nav" id="navbar">
-    <div class="logo"><span>WiseGenerative</span></div>
-    <div class="nav-links">
-      <a href="#">Accueil</a>
-      <a href="#">Solutions</a>
-      <a href="#">Tarifs</a>
+    <div class="content">
+      <div class="eyebrow" id="eyebrow">Nouvelle ère digitale</div>
+      
+      <h1 id="headline">
+        L'IA au Service de<br>Votre <span class="accent">Conciergerie</span>
+      </h1>
+      
+      <p class="tagline" id="tagline">
+        Automatisez vos tâches, personnalisez votre service et offrez une expérience inégalée à vos clients.
+      </p>
+      
+      <div class="cta-group" id="ctaGroup">
+        <a href="#" class="btn btn-primary">Réserver une Démo</a>
+        <a href="#" class="btn btn-secondary">Voir les Solutions</a>
+      </div>
     </div>
-    <button class="cta">Réserver une Démo</button>
-  </nav>
-
-  <div class="content">
-    <div class="eyebrow" id="eyebrow">Demo 1 — Video Background</div>
-    <h1 class="title" id="title">
-      Seamless <span class="highlight">Video Loop</span>
-    </h1>
-    <p class="subtitle" id="subtitle">Full-screen video background with animated content overlay.</p>
   </div>
-</div>
 
-<div class="demo-nav">
-  <a href="01-video-background.html" class="active">1</a>
-  <a href="02-character-reveal.html">2</a>
-  <a href="03-fade-in.html">3</a>
-  <a href="04-liquid-glass.html">4</a>
-  <a href="05-gradient-text.html">5</a>
-  <a href="06-burger-menu.html">6</a>
-</div>
+  <div class="demo-nav">
+    <a href="01-video-background.html" class="active">1</a>
+    <a href="02-character-reveal.html">2</a>
+    <a href="03-fade-in.html">3</a>
+    <a href="04-liquid-glass.html">4</a>
+    <a href="05-gradient-text.html">5</a>
+    <a href="06-burger-menu.html">6</a>
+  </div>
 
-<script>
-  // No fade-in for video - show immediately
-  const video = document.getElementById('video');
-
-  function playAnimation() {
-    ['navbar', 'eyebrow', 'title', 'subtitle'].forEach(id => {
-      document.getElementById(id).classList.remove('animate');
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => document.getElementById('eyebrow').classList.add('animate'), 200);
+      setTimeout(() => document.getElementById('headline').classList.add('animate'), 400);
+      setTimeout(() => document.getElementById('tagline').classList.add('animate'), 600);
+      setTimeout(() => document.getElementById('ctaGroup').classList.add('animate'), 800);
+      setTimeout(() => document.getElementById('topBar').classList.add('animate'), 1000);
     });
-    void document.body.offsetWidth;
-
-    setTimeout(() => document.getElementById('navbar').classList.add('animate'), 100);
-    setTimeout(() => document.getElementById('eyebrow').classList.add('animate'), 300);
-    setTimeout(() => document.getElementById('title').classList.add('animate'), 500);
-    setTimeout(() => document.getElementById('subtitle').classList.add('animate'), 700);
-  }
-
-  document.getElementById('replayBtn').addEventListener('click', playAnimation);
-  document.addEventListener('DOMContentLoaded', playAnimation);
-</script>
+  </script>
 
 </body>
 </html>
