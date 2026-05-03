@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 1: Video Background + Mesh Gradient</title>
+  <title>Demo 1: Video Background</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
@@ -11,49 +11,23 @@
 
     .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
 
-    /* Animated mesh gradient background */
-    .mesh-gradient {
-      position: absolute;
-      inset: 0;
-      background: 
-        radial-gradient(at 40% 20%, hsla(260,100%,60%,1) 0px, transparent 50%),
-        radial-gradient(at 80% 0%, hsla(180,100%,50%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 50%, hsla(280,100%,60%,1) 0px, transparent 50%),
-        radial-gradient(at 80% 50%, hsla(200,100%,50%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, hsla(260,100%,60%,1) 0px, transparent 50%),
-        radial-gradient(at 80% 100%, hsla(180,100%,50%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 0%, hsla(280,100%,60%,1) 0px, transparent 50%);
-      background-size: 200% 200%;
-      animation: meshShift 15s ease infinite;
-      z-index: 0;
-    }
-
-    @keyframes meshShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Video overlay */
+    /* Video background - FULL OPACITY */
     .video-bg {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0;
-      transition: opacity 1s ease-out;
-      mix-blend-mode: overlay;
-      z-index: 1;
+      z-index: 0;
     }
-    .video-bg.loaded { opacity: 0.6; }
 
+    /* Dark overlay for text readability */
     .demo::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.4) 100%);
-      z-index: 2;
+      background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%);
+      z-index: 1;
     }
 
     /* Content */
@@ -201,8 +175,7 @@
 <button class="replay-btn" id="replayBtn">↻ Replay</button>
 
 <div class="demo">
-  <div class="mesh-gradient"></div>
-  
+  <!-- Video background ONLY -->
   <video class="video-bg" id="video" autoplay muted loop playsinline>
     <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4" type="video/mp4">
   </video>
@@ -218,11 +191,11 @@
   </nav>
 
   <div class="content">
-    <div class="eyebrow" id="eyebrow">Demo 1 — Mesh Gradient + Video</div>
+    <div class="eyebrow" id="eyebrow">Demo 1 — Video Background</div>
     <h1 class="title" id="title">
       Seamless <span class="highlight">Video Loop</span>
     </h1>
-    <p class="subtitle" id="subtitle">Animated mesh gradient background with video overlay. The gradient shifts continuously.</p>
+    <p class="subtitle" id="subtitle">Full-screen video background with animated content overlay.</p>
   </div>
 </div>
 
@@ -236,8 +209,8 @@
 </div>
 
 <script>
+  // No fade-in for video - show immediately
   const video = document.getElementById('video');
-  video.addEventListener('loadeddata', () => video.classList.add('loaded'));
 
   function playAnimation() {
     ['navbar', 'eyebrow', 'title', 'subtitle'].forEach(id => {
