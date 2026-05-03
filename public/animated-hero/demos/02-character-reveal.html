@@ -27,8 +27,6 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 32px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.3s forwards;
     }
 
     .title {
@@ -44,14 +42,16 @@
       display: inline-block;
       opacity: 0;
       transform: translateX(-18px);
-      animation: charReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .title .char.visible { opacity: 1; transform: translateX(0); }
 
     .title .highlight {
       background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
       animation: gradientShift 4s ease infinite;
     }
 
@@ -61,18 +61,17 @@
       color: rgba(255,255,255,0.6);
       margin-top: 24px;
       text-align: center;
-      opacity: 0;
-      animation: fadeUp 0.8s ease-out 1.5s forwards;
     }
 
     /* Controls */
     .controls {
       position: fixed;
-      top: 20px;
+      top: 80px;
       right: 20px;
-      z-index: 100;
+      z-index: 101;
       display: flex;
       gap: 8px;
+      flex-direction: column;
     }
     .btn {
       background: rgba(255,255,255,0.1);
@@ -99,62 +98,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      opacity: 0;
-      animation: fadeIn 0.6s ease-out 0.1s forwards;
     }
     .logo { font-size: 18px; font-weight: 600; font-family: -apple-system, sans-serif; }
     .logo span { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-links { display: flex; gap: 28px; font-family: -apple-system, sans-serif; }
+    .nav-links { display: flex; gap: 28px; }
     .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
     .nav-links a:hover { color: #fff; }
-    .cta {
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 50px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: -apple-system, sans-serif;
-    }
-    .burger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      width: 44px;
-      height: 44px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 12px;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .burger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s ease; }
-    .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .burger.active span:nth-child(2) { opacity: 0; }
-    .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100vh;
-      background: rgba(0,0,0,0.95);
-      backdrop-filter: blur(20px);
-      padding: 100px 24px 24px;
-      transition: right 0.3s ease;
-      z-index: 99;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-family: -apple-system, sans-serif;
-    }
-    .mobile-menu.open { right: 0; }
-    .mobile-menu a { color: #fff; text-decoration: none; font-size: 18px; font-weight: 500; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 98; }
-    .menu-overlay.active { opacity: 1; pointer-events: auto; }
+    .cta { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: white; border: none; padding: 10px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .burger { display: none; }
 
     .demo-nav {
       position: fixed;
@@ -174,23 +125,21 @@
     .demo-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .demo-nav a.active { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: #fff; }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes charReveal { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
     @media (max-width: 768px) {
       .nav-links, .cta { display: none; }
       .burger { display: flex; }
       .demo { padding: 24px; }
+      .controls { top: 80px; right: 10px; }
     }
   </style>
 </head>
 <body>
 
 <div class="controls">
-  <button class="btn primary" onclick="replay()">↻ Replay</button>
-  <button class="btn" onclick="changeText()">✏️ Change</button>
+  <button class="btn primary" onclick="playAnimation()">↻ Replay</button>
+  <button class="btn" onclick="changeText()">✏️ Change Text</button>
 </div>
 
 <nav class="nav">
@@ -201,28 +150,17 @@
     <a href="#">Tarifs</a>
   </div>
   <button class="cta">Réserver une Démo</button>
-  <button class="burger" id="burger">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
-
-<div class="menu-overlay" id="overlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#">Accueil</a>
-  <a href="#">Solutions</a>
-  <a href="#">Tarifs</a>
-  <a href="#">Contact</a>
-</div>
 
 <div class="demo">
   <div class="eyebrow">✨ Demo 2 — Character Reveal</div>
 
   <h1 class="title" id="heading">
-    <span class="line" data-text="Bonjour"></span>
-    <span class="line" data-text="Andrew"></span>
+    <span class="line" id="line1"></span>
+    <span class="line" id="line2"></span>
   </h1>
 
-  <p class="subtitle">Each character slides in with staggered timing. Expo-out easing for smooth, premium feel.</p>
+  <p class="subtitle">Each character slides in with staggered timing. Click Replay to see again.</p>
 </div>
 
 <div class="demo-nav">
@@ -237,64 +175,54 @@
 <script>
   const texts = [
     ['Bonjour', 'Andrew'],
+    ['Welcome to', 'the Future'],
     ['Design', 'Matters'],
-    ['Motion', 'Sites'],
     ['Create', 'Beauty']
   ];
   let textIndex = 0;
 
-  function animate() {
-    const heading = document.getElementById('heading');
-    const lines = heading.querySelectorAll('.line');
-    lines.forEach((line, lineIndex) => {
-      const text = line.dataset.text;
-      line.innerHTML = '';
-      [...text].forEach((char, i) => {
-        const span = document.createElement('span');
-        span.className = 'char';
-        if (lineIndex === 1 && text === 'Andrew') span.classList.add('highlight');
-        span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.animationDelay = `${lineIndex * 400 + i * 30}ms`;
-        line.appendChild(span);
+  function playAnimation() {
+    const line1 = document.getElementById('line1');
+    const line2 = document.getElementById('line2');
+    const t = texts[textIndex];
+
+    // Build HTML with chars
+    line1.innerHTML = '';
+    line2.innerHTML = '';
+
+    [...t[0]].forEach((char, i) => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.style.transitionDelay = `${i * 30}ms`;
+      line1.appendChild(span);
+    });
+
+    [...t[1]].forEach((char, i) => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      if (t[1] === 'Andrew') span.classList.add('highlight');
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.style.transitionDelay = `${400 + i * 30}ms`;
+      line2.appendChild(span);
+    });
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        line1.querySelectorAll('.char').forEach(c => c.classList.add('visible'));
+        line2.querySelectorAll('.char').forEach(c => c.classList.add('visible'));
       });
     });
   }
 
-  function replay() {
-    const heading = document.getElementById('heading');
-    heading.style.opacity = '0';
-    setTimeout(() => {
-      heading.style.opacity = '1';
-      animate();
-    }, 100);
-  }
-
   function changeText() {
     textIndex = (textIndex + 1) % texts.length;
-    const lines = document.querySelectorAll('.line');
-    lines[0].dataset.text = texts[textIndex][0];
-    lines[1].dataset.text = texts[textIndex][1];
-    replay();
+    playAnimation();
   }
 
-  // Burger menu
-  const burger = document.getElementById('burger');
-  const menu = document.getElementById('mobileMenu');
-  const overlay = document.getElementById('overlay');
-  burger.addEventListener('click', () => {
-    burger.classList.toggle('active');
-    menu.classList.toggle('open');
-    overlay.classList.toggle('active');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-  });
-  overlay.addEventListener('click', () => {
-    burger.classList.remove('active');
-    menu.classList.remove('open');
-    overlay.classList.remove('active');
-    document.body.style.overflow = '';
-  });
-
-  animate();
+  // Auto-play on load
+  document.addEventListener('DOMContentLoaded', playAnimation);
 </script>
 
 </body>

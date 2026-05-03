@@ -28,20 +28,25 @@
       text-transform: uppercase;
       margin-bottom: 40px;
       opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.3s forwards;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
     }
+    .eyebrow.animate { opacity: 1; transform: translateY(0); }
 
     .gradient-showcase {
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 40px;
     }
 
     .gradient-text {
       font-size: clamp(3rem, 12vw, 8rem);
       font-weight: 400;
       line-height: 1.1;
-      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
     }
+    .gradient-text.animate { opacity: 1; transform: translateY(0); }
 
     .gradient-static {
       background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
@@ -49,7 +54,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
     .gradient-animated {
       background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 50%, #7C3AED 100%);
       background-size: 200% 200%;
@@ -58,7 +62,6 @@
       background-clip: text;
       animation: gradientShift 3s ease infinite;
     }
-
     .gradient-rainbow {
       background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b);
       background-size: 300% 100%;
@@ -67,7 +70,6 @@
       background-clip: text;
       animation: rainbowShift 5s linear infinite;
     }
-
     .gradient-shimmer {
       background: linear-gradient(120deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0.3) 100%), linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
       background-size: 200% 100%, 100% 100%;
@@ -82,10 +84,12 @@
       gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
       opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.5s forwards;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out 0.3s;
     }
+    .controls.animate { opacity: 1; transform: translateY(0); }
 
     .btn {
       background: rgba(255,255,255,0.1);
@@ -98,7 +102,6 @@
       font-family: -apple-system, sans-serif;
       transition: all 0.2s ease;
     }
-
     .btn:hover { background: rgba(255,255,255,0.15); }
     .btn.active { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); border: none; }
 
@@ -108,13 +111,32 @@
       color: rgba(255,255,255,0.5);
       text-align: center;
       opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.7s forwards;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out 0.5s;
     }
+    .subtitle.animate { opacity: 1; transform: translateY(0); }
 
     @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
     @keyframes rainbowShift { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
     @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    .replay-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 101;
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font-family: -apple-system, sans-serif;
+    }
+    .replay-btn:hover { transform: scale(1.05); }
 
     .nav {
       position: fixed;
@@ -126,8 +148,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      opacity: 0;
-      animation: fadeIn 0.6s ease-out 0.1s forwards;
       font-family: -apple-system, sans-serif;
     }
     .logo { font-size: 18px; font-weight: 600; }
@@ -135,52 +155,8 @@
     .nav-links { display: flex; gap: 28px; }
     .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
     .nav-links a:hover { color: #fff; }
-    .cta {
-      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 50px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .burger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      width: 44px;
-      height: 44px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 12px;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .burger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s ease; }
-    .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .burger.active span:nth-child(2) { opacity: 0; }
-    .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100vh;
-      background: rgba(0,0,0,0.95);
-      backdrop-filter: blur(20px);
-      padding: 100px 24px 24px;
-      transition: right 0.3s ease;
-      z-index: 99;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .mobile-menu.open { right: 0; }
-    .mobile-menu a { color: #fff; text-decoration: none; font-size: 18px; font-weight: 500; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 98; }
-    .menu-overlay.active { opacity: 1; pointer-events: auto; }
+    .cta { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: white; border: none; padding: 10px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .burger { display: none; }
 
     .demo-nav {
       position: fixed;
@@ -200,16 +176,17 @@
     .demo-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .demo-nav a.active { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: #fff; }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
     @media (max-width: 768px) {
       .nav-links, .cta { display: none; }
       .burger { display: flex; }
       .demo { padding: 24px; }
+      .replay-btn { top: auto; bottom: 80px; right: 50%; transform: translateX(50%); }
     }
   </style>
 </head>
 <body>
+
+<button class="replay-btn" id="replayBtn">↻ Replay Animation</button>
 
 <nav class="nav">
   <div class="logo"><span>WiseGenerative</span></div>
@@ -219,34 +196,23 @@
     <a href="#">Tarifs</a>
   </div>
   <button class="cta">Réserver une Démo</button>
-  <button class="burger" id="burger">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
-<div class="menu-overlay" id="overlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#">Accueil</a>
-  <a href="#">Solutions</a>
-  <a href="#">Tarifs</a>
-  <a href="#">Contact</a>
-</div>
-
 <div class="demo">
-  <div class="eyebrow">🌈 Demo 5 — Gradient Text</div>
+  <div class="eyebrow" id="eyebrow">🌈 Demo 5 — Gradient Text</div>
 
   <div class="gradient-showcase">
     <h1 class="gradient-text gradient-animated" id="text">Bonjour Andrew</h1>
   </div>
 
-  <div class="controls">
-    <button class="btn active" onclick="setGradient('static', this)">Static</button>
-    <button class="btn" onclick="setGradient('animated', this)">Animated</button>
+  <div class="controls" id="controls">
+    <button class="btn" onclick="setGradient('static', this)">Static</button>
+    <button class="btn active" onclick="setGradient('animated', this)">Animated</button>
     <button class="btn" onclick="setGradient('rainbow', this)">Rainbow</button>
     <button class="btn" onclick="setGradient('shimmer', this)">Shimmer</button>
   </div>
 
-  <p class="subtitle">Background-clip with animated gradients. Click to switch variants.</p>
+  <p class="subtitle" id="subtitle">Click to switch gradient variants. Replay to see entrance animation.</p>
 </div>
 
 <div class="demo-nav">
@@ -268,21 +234,20 @@
     btn.classList.add('active');
   }
 
-  const burger = document.getElementById('burger');
-  const menu = document.getElementById('mobileMenu');
-  const overlay = document.getElementById('overlay');
-  burger.addEventListener('click', () => {
-    burger.classList.toggle('active');
-    menu.classList.toggle('open');
-    overlay.classList.toggle('active');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-  });
-  overlay.addEventListener('click', () => {
-    burger.classList.remove('active');
-    menu.classList.remove('open');
-    overlay.classList.remove('active');
-    document.body.style.overflow = '';
-  });
+  function playAnimation() {
+    ['eyebrow', 'text', 'controls', 'subtitle'].forEach(id => {
+      document.getElementById(id).classList.remove('animate');
+    });
+    void document.body.offsetWidth;
+
+    setTimeout(() => document.getElementById('eyebrow').classList.add('animate'), 100);
+    setTimeout(() => document.getElementById('text').classList.add('animate'), 300);
+    setTimeout(() => document.getElementById('controls').classList.add('animate'), 500);
+    setTimeout(() => document.getElementById('subtitle').classList.add('animate'), 700);
+  }
+
+  document.getElementById('replayBtn').addEventListener('click', playAnimation);
+  document.addEventListener('DOMContentLoaded', playAnimation);
 </script>
 
 </body>

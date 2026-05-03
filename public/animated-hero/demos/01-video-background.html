@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo 1: Video Background</title>
+  <title>Demo 1: Video Background Crossfade</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; overflow: hidden; }
-    body { background: #000; color: #fff; font-family: -apple-system, sans-serif; }
+    body { font-family: -apple-system, sans-serif; color: #fff; }
 
     .demo { position: relative; width: 100%; height: 100vh; overflow: hidden; }
 
@@ -20,10 +20,10 @@
       object-fit: cover;
       opacity: 0;
       transition: opacity 1s ease-out;
+      transform: translateY(15%);
     }
     .video-bg.loaded { opacity: 1; }
 
-    /* Gradient overlay */
     .demo::after {
       content: '';
       position: absolute;
@@ -58,8 +58,10 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.3s forwards;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
+    .eyebrow.animate { opacity: 1; transform: translateY(0); }
 
     .title {
       font-size: clamp(2rem, 5vw, 4rem);
@@ -67,14 +69,17 @@
       line-height: 1.1;
       margin-bottom: 16px;
       opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.5s forwards;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
+    .title.animate { opacity: 1; transform: translateY(0); }
 
     .title .highlight {
       background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
       animation: gradientShift 4s ease infinite;
     }
 
@@ -84,8 +89,10 @@
       max-width: 480px;
       line-height: 1.6;
       opacity: 0;
-      animation: fadeUp 0.8s ease-out 0.7s forwards;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
+    .subtitle.animate { opacity: 1; transform: translateY(0); }
 
     /* Nav */
     .nav {
@@ -99,14 +106,16 @@
       align-items: center;
       justify-content: space-between;
       opacity: 0;
-      animation: fadeIn 0.6s ease-out 0.1s forwards;
+      transform: translateY(-20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
+    .nav.animate { opacity: 1; transform: translateY(0); }
 
     .logo { font-size: 18px; font-weight: 600; }
     .logo span { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
     .nav-links { display: flex; gap: 28px; }
-    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s ease; }
     .nav-links a:hover { color: #fff; }
 
     .cta {
@@ -118,9 +127,10 @@
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+      transition: transform 0.2s ease;
     }
+    .cta:hover { transform: translateY(-2px); }
 
-    /* Burger */
     .burger {
       display: none;
       flex-direction: column;
@@ -139,7 +149,6 @@
     .burger.active span:nth-child(2) { opacity: 0; }
     .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-    /* Mobile menu */
     .mobile-menu {
       position: fixed;
       top: 0;
@@ -160,6 +169,25 @@
     .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 98; }
     .menu-overlay.active { opacity: 1; pointer-events: auto; }
 
+    /* Replay button */
+    .replay-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 101;
+      background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font-family: -apple-system, sans-serif;
+    }
+    .replay-btn:hover { transform: scale(1.05); }
+
     /* Demo nav */
     .demo-nav {
       position: fixed;
@@ -174,36 +202,30 @@
       padding: 8px;
       border-radius: 12px;
     }
-    .demo-nav a {
-      color: rgba(255,255,255,0.6);
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      transition: all 0.2s ease;
-    }
+    .demo-nav a { color: rgba(255,255,255,0.6); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; transition: all 0.2s ease; }
     .demo-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .demo-nav a.active { background: linear-gradient(135deg, #7C3AED 0%, #14B8A6 100%); color: #fff; }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
     @media (max-width: 768px) {
       .nav-links, .cta { display: none; }
       .burger { display: flex; }
       .content { padding: 0 24px 40px; }
+      .replay-btn { top: auto; bottom: 80px; right: 50%; transform: translateX(50%); }
     }
   </style>
 </head>
 <body>
+
+<button class="replay-btn" id="replayBtn">↻ Replay Animation</button>
 
 <div class="demo">
   <video class="video-bg" id="video" autoplay muted loop playsinline>
     <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4" type="video/mp4">
   </video>
 
-  <nav class="nav">
+  <nav class="nav" id="navbar">
     <div class="logo"><span>WiseGenerative</span></div>
     <div class="nav-links">
       <a href="#">Accueil</a>
@@ -225,11 +247,11 @@
   </div>
 
   <div class="content">
-    <div class="eyebrow">🎬 Demo 1 — Video Background</div>
-    <h1 class="title">
+    <div class="eyebrow" id="eyebrow">🎬 Demo 1 — Video Background</div>
+    <h1 class="title" id="title">
       Seamless <span class="highlight">Video Loop</span>
     </h1>
-    <p class="subtitle">Full-screen video with smooth crossfade transitions at loop points. Uses requestAnimationFrame for 60fps opacity animations.</p>
+    <p class="subtitle" id="subtitle">Full-screen video with smooth crossfade transitions at loop points.</p>
   </div>
 </div>
 
@@ -243,9 +265,33 @@
 </div>
 
 <script>
+  // Video fade-in
   const video = document.getElementById('video');
   video.addEventListener('loadeddata', () => video.classList.add('loaded'));
 
+  // Animation trigger
+  function playAnimation() {
+    const elements = ['navbar', 'eyebrow', 'title', 'subtitle'];
+    elements.forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.remove('animate');
+      void el.offsetWidth; // Force reflow
+    });
+
+    // Staggered delays
+    setTimeout(() => document.getElementById('navbar').classList.add('animate'), 100);
+    setTimeout(() => document.getElementById('eyebrow').classList.add('animate'), 300);
+    setTimeout(() => document.getElementById('title').classList.add('animate'), 500);
+    setTimeout(() => document.getElementById('subtitle').classList.add('animate'), 700);
+  }
+
+  // Replay button
+  document.getElementById('replayBtn').addEventListener('click', playAnimation);
+
+  // Auto-play on load
+  document.addEventListener('DOMContentLoaded', playAnimation);
+
+  // Burger menu
   const burger = document.getElementById('burger');
   const menu = document.getElementById('mobileMenu');
   const overlay = document.getElementById('overlay');
