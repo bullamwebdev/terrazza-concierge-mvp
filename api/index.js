@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -15,6 +16,7 @@ const { authenticateToken, requireAdmin } = require('../server/middleware/auth')
 const { initDatabase } = require('../server/database');
 
 const app = express();
+const PUBLIC_DIR = process.env.VERCEL ? '/var/task' : path.join(__dirname, '..');
 
 // Security middleware
 app.use(helmet({
@@ -43,6 +45,44 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
+// TerraZa routes (before database init for faster response)
+app.get('/terraza', (req, res) => {
+  const htmlPath = path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html');
+  if (fs.existsSync(htmlPath)) {
+    res.setHeader('Content-Type', 'text/html');
+    res.send(fs.readFileSync(htmlPath));
+  } else {
+    res.status(404).json({ 
+      error: 'TerraZa not found', 
+      path: htmlPath,
+      publicDir: path.join(PUBLIC_DIR, 'public'),
+      publicExists: fs.existsSync(path.join(PUBLIC_DIR, 'public')),
+      publicFiles: fs.existsSync(path.join(PUBLIC_DIR, 'public')) ? fs.readdirSync(path.join(PUBLIC_DIR, 'public')) : []
+    });
+  }
+});
+
+app.get('/terraza/assets/:file', (req, res) => {
+  const filePath = path.join(PUBLIC_DIR, 'public', 'terraza', 'assets', req.params.file);
+  if (fs.existsSync(filePath)) {
+    const ext = req.params.file.split('.').pop();
+    const mimeTypes = { js: 'application/javascript', css: 'text/css', mp4: 'video/mp4', svg: 'image/svg+xml' };
+    res.setHeader('Content-Type', mimeTypes[ext] || 'application/octet-stream');
+    res.send(fs.readFileSync(filePath));
+  } else {
+    res.status(404).json({ error: 'Asset not found', path: filePath });
+  }
+});
+
+app.get('/terraza/images/:file', (req, res) => {
+  const filePath = path.join(PUBLIC_DIR, 'public', 'terraza', 'images', req.params.file);
+  if (fs.existsSync(filePath)) {
+    res.sendFile(filePath);
+  } else {
+    res.status(404).json({ error: 'Image not found', path: filePath });
+  }
+});
+
 // Lazy database init middleware
 let dbInitialized = false;
 app.use(async (req, res, next) => {
@@ -65,86 +105,9 @@ app.use('/api/users', authenticateToken, userRoutes);
 app.use('/api/admin', authenticateToken, requireAdmin, adminRoutes);
 app.use('/api/contact', contactRoutes);
 
-// TerraZa SPA — serve HTML directly from bundled public/
-app.get('/terraza', (req, res) => {
-  const PUBLIC_DIR = process.env.VERCEL ? '/var/task' : path.join(__dirname, '..');
-  const htmlPath = path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html');
-  
-  if (fs.existsSync(htmlPath)) {
-    res.setHeader('Content-Type', 'text/html');
-    res.send(fs.readFileSync(htmlPath));
-  } else {
-    res.status(404).json({ 
-      error: 'TerraZa not found', 
-      path: htmlPath,
-      publicDir: path.join(PUBLIC_DIR, 'public'),
-      publicExists: fs.existsSync(path.join(PUBLIC_DIR, 'public')),
-      publicFiles: fs.existsSync(path.join(PUBLIC_DIR, 'public')) ? fs.readdirSync(path.join(PUBLIC_DIR, 'public')) : []
-    });
-  }
-});
-
-// TerraZa assets
-app.get('/terraza/assets/:file', (req, res) => {
-  const PUBLIC_DIR = process.env.VERCEL ? '/var/task' : path.join(__dirname, '..');
-  const filePath = path.join(PUBLIC_DIR, 'public', 'terraza', 'assets', req.params.file);
-  if (fs.existsSync(filePath)) {
-    const ext = req.params.file.split('.').pop();
-    const mimeTypes = { js: 'application/javascript', css: 'text/css', mp4: 'video/mp4', svg: 'image/svg+xml' };
-    res.setHeader('Content-Type', mimeTypes[ext] || 'application/octet-stream');
-    res.send(fs.readFileSync(filePath));
-  } else {
-    res.status(404).json({ error: 'Asset not found', path: filePath });
-  }
-});
-
-// TerraZa images
-app.get('/terraza/images/:file', (req, res) => {
-  const PUBLIC_DIR = process.env.VERCEL ? '/var/task' : path.join(__dirname, '..');
-  const filePath = path.join(PUBLIC_DIR, 'public', 'terraza', 'images', req.params.file);
-  if (fs.existsSync(filePath)) {
-    res.sendFile(filePath);
-  } else {
-    res.status(404).json({ error: 'Image not found', path: filePath });
-  }
-});
-
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
-
-// TerraZa SPA routes (serve static from bundled public/)
-const PUBLIC_DIR = process.env.VERCEL ? '/var/task' : path.join(__dirname, '..');
-
-// Serve TerraZa HTML
-app.get('/terraza', (req, res) => {
-  const htmlPath = path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html');
-  if (fs.existsSync(htmlPath)) {
-    res.sendFile(htmlPath);
-  } else {
-    res.status(404).json({ error: 'TerraZa not found', path: htmlPath, cwd: process.cwd(), __dirname });
-  }
-});
-
-// TerraZa assets
-app.get('/terraza/assets/:file', (req, res) => {
-  const filePath = path.join(PUBLIC_DIR, 'public', 'terraza', 'assets', req.params.file);
-  if (fs.existsSync(filePath)) {
-    res.sendFile(filePath);
-  } else {
-    res.status(404).json({ error: 'Asset not found', path: filePath });
-  }
-});
-
-// TerraZa images
-app.get('/terraza/images/:file', (req, res) => {
-  const filePath = path.join(PUBLIC_DIR, 'public', 'terraza', 'images', req.params.file);
-  if (fs.existsSync(filePath)) {
-    res.sendFile(filePath);
-  } else {
-    res.status(404).json({ error: 'Image not found', path: filePath });
-  }
 });
 
 // Export for Vercel serverless
