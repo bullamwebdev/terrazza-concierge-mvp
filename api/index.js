@@ -45,6 +45,23 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
+// Debug endpoint
+app.get('/api/debug-files', (req, res) => {
+  const PUBLIC_DIR = process.env.VERCEL ? '/var/task' : path.join(__dirname, '..');
+  const result = {
+    publicDir: PUBLIC_DIR,
+    publicExists: fs.existsSync(path.join(PUBLIC_DIR, 'public')),
+    terrazaExists: fs.existsSync(path.join(PUBLIC_DIR, 'public', 'terraza')),
+    terrazaFiles: []
+  };
+  
+  if (result.terrazaExists) {
+    result.terrazaFiles = fs.readdirSync(path.join(PUBLIC_DIR, 'public', 'terraza'));
+  }
+  
+  res.json(result);
+});
+
 // TerraZa routes (before database init for faster response)
 app.get('/terraza', (req, res) => {
   const htmlPath = path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html');
