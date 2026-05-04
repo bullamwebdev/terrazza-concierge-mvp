@@ -1,7 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
-  "public": true,
   "builds": [
     {
       "src": "server.js",
@@ -16,12 +15,16 @@
       "handle": "filesystem"
     },
     {
-      "src": "/terraza",
-      "dest": "/public/terraza/index.html"
+      "src": "/api/(.*)",
+      "dest": "/server.js"
     },
     {
-      "src": "/terraza/",
-      "dest": "/public/terraza/index.html"
+      "src": "/terraza$",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/terraza/(.*)",
+      "dest": "/server.js"
     },
     {
       "src": "/(.*)",
