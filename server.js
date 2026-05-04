@@ -44,8 +44,10 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
+const PUBLIC_DIR = process.env.VERCEL ? process.cwd() : __dirname;
+
 // Static files
-app.use(express.static(path.join(process.cwd(), 'public')));
+app.use(express.static(path.join(PUBLIC_DIR, 'public')));
 
 // Lazy database init middleware
 let dbInitialized = false;
@@ -82,10 +84,10 @@ app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, 'public', 'p
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 app.get('/booking', (req, res) => res.sendFile(path.join(__dirname, 'public', 'booking.html')));
 
-// React SPA — TerraZa Hero
-app.use('/terraza', express.static(path.join(process.cwd(), 'public', 'terraza')));
-app.get('/terraza', (req, res) => res.sendFile(path.join(process.cwd(), 'public', 'terraza', 'index.html')));
-app.get('/terraza/*', (req, res) => res.sendFile(path.join(process.cwd(), 'public', 'terraza', 'index.html')));
+// React SPA — TerraZa Hero (static files + index fallback)
+app.use('/terraza', express.static(path.join(PUBLIC_DIR, 'public', 'terraza'), { index: 'index.html' }));
+app.get('/terraza', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
+app.get('/terraza/*', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
 
 // 404 handler
 app.use((req, res) => {

@@ -1,17 +1,19 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "public/terraza/**"
-        ]
-      }
-    }
-  ],
+  "public": true,
   "routes": [
+    {
+      "src": "/terraza$",
+      "dest": "/public/terraza/index.html"
+    },
+    {
+      "src": "/terraza/(.*)",
+      "dest": "/public/terraza/$1"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/server.js"
+    },
     {
       "src": "/(.*)",
       "dest": "/server.js"
