@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 // Test route (before all middleware)
-app.get('/test', (req, res) => res.json({ ok: true, message: 'Server is working', path: req.path }));
+app.get('/test', (req, res) => res.json({ ok: true, message: 'Server v2', path: req.path, timestamp: Date.now() }));
 
 // Security middleware
 app.use(helmet({
