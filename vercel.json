@@ -1,8 +1,30 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
-  "functions": {
-    "server.js": {
-      "includeFiles": "public/**"
+  "public": true,
+  "rewrites": [
+    {
+      "source": "/terraza",
+      "destination": "/terraza/index.html"
+    },
+    {
+      "source": "/terraza/",
+      "destination": "/terraza/index.html"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     }
-  }
+  ],
+  "headers": [
+    {
+      "source": "/terraza/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
 }
