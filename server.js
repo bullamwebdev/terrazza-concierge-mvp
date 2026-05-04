@@ -17,6 +17,9 @@ const { initDatabase } = require('./server/database');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Test route (before all middleware)
+app.get('/test', (req, res) => res.json({ ok: true, message: 'Server is working' }));
+
 // Security middleware
 app.use(helmet({
   contentSecurityPolicy: {
