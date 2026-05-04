@@ -8,25 +8,31 @@
   ],
   "routes": [
     {
-      "src": "/terraza/assets/(.*)",
-      "dest": "/public/terraza/assets/$1",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      }
+      "src": "/api/(.*)",
+      "dest": "/server.js"
     },
     {
-      "src": "/terraza/images/(.*)",
-      "dest": "/public/terraza/images/$1",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      }
+      "src": "/login",
+      "dest": "/server.js"
     },
     {
-      "src": "/terraza",
-      "dest": "/public/terraza/index.html"
+      "src": "/register",
+      "dest": "/server.js"
     },
     {
-      "src": "/terraza/(.*)",
+      "src": "/profile",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/admin",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/booking",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/terraza(.*)",
       "dest": "/public/terraza/index.html"
     },
     {
