@@ -2,7 +2,7 @@ import { AsmeHero } from './components/AsmeHero';
 import { RivrHero } from './components/RivrHero';
 import { Hero } from './components/Hero';
 import { AetheraHero } from './components/AetheraHero';
-import { WiseGenerativeHero } from './components/WiseGenerativeHero';
+import { TerraZaHero } from './components/TerraZaHero';
 
 function App() {
   const params = new URLSearchParams(window.location.search);
@@ -12,10 +12,10 @@ function App() {
   if (demo === 'rivr') return <RivrHero />;
   if (demo === 'fluid') return <Hero />;
   if (demo === 'aethera') return <AetheraHero />;
-  if (demo === 'wise') return <WiseGenerativeHero />;
+  if (demo === 'terraza') return <TerraZaHero />;
 
-  // Default: WiseGenerative branded hero
-  return <WiseGenerativeHero />;
+  // Default: TerraZa branded hero
+  return <TerraZaHero />;
 }
 
 export default App;

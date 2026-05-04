@@ -82,6 +82,11 @@ app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, 'public', 'p
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 app.get('/booking', (req, res) => res.sendFile(path.join(__dirname, 'public', 'booking.html')));
 
+// React SPA — TerraZa Hero
+app.use('/terraza', express.static(path.join(__dirname, 'public', 'terraza')));
+app.get('/terraza', (req, res) => res.sendFile(path.join(__dirname, 'public', 'terraza', 'index.html')));
+app.get('/terraza/*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'terraza', 'index.html')));
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Not found' });
