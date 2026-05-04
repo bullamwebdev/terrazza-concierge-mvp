@@ -2,25 +2,30 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "public": true,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": "public/**"
+      }
+    }
+  ],
   "routes": [
     {
       "handle": "filesystem"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
       "src": "/terraza",
-      "dest": "/terraza/index.html"
+      "dest": "/public/terraza/index.html"
     },
     {
       "src": "/terraza/",
-      "dest": "/terraza/index.html"
+      "dest": "/public/terraza/index.html"
     },
     {
       "src": "/(.*)",
-      "dest": "/api/index"
+      "dest": "/server.js"
     }
   ]
 }
