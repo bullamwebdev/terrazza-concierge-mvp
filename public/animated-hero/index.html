@@ -43,9 +43,13 @@
       opacity: 0;
       transition: opacity 1s ease-out;
       transform: translateY(15%);
+      background: #0a0a0a;
     }
 
-    .video-bg.loaded { opacity: 1; }
+    .video-bg.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .hero::after {
       content: '';
@@ -515,7 +519,7 @@
 
 <section class="hero">
   <!-- Video Background -->
-  <video class="video-bg" autoplay muted loop playsinline id="heroVideo">
+  <video class="video-bg" autoplay muted loop playsinline preload="auto" id="heroVideo" poster="">
     <source src="assets/hero-video.mp4" type="video/mp4">
   </video>
 
@@ -613,10 +617,28 @@
 </section>
 
 <script>
-  // Video fade-in
+  // Video fade-in with timeout fallback
   const video = document.getElementById('heroVideo');
-  video.addEventListener('loadeddata', () => {
-    video.classList.add('loaded');
+  let videoLoaded = false;
+
+  function showVideo() {
+    if (!videoLoaded) {
+      videoLoaded = true;
+      video.classList.add('loaded');
+    }
+  }
+
+  video.addEventListener('loadeddata', showVideo);
+  video.addEventListener('canplay', showVideo);
+  video.addEventListener('playing', showVideo);
+
+  // Fallback: show video after 3 seconds even if events don't fire
+  setTimeout(showVideo, 3000);
+
+  // Force play (some browsers block autoplay)
+  video.play().catch(err => {
+    console.log('Autoplay blocked:', err);
+    showVideo(); // Still show the frame
   });
 
   // Burger menu
