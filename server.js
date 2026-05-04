@@ -77,6 +77,31 @@ app.use('/api/users', authenticateToken, userRoutes);
 app.use('/api/admin', authenticateToken, requireAdmin, adminRoutes);
 app.use('/api/contact', contactRoutes);
 
+// Debug route (Vercel path diagnostics)
+app.get('/api/debug', (req, res) => {
+  const fs = require('fs');
+  const paths = [
+    '/var/task',
+    '/var/task/public',
+    '/var/task/public/terraza',
+    '/var/task/public/terraza/index.html',
+    process.cwd(),
+    __dirname
+  ];
+  const result = {};
+  paths.forEach(p => {
+    try {
+      result[p] = fs.existsSync(p) ? 'EXISTS' : 'NOT_FOUND';
+      if (fs.existsSync(p) && fs.statSync(p).isDirectory()) {
+        result[p + '_files'] = fs.readdirSync(p).slice(0, 10);
+      }
+    } catch (e) {
+      result[p] = 'ERROR: ' + e.message;
+    }
+  });
+  res.json(result);
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
@@ -89,6 +114,10 @@ app.get('/register', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 
 app.get('/profile', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'profile.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'admin.html')));
 app.get('/booking', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'booking.html')));
+
+// TerraZa SPA — serve static assets and HTML
+app.get('/terraza', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
+app.get('/terraza/*', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
 
 // 404 handler
 app.use((req, res) => {
