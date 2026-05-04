@@ -45,7 +45,7 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(process.cwd(), 'public')));
 
 // Lazy database init middleware
 let dbInitialized = false;
@@ -83,9 +83,9 @@ app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'adm
 app.get('/booking', (req, res) => res.sendFile(path.join(__dirname, 'public', 'booking.html')));
 
 // React SPA — TerraZa Hero
-app.use('/terraza', express.static(path.join(__dirname, 'public', 'terraza')));
-app.get('/terraza', (req, res) => res.sendFile(path.join(__dirname, 'public', 'terraza', 'index.html')));
-app.get('/terraza/*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'terraza', 'index.html')));
+app.use('/terraza', express.static(path.join(process.cwd(), 'public', 'terraza')));
+app.get('/terraza', (req, res) => res.sendFile(path.join(process.cwd(), 'public', 'terraza', 'index.html')));
+app.get('/terraza/*', (req, res) => res.sendFile(path.join(process.cwd(), 'public', 'terraza', 'index.html')));
 
 // 404 handler
 app.use((req, res) => {
