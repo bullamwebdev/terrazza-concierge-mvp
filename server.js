@@ -17,8 +17,14 @@ const { initDatabase } = require('./server/database');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Request logging (debug)
+app.use((req, res, next) => {
+  console.log('Request:', req.method, req.path, req.originalUrl);
+  next();
+});
+
 // Test route (before all middleware)
-app.get('/test', (req, res) => res.json({ ok: true, message: 'Server is working' }));
+app.get('/test', (req, res) => res.json({ ok: true, message: 'Server is working', path: req.path }));
 
 // Security middleware
 app.use(helmet({
@@ -122,9 +128,10 @@ app.get('/booking', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', '
 app.get('/terraza', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
 app.get('/terraza/*', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ error: 'Not found' });
+// Debug: catch-all before 404 to see what paths we're receiving
+app.use((req, res, next) => {
+  console.log('404 handler hit:', req.method, req.path, req.originalUrl);
+  res.status(404).json({ error: 'Not found', path: req.path, originalUrl: req.originalUrl });
 });
 
 // Error handler
