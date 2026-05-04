@@ -1,20 +1,26 @@
 {
   "version": 2,
-  "public": true,
   "builds": [
     {
-      "src": "public/**",
-      "use": "@vercel/static"
-    },
-    {
       "src": "server.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": "**/public/**"
+      }
     }
   ],
   "routes": [
     {
       "src": "/terraza$",
       "dest": "/public/terraza/index.html"
+    },
+    {
+      "src": "/terraza/assets/(.*)",
+      "dest": "/public/terraza/assets/$1"
+    },
+    {
+      "src": "/terraza/images/(.*)",
+      "dest": "/public/terraza/images/$1"
     },
     {
       "src": "/terraza/(.*)",
