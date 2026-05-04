@@ -4,16 +4,16 @@
   "public": true,
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
       "source": "/terraza",
       "destination": "/terraza/index.html"
     },
     {
       "source": "/terraza/",
       "destination": "/terraza/index.html"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
     }
   ],
   "headers": [
