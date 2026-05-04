@@ -1,9 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
-    "api/index.js": {
+    "api/*.js": {
       "includeFiles": "public/**"
     }
   },
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/terraza",
+      "destination": "/api/terraza"
+    }
+  ]
 }
