@@ -44,7 +44,7 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-const PUBLIC_DIR = process.env.VERCEL ? process.cwd() : __dirname;
+const PUBLIC_DIR = __dirname;
 
 // Static files
 app.use(express.static(path.join(PUBLIC_DIR, 'public')));
