@@ -5,39 +5,5 @@
       "src": "server.js",
       "use": "@vercel/node"
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/login",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/register",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/profile",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/admin",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/booking",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/terraza(.*)",
-      "dest": "/public/terraza/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/server.js"
-    }
   ]
 }
