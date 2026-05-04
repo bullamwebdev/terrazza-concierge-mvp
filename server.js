@@ -44,10 +44,16 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-const PUBLIC_DIR = __dirname;
+const PUBLIC_DIR = process.env.VERCEL ? '/var/task' : __dirname;
 
 // Static files
 app.use(express.static(path.join(PUBLIC_DIR, 'public')));
+
+// TerraZa SPA — serve static files first, then index fallback
+app.use('/terraza/assets', express.static(path.join(PUBLIC_DIR, 'public', 'terraza', 'assets')));
+app.use('/terraza/images', express.static(path.join(PUBLIC_DIR, 'public', 'terraza', 'images')));
+app.get('/terraza', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
+app.get('/terraza/*', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
 
 // Lazy database init middleware
 let dbInitialized = false;
@@ -76,18 +82,13 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// SPA routes
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'login.html')));
-app.get('/register', (req, res) => res.sendFile(path.join(__dirname, 'public', 'register.html')));
-app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, 'public', 'profile.html')));
-app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
-app.get('/booking', (req, res) => res.sendFile(path.join(__dirname, 'public', 'booking.html')));
-
-// React SPA — TerraZa Hero (static files + index fallback)
-app.use('/terraza', express.static(path.join(PUBLIC_DIR, 'public', 'terraza'), { index: 'index.html' }));
-app.get('/terraza', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
-app.get('/terraza/*', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html')));
+// SPA routes (using PUBLIC_DIR for Vercel compatibility)
+app.get('/', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'index.html')));
+app.get('/login', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'login.html')));
+app.get('/register', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'register.html')));
+app.get('/profile', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'profile.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'admin.html')));
+app.get('/booking', (req, res) => res.sendFile(path.join(PUBLIC_DIR, 'public', 'booking.html')));
 
 // 404 handler
 app.use((req, res) => {
