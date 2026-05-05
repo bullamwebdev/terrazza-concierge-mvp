@@ -62,6 +62,36 @@ app.get('/api/debug-files', (req, res) => {
   res.json(result);
 });
 
+// Wise Thinker route
+app.get('/wise-thinker', (req, res) => {
+  const htmlPath = path.join(PUBLIC_DIR, 'public', 'wise-thinker', 'index.html');
+  if (fs.existsSync(htmlPath)) {
+    res.setHeader('Content-Type', 'text/html');
+    res.send(fs.readFileSync(htmlPath));
+  } else {
+    res.status(404).json({
+      error: 'Wise Thinker not found',
+      path: htmlPath,
+      publicDir: path.join(PUBLIC_DIR, 'public'),
+      publicExists: fs.existsSync(path.join(PUBLIC_DIR, 'public')),
+      publicFiles: fs.existsSync(path.join(PUBLIC_DIR, 'public')) ? fs.readdirSync(path.join(PUBLIC_DIR, 'public')) : []
+    });
+  }
+});
+
+// Wise Thinker asset serving
+app.get('/wise-thinker/assets/:file', (req, res) => {
+  const filePath = path.join(PUBLIC_DIR, 'public', 'wise-thinker', 'assets', req.params.file);
+  if (fs.existsSync(filePath)) {
+    const ext = req.params.file.split('.').pop();
+    const mimeTypes = { js: 'application/javascript', css: 'text/css', mp4: 'video/mp4', svg: 'image/svg+xml' };
+    res.setHeader('Content-Type', mimeTypes[ext] || 'application/octet-stream');
+    res.send(fs.readFileSync(filePath));
+  } else {
+    res.status(404).json({ error: 'Asset not found', path: filePath });
+  }
+});
+
 // TerraZa routes (before database init for faster response)
 app.get('/terraza', (req, res) => {
   const htmlPath = path.join(PUBLIC_DIR, 'public', 'terraza', 'index.html');
