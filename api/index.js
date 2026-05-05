@@ -16,7 +16,7 @@ const { authenticateToken, requireAdmin } = require('../server/middleware/auth')
 const { initDatabase } = require('../server/database');
 
 const app = express();
-const PUBLIC_DIR = process.env.VERCEL ? '/var/task' : path.join(__dirname, '..');
+const PUBLIC_DIR = path.join(__dirname, '..');
 
 // Security middleware
 app.use(helmet({
