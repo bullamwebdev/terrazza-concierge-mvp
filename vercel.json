@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/wise-thinker/assets/(.*)",
+      "dest": "/public/wise-thinker/assets/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/terraza/assets/(.*)",
+      "dest": "/public/terraza/assets/$1"
+    },
+    {
+      "src": "/animated-hero/assets/(.*)",
+      "dest": "/public/animated-hero/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "api/index.js"
+    }
+  ]
+}
