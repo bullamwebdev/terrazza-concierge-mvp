@@ -33,6 +33,17 @@ app.get('/animated-hero', (req, res) => {
   }
 });
 
+// Wise Thinker route — explicit handler (BEFORE static to prevent redirect loop)
+app.get('/wise-thinker', (req, res) => {
+  const htmlPath = path.join(PUBLIC_DIR, 'wise-thinker', 'index.html');
+  if (fs.existsSync(htmlPath)) {
+    res.setHeader('Content-Type', 'text/html');
+    res.sendFile(htmlPath);
+  } else {
+    res.status(404).json({ error: 'Wise Thinker not found', path: htmlPath });
+  }
+});
+
 // Static file serving (AFTER route handlers to prevent directory redirects)
 app.use(express.static(PUBLIC_DIR));
 

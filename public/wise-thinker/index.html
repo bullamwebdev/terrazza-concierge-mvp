@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Wise Thinker | ThinkTank IA</title>
+  <meta name="description" content="Wise Thinker — Un espace de réflexion et d'innovation où l'intelligence artificielle rencontre la pensée stratégique.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #D4AF37;
+      --teal: #14B8A6;
+      --dark: #0a0a0f;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--dark);
+      color: #fff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.5s ease-out;
+      background: var(--dark);
+    }
+
+    .video-bg.loaded { opacity: 1; }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(10, 10, 15, 0.3) 0%,
+        rgba(10, 10, 15, 0.1) 40%,
+        rgba(10, 10, 15, 0.85) 100%
+      );
+      z-index: 1;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: relative;
+      z-index: 10;
+      padding: 24px 32px;
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--teal) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--dark);
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ===== HERO CONTENT ===== */
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-text {
+      max-width: 640px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 56px;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .hero-title .highlight {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, #B8960C 100%);
+      color: var(--dark);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ===== PILLARS SECTION ===== */
+    .pillars {
+      padding: 100px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 42px;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .pillar-card {
+      padding: 40px 32px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .pillar-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(212, 175, 55, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .pillar-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--teal) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+
+    .pillar-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .pillar-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 48px 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 14px;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .hero-title { font-size: 36px; }
+      .hero-subtitle { font-size: 16px; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <!-- Video Background -->
+  <video class="video-bg" autoplay muted loop playsinline preload="auto" id="heroVideo" poster="">
+    <source src="assets/thinker-hero.mp4" type="video/mp4">
+  </video>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="/wise-thinker" class="logo">
+        <div class="logo-icon">WT</div>
+        <span class="logo-text">Wise Thinker</span>
+      </a>
+      <div class="nav-links">
+        <a href="#pillars">Piliers</a>
+        <a href="#about">À Propos</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Content -->
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="eyebrow">ThinkTank IA</div>
+      <h1 class="hero-title">
+        Là où la <span class="highlight">pensée</span> rencontre l'intelligence artificielle
+      </h1>
+      <p class="hero-subtitle">
+        Wise Thinker est un espace de réflexion stratégique dédié à l'exploration 
+        des possibilités offertes par l'IA. Analyses, perspectives et visions d'avenir.
+      </p>
+      <div class="cta-group">
+        <a href="#pillars" class="cta-primary">Découvrir nos Piliers</a>
+        <a href="/" class="cta-secondary">WiseGenerative →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pillars Section -->
+<section class="pillars" id="pillars">
+  <div class="section-header">
+    <h2 class="section-title">Nos Trois Piliers</h2>
+    <p class="section-subtitle">La fondation de notre réflexion stratégique</p>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar-card">
+      <div class="pillar-icon">🔬</div>
+      <h3 class="pillar-title">Recherche</h3>
+      <p class="pillar-desc">Exploration approfondie des technologies émergentes, des modèles de langage aux architectures neuronales de nouvelle génération.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">💡</div>
+      <h3 class="pillar-title">Innovation</h3>
+      <p class="pillar-desc">Transformation des insights en applications concrètes. Prototypage rapide, tests terrain et itération continue.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">🌐</div>
+      <h3 class="pillar-title">Impact</h3>
+      <p class="pillar-desc">Mesure et maximisation de la valeur créée. Éthique, accessibilité et durabilité au cœur de chaque décision.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>© 2026 Wise Thinker — Un ThinkTank de WiseGenerative</p>
+</footer>
+
+<script>
+  // Video fade-in with robust fallback
+  const video = document.getElementById('heroVideo');
+  let videoLoaded = false;
+
+  function showVideo() {
+    if (!videoLoaded) {
+      videoLoaded = true;
+      video.classList.add('loaded');
+    }
+  }
+
+  video.addEventListener('loadeddata', showVideo);
+  video.addEventListener('canplay', showVideo);
+  video.addEventListener('playing', showVideo);
+  setTimeout(showVideo, 3000);
+  video.play().catch(err => {
+    console.log('Autoplay blocked:', err);
+    showVideo();
+  });
+</script>
+
+</body>
+</html>
